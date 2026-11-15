@@ -1,0 +1,9 @@
+name: company_list
+javascript: 0
+method: get
+fields:
+  category:
+    type: hidden
+    required: 0
+
+submit:  Submit

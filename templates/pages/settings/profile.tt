@@ -1,0 +1,14 @@
+[% 
+	USE url;
+	page_title = obj.login_id;
+	crumb( "Preferences" );
+	
+	caption = "Edit Preferences";
+	caption_class = "preferences";
+%]
+
+You can edit your profile here<br />
+or you can <a href="/settings/list">manage your settings</a>
+<p>Type any changes then click "Submit".</p>
+
+<div class="t-basic t-vert">[%- FormBuilder.render -%]</div>

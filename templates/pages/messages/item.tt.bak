@@ -1,0 +1,93 @@
+[%
+	USE url;
+    
+    PROCESS 'user_date.tt';
+	
+    message_title = message.subject || "Message without subject";
+	page_title =  message_title _ " - message details";
+	# breadcrumbs
+	crumb( "Messages", "/messages/" );
+	crumb( "All Messages", "/messages/list" );
+	crumb( message_title );
+
+	caption = "View Message";
+	caption_class = "message";
+-%]
+
+[%- IF message.package.has_upgrades -%]
+<script type="text/javascript" language="javascript">
+// TODO: upgrade dialog
+</script>
+[%- END -%]
+
+<form method="post" action="/messages/forward" id="frmCompose">
+<p><a href="/messages/blank">New Message</a> [%- IF has_current_message -%] &nbsp;|&nbsp; <a href="/messages/current">Current Message</a>[%- END -%]</p>
+
+<div id="action-bar">
+	<input type="hidden" name="message_id" value="[% message.message_id %]" />
+	<input class="button" type="submit" value="Resend" />
+</div>
+<div id="divMessage" style="float:left; width:620px;">
+<table class="basic vert">
+        <tr><th>From:</th><td>[% message.sender.name %]</td></tr>
+        <tr><th>To:</th><td>[%- PROCESS to_contacts.tt message show_status=1 -%]</td></tr>    
+    <tr><th>Date:</th><td>
+        [% IF message.time_sent.date %]
+            [% user_date('%Y-%m-%d %H:%M:%S', c.user.settings.list.time_zone, message.time_sent.date _ ' ' _ message.time_sent.time) %]
+        [% END %]
+    </td></tr>
+    <tr><th>Subject:</th><td>[% message.subject %]</td></tr>
+    <tr>
+    [% IF message_body %]
+    <td colspan="2">
+        <div><strong>Message:</strong></div>
+        <div class="b-mess-body">[% message_body | html | html_line_break %]</div>
+    </td>
+    </tr>
+    [% END %]
+</table>
+
+</div>
+
+<div id="divThumb" style="float:right; padding-bottom:2em;">
+[%- IF package.package_toc_type -%]
+[% package.toc_item_label %]<br />
+<a href="/jstoc/toc_pdf?id=[% package.id %]"><img width="250" style="padding:3px;border:1px solid #ccc;width:250px;height:324px;" src="/jstoc/toc_thumb?id=[% package.id %]&quirk=[% quirk %]" alt="TOC preview..." /></a>
+[%- END -%]
+</div>
+
+<br style="clear:both;" />
+
+[% IF package.items %]
+<!-- PACKAGE START -->
+<div style="padding-bottom:5px;">Attachments:</div>
+
+<div id="divItems">
+
+[% IF send_package %]<input type="hidden" name="package_id" value="[% package.id %]" />[% END %]
+<table class="basic">
+<tr>
+    <th>Name</th>
+    <th>Size (kb)</th>
+    <th>Pg</th>
+</tr>
+[% size = 0; pages = 0;%]
+[%- IF package.package_toc_type -%]
+<tr>
+    <td>[% package.toc_item_label %]</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+</tr>
+[%- END -%]
+[%- FOREACH i = package.items -%]
+<tr>
+    <td><a target="_blank" href="[% i.document_id.download_url || i.file_id.download_url %]"><img class="ico" alt="" src="/images/icons/[% i.item_type %].gif" /></a>&nbsp;&nbsp;<a target="_blank" href="[% i.document_id.download_url || i.file_id.download_url %]">[% i.title %]</a></td>
+    <td>[% IF i.item_type == 'document' %][% i.document_id.filesize_kb || 0 %][% size = size + i.document_id.filesize_kb %][% ELSE %][% i.file_id.filesize_kb || 0 %][% size = size + i.file_id.filesize_kb %][% END %]</td>
+    <td>[% IF i.item_type == 'document' %][% i.document_id.derived_pagecount || '' %][% pages = pages + i.document_id.derived_pagecount || 0 %][% ELSE %][% i.file_id.page_count || '' %][% pages = pages + i.file_id.page_count || 0 %][% END %]</td>
+</tr>
+[%- END -%]
+</table>
+</div>
+<!-- PACKAGE END -->
+[%END%]
+</form>

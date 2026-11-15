@@ -1,0 +1,63 @@
+[%
+	page_title = 'Settings list';
+
+	PROCESS 'admin/crumbs.tt';
+	crumb("Settings");
+	
+	caption = "Manage Settings";
+	caption_class = "preferences";
+%]
+
+<table class="basic tablesorter" id="settings-list">
+<thead>
+<tr>
+	<th class="sorter">Setting</th>
+	<th>Description</th>
+[% IF scopes.$SCOPE_ALL %]<th>World</th>[% END %]
+[% IF restrict.scope == SCOPE_USER || scopes.$SCOPE_ACCOUNT %]<th>Account</th>[% END %]
+[% IF restrict.scope == SCOPE_USER || scopes.$SCOPE_LOCATION %]<th>Location</th>[% END %]
+[% IF scopes.$SCOPE_USER %]<th>Value</th>[% END %]
+</tr>
+</thead>
+<tbody>
+[%- FOREACH setting = items -%]
+<tr>
+    <td style="white-space:nowrap;">[% setting.label ? setting.label : setting.att_name.replace('_', ' ') FILTER ucfirst %]</td>
+    <td>[% setting.description %]</td>
+    [% IF scopes.$SCOPE_ALL %]
+    	[% PROCESS setting_val scope= SCOPE_ALL %]
+    [% END %]
+    [% IF restrict.scope == SCOPE_USER || scopes.$SCOPE_ACCOUNT %]
+    	[% PROCESS setting_val scope=SCOPE_ACCOUNT %]
+    [% END %]
+    [% IF restrict.scope == SCOPE_USER || scopes.$SCOPE_LOCATION %]
+    	[% PROCESS setting_val scope=SCOPE_LOCATION %]
+   	[% END %]
+    [% IF scopes.$SCOPE_USER %]
+        [% PROCESS setting_val scope=SCOPE_USER %]
+    [% END %]
+</tr>
+[%- END -%]
+</tbody>
+</table>
+
+
+[%- BLOCK setting_val -%]
+<td>
+	[% app_setname = 'applies_' _ scope %]
+
+	[% IF setting.${app_setname} %]
+		[% item = values.${scope}.${setting.att_name} %]
+		[% IF setting.att_name.search('_file$') && item %][% value = '(file)' %][% ELSE %][% value = item ? item.substr(0,10) : '(none)' %][% END %]
+		[% link = '/settings/edit/?att_name=' _ setting.att_name _ '&scope=' _ scope _ '&scope_value=' _ values.restrictions.${scope} %]
+
+		[% IF scope == SCOPE_USER || item || owner.is_account_admin || owner.is_bs_admin %]
+			<a href="[% link %]">[% value %]</a>
+		[% ELSE %]
+			[% value %]
+		[% END %]
+	[% ELSE %]
+		n/a
+	[% END %]
+</td>
+[%- END -%]

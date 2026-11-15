@@ -1,0 +1,24 @@
+[% IF product -%]
+
+[%
+	USE url;
+	page_title = product.product_name _ ' Product Details';
+
+	PROCESS "inc/manufacturer_crumb.tt" manufacturer=product.manufacturer_id IF product.manufacturer_id;
+	crumb('Product List', url('/product/list', manufacturer = product.manufacturer_id) );
+	crumb(product.product_name, url('/product/view', id = product.product_id));
+
+	caption = page_title;
+	caption_class = "product";
+%]
+[% IF product.is_discontinued %] 
+		[% caption = '<font color="#CC3333">' _ page_title _ '</font>' %] 
+[% END %]
+
+[% USE cache = BSACache(c.bst_config('html_cache')) %]
+[% cache.inc(
+  template => "product/view.cache.tt",
+  key      => c.cache_key
+) %]
+
+[% END %]

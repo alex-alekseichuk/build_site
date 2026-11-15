@@ -1,0 +1,124 @@
+/*
+
+BuildSite IE Hacks
+
+*/
+
+
+TABLE {
+	font-size:100%;
+	}
+
+	.b-package-nav #drop-wrapper {
+		margin:2px 0px 0px -119px;
+		}
+
+* HTML .t-adv TR,
+* HTML .sugg TBODY TR,
+* HTML .b-package LI DIV,
+* HTML .b-package-nav LI,
+* HTML .b-global-nav LI {
+	scrollbar-face-color: expression(runtimeStyle.scrollbarFaceColor = '#fff',
+					onmouseover = function() {this.className += ' hover'},
+					onmouseout = function() {this.className = this.className.replace(/ hover/g, '')}
+				);
+}
+
+.ie-only {display:inline;}
+p.ie-only, div.ie-only, li.ie-only, ul.ie-only, ol.ie-only {display:block;}
+td.ie-only {display:table-cell;}
+
+
+* HTML #dlgSaveCP {
+	width:338px;
+	overflow:hidden;
+}
+#dlgSaveCP .hd,
+#dlgSaveCP .bd,
+#dlgSaveCP .ft {
+	width:325px;
+	zoom:1;
+	}
+	
+* HTML .ui-dialog {
+	zoom:1;
+	}
+* HTML .ui-dialog-container {
+	position:static !important;
+	}
+	
+* HTML .ui-dialog-titlebar {
+	position:static !important;
+	zoom:1;
+	}
+
+.file-details .input-row DIV {
+	padding-bottom:0px;
+}
+
+TABLE#toc .c_notes {
+	width: expression(this.width < 130 ? 130 : this.width);
+}
+
+A.help IMG {
+	margin-bottom:8px;
+}
+
+#action-bar A.help IMG {
+	margin-bottom:10px;
+}
+
+#tooltip div, #tooltip H3 { font-weight:normal !important; }
+A.help IMG {visibility:hidden;}
+A.help {background:url(/images/icons/help.gif) no-repeat 0 90%; }
+#file-details .input-row A.help {margin-top:0px;} 
+
+
+#form_search .td-button {
+    width: 7em;
+}
+
+
+/* Opacity fix */
+#package-caption h2, #divThumb {
+    background:#fff;
+    color:#333;
+}
+
+#divThumb {
+    width: 250px;
+}
+
+/* Menu */
+.b-global-nav LI UL {
+    top:24px;
+    left:-2px;
+    width:12.05em !important;
+}
+
+.b-global-nav UL LI,
+.b-global-nav LI:hover LI:hover,
+.b-package-nav .drop LI {
+	background:url(../images/layout/menu-rarr.gif) no-repeat 9px 50%;;
+}
+
+.b-global-nav {
+	padding-left:0.5em;
+}
+*:first-child+html .b-global-nav UL LI A {
+    height:auto;
+    padding-bottom:8px;
+    paddint-top:5px;
+}
+*:first-child+html .b-user-nav LI A, 
+*:first-child+html .b-global-nav LI SPAN  {
+    padding-bottom:1px;
+}
+
+.tooltip-content {
+	filter:alpha(opacity=85);
+}
+
+TABLE.fixed-layout {
+	table-layout:fixed;
+}

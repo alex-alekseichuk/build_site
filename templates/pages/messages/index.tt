@@ -1,0 +1,24 @@
+[%- 
+	page_title = "Message Center";
+	crumb( "Messages", "/messages/" );
+
+	caption = "Message Center";
+	caption_class = "message";
+-%]
+[% IF c.req.param('sent') %]<p class="notice">Message sent.</p>[% END %]
+
+<ul>
+	[%- IF c.req.param('sent_message_id') -%]<li><a href="/messages/item?id=[% c.req.param('sent_message_id') %]">See the Message</a></li>[%- END -%]
+	[%- IF has_current_message -%]<li><a href="/messages/current">Current Message</a></li>[%- END -%]
+	<li><a href="/messages/blank">Compose New Message</a></li>
+</ul>
+<ul>
+	<li><a href="/messages/list?status=sent">Sent Messages</li>
+	<li><a href="/messages/list?status=drafts">Drafts</li>
+	<li><a href="/messages/list?status=failed">Failed Messages</li>
+</ul>
+
+<ul>
+	<li><a href="/contacts/person/list">Contacts</a></li>
+	<li><a href="/contacts/person/list">Companies</a></li>
+</ul>

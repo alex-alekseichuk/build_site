@@ -1,0 +1,53 @@
+[%
+    page_title = 'Sweep Recurring';
+
+    caption = "Sweep Recurring";
+    caption_class = "preferences";
+
+    crumb('Admin', '/admin');
+    crumb('Recurring orders', '/admin/payments');
+    crumb('Sweep Recurring');
+
+    no_sidebar = 1;
+%]
+
+[% show_log = 0 %]
+    <p>live:    <span id="testaccounts">[% IF c.req.param('testaccounts') == 'Y' %]N[% ELSE %]Y[% END %]</span><br/></p>
+    <p>pretend:    <span id="pretend">[% c.req.param('pretend') %]</span><br/></p>
+    <p>stop on error:    <span id="stoponerror">[% c.req.param('stoponerror') %]</span><br/></p>
+
+    <table class="basic">
+      <tr>
+        <th> id </th>
+        <th> user id </th>
+        <th> start </th>
+        <th> expires </th>
+        <th> status </th>
+
+        <th> charge success </th>
+        <th> errors </th>
+      </tr>
+[% IF orders %]
+    [% FOREACH row = orders %]
+      <tr>
+        <td>[% row.order.customer_order_id %]</td>
+        <td align='right' linksub='/admin/customer'>[% row.order.get_column('customer_user_id') %]</td>
+        <td>[% row.order.order_start %]</td>
+        <td>[% row.order.order_expires %]</td>
+        <td>[% row.order.order_status %]</td>
+
+        <td>[%IF row.success %]successful[% ELSE %]failed[% END %]</td>
+        <td>[% IF row.err.size %][% show_log = 1 %][% row.err.join("<br />") %][% IF c.req.param('stoponerror') == 'Y' %]<br /><b>stopped due to error</b>[% END %][% END %]</td>
+      </tr>
+     [% END %]
+[% ELSE %]
+      <tr>
+        <td colspan='7' align='center'></td>
+      </tr>
+[% END %]
+    </table>
+
+[% IF show_log %]
+    <h3>Debug Log</h3>
+    <pre>[% debug.join("\n") %]</pre>
+[% END %]

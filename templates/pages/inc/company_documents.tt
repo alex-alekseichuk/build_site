@@ -1,0 +1,32 @@
+[%-
+list = list;
+product = product;
+-%]
+[%- IF list -%]
+[% fixed_layout = list.size > 50 ? 1 : 0 %]
+<table class="basic[% " fixed-layout" IF fixed_layout %]">
+[% IF fixed_layout %] 
+	<col width="95%" /><col width="5%" />
+[% END %]
+<thead>
+<tr>
+  <th>Company Documents</th>
+  <th class="col-pkg-chk">Pkg+</th>
+</tr>
+</thead>
+<tbody>
+[% FOREACH i = list -%]
+[% classes = [] %]
+[% classes.push('suppress') IF i.suppress_reason_code AND product.suppress_reason_code != 'prodsuppress' AND product.suppress_reason_code != 'pubsuppress' %]
+[% classes.push('afterqa') IF i.suppress_reason_code == 'afterqa' %]
+<tr[% ' class="' _ classes.join(' ') _ '"' IF classes.size %]>
+<td>
+[% PROCESS 'inc/document_link.tt' document = i %] [% IF i.derived_filesize || i.derived_pagecount %]([% END %][%IF i.derived_filesize %][% i.derived_filesize | file_size %][% END %][% IF i.derived_pagecount %], [% i.derived_pagecount %]pg[% END %][%IF i.derived_filesize || i.derived_pagecount %])[% END %]
+</td>
+<td><input type="checkbox" class="document groupChk" name="chkItem" value="[% i.document_id %]" />
+</td>
+</tr>
+[% END %]
+</tbody>
+</table>
+[%- END -%]

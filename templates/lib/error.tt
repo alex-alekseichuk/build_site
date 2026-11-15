@@ -1,0 +1,36 @@
+[%-
+    error = error
+    messages = {
+        user_is_blocked 	=> 'Your account is blocked. Contact your account admin or BuildSite support.',
+        bad_username		=> 'No user with such login id is known.',
+        wrong_password		=> 'Wrong password.',
+        bad_contact		=> 'You should provide some contact(s) to send the message to.',
+        cant_send_message	=> 'Can\'t send message.',
+        page_not_found		=> 'Page ' _ c.req.uri _ ' not found.',
+        object_not_found	=> 'Requested object ' _ c.req.uri _ ' not found.',
+        size_limit_exceeded	=> 'Size limit exceeded.',
+        wrong_recipient		=> 'One or more of the recipient addresses is not valid: not a fax number and not an email.',
+        smtp_failed		=> 'Can not send the message. Internal error.',
+        file_is_too_large	=> 'File is too large. Max size is ' _ (c.bst_config('max_file_upload_size') || 5) _ ' M.',
+        wrong_file_type		=> 'Sorry, you cannot upload a file of this type',
+        bad_account_id		=> 'account_id field requires lowercase_underscore formatting.',
+        bad_user_login_id	=> 'Login Name field requires lowercase_underscore formatting.',
+        bad_location_nickname	=> 'Nickname field requires lowercase_underscore formatting.',
+        customer_id_is_required	=> 'You should choose an Existing Customer or fill the New Company section. (Company Name, Type and Nickname are the required fields.)',
+        account_exists		=> 'Such account already exists. See it <a href="/admin/account/?account_id=' _ c.stash.account_id _ '">here</a>.',
+        location_exists		=> 'Such location already exists. See it <a href="/admin/edit/location?location_id=' _ c.stash.location_id _ '">here</a>.',
+        user_exists		=> 'Such user already exists. See it <a href="/admin/edit/user?user_id=' _ c.stash.user_id _ '">here</a>.',
+        user_exists_simple	=> 'Such user already exists.'
+        save_failed		=> 'Failed when tried to save the record.',
+        company_exists		=> 'Such company already exists.',
+        invalid_zipcode		=> 'Error! This is not a valid U.S. zip code<br/>All valid U.S. zip codes consist of 5 digits',
+        setting_value_invalid	=> 'Invalid setting value',
+    }
+-%]
+[% IF error.messages %]
+<ul class='error'>
+[%- FOREACH i = error.messages -%]
+	<li>[% messages.$i || 'Error! Code: ' _ i %]
+[%- END -%]
+</ul>
+[% END %]

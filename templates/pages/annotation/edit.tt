@@ -1,0 +1,177 @@
+[%-
+	USE url;
+	page_title = "PDF Annotation Tool";
+	caption = page_title;
+	no_sidebar = 1;
+	caption_class = "folder";
+	crumb("Edit Annotation");
+-%]
+
+<link rel="stylesheet" href="/css/annotations.css" type="text/css" />
+<link rel="stylesheet" href="/css/colorPicker.css" type="text/css" />
+<!--[if IE]><link rel="stylesheet" type="text/css" /static="all" href="/css/ie.css"/><![endif]-->
+
+<!-- jquery plugins -->
+<script type="text/javascript" src="/js/jquery.scrollTo-1.4.2.js"></script>
+<script type="text/javascript" src="/js/jquery.fontPicker.js"></script>
+<script type="text/javascript" src="/js/jquery.colorPicker.js"></script>
+<script type="text/javascript" src="/js/jquery.timers-1.2.js"></script>
+<script type="text/javascript" src="/js/tinyjson.js"></script>
+
+<!-- editor backend -->
+<script type="text/javascript" src="/js/raphael.js"></script>
+<script type="text/javascript" src="/js/editor.js"></script>
+<script type="text/javascript" src="/js/shape.js"></script>
+<script type="text/javascript" src="/js/tracker.js"></script>
+
+<!-- our functionality -->
+<script type="text/javascript" src="/js/annotator.js"></script>
+<script type="text/javascript">
+
+    // TODO: fill on the server side (in template)
+    var totalPages = [% page_count %];
+    var packageItemId = '[% package_item_id %]';
+
+    $(function() {
+        $('#fillColor').colorPicker();
+        $('#lineColor').colorPicker();
+        $('#fontColor').colorPicker();
+        $('#fontFamily').fontSelector({value: null, onChange: null});
+        $('#totalPages').text(totalPages);
+    });
+</script>
+
+<div id="wrap">
+    <div id="header">
+        <h1 class="pdf">The Document Title</h1>
+        <div class="icons">
+            <img src="/images/annot/bin_icon.png" title="Remove all pages" id="delete-all" />
+            <img src="/images/annot/undo_icon.png" title="Restore all pages" id="restore-all" />
+            <img src="/images/annot/download_icon.png" title="Download annotated PDF" id="download-pdf" />
+        </div>
+    </div>
+    <div id="wrap-inner">
+        <div id="main">
+            <div id="toolbar">
+                <div id="tools">
+                    <button id="select" title="Select"><img src="/images/annot/select_icon.gif" /></button>
+                    <button id="rect" title="Rectangle"><img src="/images/annot/rectangle_icon.gif" /></button>
+                    <button id="line" title="Line"><img src="/images/annot/line_icon.gif" /></button>
+                    <button id="ellipse" title="Ellipse"><img src="/images/annot/circle_icon.gif" /></button>
+                    <button id="path"  title="Fee Pen"><img src="/images/annot/pen_icon.gif" /></button>
+                    <button id="text"  title="Text"><img src="/images/annot/text_icon.gif" /></button>
+                    <button id="delete" title="Delete"><img src="/images/annot/delete_icon.gif" /></button>
+                </div>
+                <div id="settings">
+                    <span id="lineOptions" class="settingsGroup">
+                        <span>Line:</span>
+                        <input type="text" id="lineColor" value="#000000" />
+                        <select id="lineWidth" title="Line width">
+                          <option value="1">1px</option>
+                          <option value="2">2px</option>
+                          <option value="3">3px</option>
+                          <option value="4">4px</option>
+                          <option value="5">5px</option>
+                          <option value="6">6px</option>
+                          <option value="7">7px</option>
+                          <option value="8">8px</option>
+                          <option value="9">9px</option>
+                          <option value="10">10px</option>
+                        </select>
+                        <select id="lineOpacity" title="Line opacity">
+                          <option value="1">100%</option>
+                          <option value="0.9">90%</option>
+                          <option value="0.8">80%</option>
+                          <option value="0.7">70%</option>
+                          <option value="0.6">60%</option>
+                          <option value="0.5">50%</option>
+                          <option value="0.4">40%</option>
+                          <option value="0.3">30%</option>
+                          <option value="0.2">20%</option>
+                          <option value="0.1">10%</option>
+                        </select>
+                    </span>
+                    <span id="fillOptions" class="settingsGroup">
+                        <span>Fill:</span>
+                        <input type="text" id="fillColor" value="#FFFFFF" />
+                        <select id="fillOpacity" title="Fill opacity">
+                          <option value="1">100%</option>
+                          <option value="0.9">90%</option>
+                          <option value="0.8">80%</option>
+                          <option value="0.7">70%</option>
+                          <option value="0.6">60%</option>
+                          <option value="0.5">50%</option>
+                          <option value="0.4">40%</option>
+                          <option value="0.3">30%</option>
+                          <option value="0.2">20%</option>
+                          <option value="0.1">10%</option>
+                          <option value="0" selected="true">0%</option>
+                        </select>
+                    </span>
+                    <span id="fontOptions" class="settingsGroup">
+                        <span>Font:</span>
+                        <input type="text" id="fontColor" value="#000000" />
+                        <select id="fontFamily"> </select>
+                        <select id="fontSize">
+                          <option value="18pt">18pt</option>
+                          <option value="16pt">16pt</option>
+                          <option value="14pt">14pt</option>
+                          <option value="12pt">12pt</option>
+                          <option value="10pt">10pt</option>
+                          <option value="9pt">9pt</option>
+                          <option value="8pt">8pt</option>
+                          <option value="7pt">7pt</option>
+                          <option value="6pt">6pt</option>
+                          <option value="5pt">5pt</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="clear"></div>
+                <div class="overlay"></div>
+            </div>
+            <div id="canvas">
+                <div id="wrap-canvas">
+                    <img src="" alt="" id="current-page" />
+                    <div id="editor"></div>
+                    <div class="overlay"></div>
+                </div>
+                <div id="undelete-message">
+                    <h2>This page is deleted</h2><br />
+                    <button class="restore">Undelete</button>
+                </div>
+            </div>
+            <div id="footer">
+                <div id="paging">
+                    <img src="/images/annot/arrow_left_icon.png" title="Previous page" id="prev-page" />
+                    <img src="/images/annot/arrow_right_icon.png" title="Next page" id="next-page" />
+                    <span id="wrap-page">
+                        <form name="paging-form" id="paging-form" action="">
+                        <span>Page</span>
+                        <input type="text" size="3" value="1" id="currentPageInput" name="currentPageInput" />
+                        <span>of&nbsp;</span><span id="totalPages"></span>
+                        </form>
+                    </span>
+                </div>
+                <div class="icons">
+                    <img src="/images/annot/bin_icon.png" title="Remove page" class="delete" />
+                    <img src="/images/annot/undo_icon.png" title="Restore page" class="restore" />
+                </div>
+            </div>
+        </div>
+        <div id="sidebar">
+            [% FOR p = pages %]
+            <div class="thumb[% IF !p.1 %] deleted[% END %]">
+                <div class="page-number">[% p.0 %]</div>
+                <img src="/pdf_images/{{ file.file_id }}/{{ page.0 }}t.png" />
+                <div class="overlay"></div>
+                <div class="icons">
+                    <img src="/images/annot/bin_icon.png" title="Remove page" class="delete" />
+                    <img src="/images/annot/undo_icon.png" title="Restore page" class="restore" />
+                </div>
+            </div><br />
+            [% END %]
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+

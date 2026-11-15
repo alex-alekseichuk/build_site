@@ -1,0 +1,30 @@
+[%-
+	USE url;
+	PROCESS 'inc/unix_time.tt';
+	page_title = 'Packages & Files' _ add_title;
+	
+	caption = "All Files";
+	IF folder;
+	    caption = folder.file_title;
+	ELSE;
+	    SWITCH (c.req.params.scope);
+		CASE SCOPE_ACCOUNT;
+		    caption = "Company Files";
+		CASE SCOPE_LOCATION;
+		    caption = "Location Files";
+		CASE SCOPE_USER;
+		    caption = "Personal Files";
+		CASE;
+		    caption = "All Files";
+	    END;
+	END;
+	caption_class = "folder";
+-%]
+
+[% PROCESS 'folders/crumbs.tt' %]
+
+<p>All files of the folder will be removed.</p>
+<form action="[% url('/folders/delete', scope = folder.scope, file_id = folder.id) %]" method="post">
+	<input type="submit" name="cancel" value="Cancel" />
+	<input type="submit" name="confirm" value="Continue" />
+</form>

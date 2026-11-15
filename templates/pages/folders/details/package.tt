@@ -1,0 +1,32 @@
+<link rel="stylesheet" type="text/css" href="/css/package.css" />
+
+[% 
+	# no_sidebar = current_package && current_package.id == item.file_id;
+	no_sidebar = 1;
+
+
+	IF saved;
+		PROCESS 'folders/crumbs.tt';
+	ELSE;
+		crumb("New Package");
+		page_title = "New Package";
+	END;
+	
+	caption = "Package Details";
+	caption_class = "package";
+
+	SWITCH item.package_toc_type;
+		CASE "leed-mrc4";
+			PROCESS "folders/details/package.submittal.tt" package = item;
+		CASE "leed-eqc41";
+			PROCESS "folders/details/package.submittal.tt" package = item;
+		CASE "leed-eqc42";
+			PROCESS "folders/details/package.submittal.tt" package = item;
+		CASE "submittal";
+			PROCESS "folders/details/package.submittal.tt" package = item;
+		CASE "basic";
+			PROCESS "folders/details/package.submittal.tt" package = item;
+		CASE;
+			PROCESS "folders/details/package.plain.tt";
+		END;	
+%]

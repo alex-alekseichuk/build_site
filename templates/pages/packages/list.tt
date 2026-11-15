@@ -1,0 +1,11 @@
+<h2>Packages</h2>
+[% IF packages.count %]
+<table class="basic">
+	<tr><th>ID</th></tr>
+[%- FOREACH i = packages.all -%]
+	<tr><td><a href="/packages/item?id=[%- i.package_id -%]">[% i.package_id %]</a></td></tr>
+[%- END -%]
+</table>
+[%- ELSE -%]
+ No packages.
+[%- END -%]

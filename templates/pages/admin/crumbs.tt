@@ -1,0 +1,52 @@
+[% IF c.user.is_bs_admin %]
+	[% crumb("Admin", "/admin/") %]
+[% ELSIF c.user.is_account_admin %]
+	[% crumb("My Account", "/admin/") %]
+[% END %]
+
+[% link_postfix = c.user.is_bs_admin && path.account_id ? '?account_id=' _ path.account_id : '' %]
+
+
+[% IF c.user.is_bs_admin && (accounts || path.account_id) %]
+	[% path.account_link = '/admin/account/' _ link_postfix %]
+
+	[% crumb("Accounts", "/admin/list/accounts/") %]
+	[% IF path.account_id %]
+		[% crumb(path.account_name ? path.account_name : path.account_id, path.account_link) %]
+	[% END %]
+[% END %]
+
+
+[% IF !c.user.is_single_user && (users || path.user_id) %]
+	[% path.users_link = '/admin/list/users' _ link_postfix %]
+
+	[% crumb("Users", path.users_link) %]
+	[% IF path.user_id %]
+		[% crumb(path.user_name ? path.user_name : path.user_id, "/admin/edit/user?user_id=" _ path.user_id) %]
+	[% END %]
+[% END %]
+
+
+[% IF locations || path.location_id %]
+	[% path.locations_link = '/admin/list/locations' _ link_postfix %]
+
+	[% crumb("Locations", path.locations_link) %]
+	[% IF path.location_id %]
+		[% crumb(path.location_name ? path.location_name : path.location_id, "/admin/edit/location?location_id=" _ path.location_id) %]
+	[% END %]
+[% END %]
+
+[% IF dbcheck %]
+	[% path.dbcheck_link = '/admin/dbcheck' _ link_postfix %]
+	[% crumb("DB Check Reports", path.dbcheck_link) %]
+[% END %]
+[% IF dbcheck_report %]
+	[% path.dbcheck_report_link = '/admin/dbcheck/' _ dbcheck_report _ link_postfix %]
+	[% crumb(dbcheck_report_title, path.dbcheck_report_link) %]
+[% END %]
+
+
+
+[% IF c.user.is_single_user %]
+[% crumb("My Profile", "/admin/edit/user") %]
+[% END %]

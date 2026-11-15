@@ -1,0 +1,22 @@
+--- contrib/admin/views/main.py	2009-12-28 06:00:49.000000000 -0500
++++ contrib/admin/views/main.py.showall	2009-12-28 06:03:56.000000000 -0500
+@@ -16,7 +16,7 @@
+ 
+ # The system will display a "Show all" link on the change list only if the
+ # total result count is less than or equal to this setting.
+-MAX_SHOW_ALL_ALLOWED = 200
++#MAX_SHOW_ALL_ALLOWED = 200
+ 
+ # Changelist settings
+ ALL_VAR = 'all'
+@@ -111,7 +111,9 @@
+         else:
+             full_result_count = self.root_query_set.count()
+ 
+-        can_show_all = result_count <= MAX_SHOW_ALL_ALLOWED
++        #can_show_all = result_count <= MAX_SHOW_ALL_ALLOWED
++        # Always display a "Show all" link on the change list (see http://dev.buildsite.com/bs-app/ticket/986)
++        can_show_all = True
+         multi_page = result_count > self.list_per_page
+ 
+         # Get the list of objects to display on this page.

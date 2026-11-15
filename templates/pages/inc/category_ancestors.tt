@@ -1,0 +1,7 @@
+[%- list = list -%]
+
+[%- list.last.id.chunk(5).join('.') -%]
+[%- FOREACH i = list -%]
+    - [% i.category_title -%]
+[%- END -%]
+

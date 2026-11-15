@@ -1,0 +1,90 @@
+[%- top_cat = obj.top_visible_ancestor -%]
+[%- IF (top_cat.mf_includes && top_cat.id != obj.id) -%]
+<div style="color:gray;">
+<h2>[% top_cat.id.chunk(5).join('.') _ ' - ' _ (top_cat.category_full_title || top_cat.full_title) %]</h2>
+<p>Includes: [% top_cat.mf_includes %]</p>
+</div>
+[%- END -%]
+
+<h2>[% obj.id.chunk(5).join('.') _ ' - ' _ (obj.category_full_title || obj.full_title) %]</h2>
+[%- IF obj.mf_includes -%]
+<p>Here you will find [% obj.mf_includes | lcfirst %]</p>
+[%- END -%]
+
+[%-
+    products        = obj.products;
+    manufacturers   = obj.manufacturers;
+    pmcount         = obj.pm_count;
+    pcount          = pmcount.p;
+    mcount          = pmcount.m;
+-%]
+
+<p>BuildSite provides technical information on [% pcount %]
+[% obj.category_title FILTER lower %] products from [% mcount %] manufacturers. </p>
+
+<div class="b-two-col">
+	<div class="section">
+		<h3>Products</h3>
+		<div class="cont">
+			<ol id="category-product-list">
+		[% FOREACH row = products %]
+		[% LAST IF loop.index >= 5 %]
+				  <li[% ' class="adv"' IF (row.productmatch_active) %]><a href="[% url('/product/view', id = row.id) %]">[% row.product_name %]</a></li>
+				[% END %]
+			</ol>
+		</div>
+		[% IF pcount > 5 %]<span style="color:orange;">&rarr;</span> <a href="[% url('/product/list', category = obj) %]"><strong>See all [% pcount %] products</strong></a>[% END %]
+	</div>
+
+	<div class="side">
+		<h3>Manufacturers</h3>
+		<div class="cont">
+			<ol id="category-manufacturer-list">
+				[% FOREACH row = manufacturers %]
+		[% LAST IF loop.index >= 5 %]
+				  <li><a href="[% url('/companies/view', id = row.id) %]">[% row.legal_name %]</a></li>
+				[% END %]
+			</ol>
+		</div>
+		[% IF mcount > 5 %]<a href="[% url('/companies/list', category = obj) %]">See all [% mcount %] manufacturers</a>[% END %]
+	</div>
+</div><!--b-two-col-->
+
+<p>For related products please look in the following categories, or try a <a href="/search/?where=category">product category search</a> for additional products:</p>
+
+<table class="basic">
+    <tr>
+        <th>Category</th>
+        <th>Category Name</th>
+        <th>Products</th>
+    </tr>
+
+    [%- min_level = 4 -%]
+    [%- FOREACH row = obj.related_categories -%]
+        [%- NEXT IF row.is_suppressed && ! c.user.is_bs_admin -%]
+        [%- IF row.level < min_level; min_level = row.level; END -%]
+    [%- END -%]
+
+    [%- FOREACH row = obj.related_categories -%]
+        [% NEXT IF row.is_suppressed && ! c.user.is_bs_admin %]
+        <tr>
+            <td>
+                [%- str = '&nbsp;'; str.repeat((row.level - min_level) * 4) -%]
+                [% IF (row.id != obj.id) %]<a href="[% url('/categories/view', id = row.id) %]">[% END %]
+                [% row.id.chunk(5).join('.') %]
+                [% IF (row.id != obj.id) %]</a>[% END %]
+            </td>
+            <td>
+                [% IF (row.id != obj.id) %]<a href="[% url('/categories/view', id = row.id) %]">[% END %]
+                [% row.parent.parent.category_title _ ' - ' IF (row.id.length > 6) %]
+                [% row.parent.category_title _ ' - ' IF (row.id.length > 5) %]
+                [% row.category_title %]
+                [% IF (row.id != obj.id) %]</a>[% END %]
+            </td>
+            <td>
+                <a href="[% url('/product/list', category = row.id) %]" class="icon i-products"></a>
+                [% PROCESS "categories/product_count.tt" %]
+            </td>
+        </tr>
+    [%- END -%]
+</table>

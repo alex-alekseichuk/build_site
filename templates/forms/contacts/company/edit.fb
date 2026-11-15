@@ -1,0 +1,43 @@
+name: company_contacts_edit
+javascript: 0
+method: post
+fields:
+  id:
+    type: hidden
+    required: 0
+  name:
+    label:  Company Name
+    type:  text
+    size:  40
+    required:  1
+  address:
+    label: Address
+    type:  text
+    size:  40
+    required:  0
+  city:
+    label: City
+    type:  text
+    size:  40
+    required:  0
+  state:
+    label: State
+    type: select
+    required:  0
+  zip:
+    label: Zip Code
+    type:  text
+    size:  10
+    required:  0
+  phone:
+    label: Phone #
+    type:  text
+    size:  25
+    required:  0
+  fax:
+    label: Fax #
+    type:  text
+    size:  25
+    required:  0
+
+submit:  Submit

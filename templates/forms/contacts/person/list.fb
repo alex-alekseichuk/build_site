@@ -1,0 +1,16 @@
+name: contacts_search
+javascript: 0
+method: get
+fields:
+  q:
+    label:  Search
+    type:  text
+    size:  40
+    required:  0
+  order:
+    type:  hidden
+    validate:  /^company_fullname|given_name|family_name$/
+    required:  1
+    value:  company_fullname
+
+submit:  Submit

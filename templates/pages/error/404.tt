@@ -1,0 +1,10 @@
+[%
+     page_title = 'Page or Object Not Found';
+     crumb( "Error" );
+     
+     caption = "Page or Object Not Found";
+     caption_class = "error";
+%]
+<link rel="stylesheet" type="text/css" href="/css/no-sidebar.css" />
+
+<p>The link you followed is incorrect. Please visit our <a href="/">Home Page</a> or <a href="/help">contact support</a> if you have any questions.</p>

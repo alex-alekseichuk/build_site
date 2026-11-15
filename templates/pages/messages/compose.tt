@@ -1,0 +1,249 @@
+[%- USE XML.Escape -%]
+[%
+    page_title = send_package ? "Send Package" : message ? "Message: " _ (message.subject ? message.subject : "empty subject" ) : "Compose New Message";
+    # breadcrumbs
+    crumb( "Messages", "/messages/" );
+    crumb( page_title );
+    
+    caption = page_title;
+    caption_class = "message";
+%]
+
+<style>
+    #frmCompose {float:left; width:900px;}
+    .b-tabs {float:left; width:350px;}
+    .b-block {overflow:hidden; zoom:1}
+    .recipients .contact-row {float:left; width:400px; padding-right:10px; margin:0px;} /* The same as an input field below */
+    .recipients .contact-row span {float:left; width:250px; margin:0px;}
+    .recipients .row-holder {zoom:1; overflow:hidden; height:1%;}
+    .recipients .row-holder input {float:left;}
+
+    #package-caption {zoom:1; overflow:hidden; margin-bottom:5px;}
+    #package-caption .edit-link {float:right;}
+    #package-caption h2 {float:left; margin-bottom:0px;}
+    #package-caption .messages {float:left;}
+    #package-caption .messages p {color:red; margin-left:20px; margin-bottom:0px;}
+
+    .td-unfaxable img.fax, .unfaxable img.type {display:none;}
+    .unfaxable img.fax {display:inline;}
+</style>
+[% pack = '.pack' IF c.bst_config("use_compressed_static") %]
+[% IF pack %]
+<link rel="stylesheet" type="text/css" href="/css/autocomplete.pack.css" />
+[% ELSE %]
+<link rel="stylesheet" type="text/css" href="/css/jquery-autocomplete.css" />
+[% END %]
+[% IF nosidebar %]
+<link rel="stylesheet" type="text/css" href="/css/no-sidebar[% pack %].css" />
+[% END %]
+[% IF pack %]
+<script type="text/javascript" src="/js/compose.pack.js"></script>
+[% ELSE %]
+<script type="text/javascript" src="/js/jquery.autocomplete.min.js"></script>
+<script type="text/javascript" src="/js/compose_templates.js"></script>
+<script type="text/javascript" src="/js/compose.js"></script>
+[% END %]
+<script>
+$(document).ready(function() {
+    [% IF limits && limits.size %]
+    $.bs.messageLimits({page: [% limits.page || 0%], size: [% limits.size %]});
+    $('#placement_sidebar').trigger('checkSize');
+    [% END %]
+});
+</script>
+
+<form action="send" method="post" id="frmCompose">
+[% IF message.message_id%]<input type="hidden" name="message_id" value="[% message.message_id %]" />[% END %]
+<div id="action-bar">
+    <input type="submit" class="button btn_send" value="Send" />
+    <input type="submit" class="button" name="save" value="Save" />
+    <input type="submit" class="button" name="discard" value="Discard" onclick="return confirm('Are you sure you want to discard this message?');" />
+</div>
+
+<table><tr><td>
+
+<div id="divMessage" style="width:620px;">
+<table class="basic vert">
+<tr>
+    <th>From:</th>
+    <td><select id="sender" name="sender">[% FOREACH s = senders.all %]<option value="[% s.user_id %]" [% IF message && message.sender == s.name %]selected="selected"[% ELSIF s.name == c.user.name %]selected="selected"[% END %]>[% s.name %]</option>[% END %]</select></td>
+</tr>
+<tr>
+    <th>To:</th>
+    <td>
+
+        <!-- several hidden parameters to bring lists of to_contacts data -->
+        <input type="hidden" id="to_addresses" name="to_addresses" value="" />
+
+        <!-- autocomplete box -->
+        <div id="to_search" style="width:500px">
+            <input id="to_search_input" class="contact" type="text" name="to_search_input" value="" style="width:400px;position:relative" />
+            <input type="button" class="add-contact" value="Add" style="position:relative;padding-left:10px;padding-right:10px;" />
+        </div>
+    </td>
+</tr>
+<tr>
+    <th>BCC:</th>
+    <td>
+        <!-- several hidden parameters to bring lists of to_contacts data -->
+        <input type="hidden" id="bcc_addresses" name="bcc_addresses" value="" />
+        <div id="bcc" style="width:500px">
+            <input id="bcc_input" type="text" class="contact" name="bcc_search_input" value="" style="width:400px;position:relative" />
+            <input type="button" class="add-contact" value="Add" style="position:relative;padding-left:10px;padding-right:10px;" />
+        </div>
+    </td>
+</tr>
+<tr>
+    <th>Subject:</th>
+    <td><input type="text" id="subject" name="subject" value="[% message.subject || c.user.settings.list.default_message_subject | html %]" style="width:400px;" /></td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div><strong>Message:</strong></div>
+    <div style="height:220px;">
+        <textarea id="body" name="body" style="width:600px;height:200px;">[% message.body || c.user.settings.list.default_message_body %]</textarea>
+        <textarea id="body_footer" name="body_footer" disabled="disabled" style="width:600px;height:90px;display:none;">[% body_footer %]</textarea>
+    </div>
+        <input type="hidden" name="message_ext_id" value="[% message_ext_id %]" />
+    </td>
+</tr>
+<tr>
+    <td colspan="2" valign="center">
+        [% 
+            limit = c.bst_config('email_size_warning');
+            total = package.total_size_bytes + attached.tocsize;
+            IF limit && limit < total / 1024
+        %]
+            <p style="margin-bottom:0px; display:none; width:600px; text-align:center;" id="propose-send-as-url"><strong>Warning:</strong> <font color="red">Attachments exceed [% limit / 1024 | format "%d" %] MB.</font> You may want to <label for="send_as_url" style="cursor: pointer; text-decoration:underline; color:#1184AF;">send the attachments as a URL</label>.</p>
+        [% END %]
+
+        <input type="radio" id="attach" name="attach" value="file"
+            [% IF (!attach_type.defined()) || attach_type == "file" %]checked="checked"[% END %] class="chk"
+        />
+        <label for="attach" class="chk">Attach [% IF current_package_flag; 'current'; ELSE; 'selected'; END %] package</label>
+        &nbsp;
+        <input type="radio" id="send_as_url" name="attach" value="url"
+            [% IF attach_type.defined() && attach_type == "url" %]checked="checked"[% END %] [% IF disable_send_package_url %]disabled="disabled"[% END %] class="chk"
+        />
+        <label for="send_as_url" class="chk[% IF disable_send_package_url %] grayedout[% END %]">Send [% IF current_package_flag; 'current'; END %] package as URL</label>
+        [% IF enable_no_attach %]
+        &nbsp;
+        <input type="radio" id="no_attach" name="attach" value=""
+            [% IF attach_type.defined() && attach_type == "" %]checked="checked"[% END %] class="chk"
+        />
+        <label for="no_attach" class="chk">Message only, no attachments</label>
+        [% END %]
+    </td>
+</tr>
+</table>
+</div>
+
+</td><td>
+
+<div id="divThumb" style="float:right;">
+[%- IF package.package_toc_type -%]
+[% package.toc_item_label %]<br />
+<a href="/jstoc/toc_pdf?id=[% package.id %]"><img width="250" style="padding:3px;border:1px solid #ccc;width:250px;height:324px;" src="/jstoc/toc_thumb?id=[% package.id %]&quirk=[% quirk %]" alt="TOC preview..." /></a>
+[%- END -%]
+</div>
+
+</td></tr></table>
+
+
+[% IF package.items %]
+<div id="divItems">
+<!-- PACKAGE START -->
+[% IF send_package %]<input type="hidden" name="send_package" value="1" />[% END %]
+[% IF package.id %]<input type="hidden" name="package_id" value="[% package.id %]" />[% END %]
+
+<div id="package-caption">
+    <h2>Attachments:</h2>
+    <div class="messages"> 
+    [% IF attached %]
+        [% IF package.items.max != package.items_can_faxed.max %]
+            <p id="fax_warning" style="display:none;">Some items cannot be faxed.</p>
+        [% END %]
+        <p id="limits_warning" style="display:none;">
+            Attachments exceed the message size limits. (<span id="limits_warning_text">[% attached.sizelimit | file_size %] email, [% attached.pagelimit %] pages fax</span>)
+        </p>
+    [% END %]
+    </div>
+    <a class="edit-link" href="/folders/edit?file_id=[% package.id%]">edit</a>
+</div>
+
+<table class="basic">
+<tr>
+    <th>Name</th>
+    <th style="text-align:right;">Size</th>
+    <th style="text-align:right;">Pg</th>
+</tr>
+[% size = 0; pages = 0;%]
+[%- IF package.package_toc_type -%]
+<tr>
+    <td><a href="/jstoc/toc_pdf?id=[% package.id %]">[% package.toc_item_label %]</a></td>
+    <td style="text-align:right;">[% attached.tocsize %]</td>
+    <td style="text-align:right;">[% attached.tocpages || "at least 1" %]</td>
+</tr>
+[%- END -%]
+[%- FOREACH i = package.items -%]
+<tr>
+    [% can_fax = i.is_faxable %]
+    [% icon = can_fax ? i.item_type : "fax-disabled" %]
+    <td[% UNLESS can_fax %] class="td-unfaxable"[% END %]>
+    <a target="_blank" href="[% i.document_id.download_url || i.file_id.download_url %]">
+        [% UNLESS can_fax %]
+            <img class="ico fax" alt="" src="/images/icons/fax-disabled.gif" />
+        [% END %]
+            <img class="ico type" alt="" src="/images/icons/[% i.item_type %].gif" />
+    </a>&nbsp;&nbsp;<a target="_blank" href="[% i.document_id.download_url || i.file_id.download_url %]">[% i.title %]</a></td>
+    <td style="text-align:right;">[% i.file_size || 0 | file_size%][% size = size + i.file_size || 0 %]</td>
+    <td style="text-align:right;">[% IF can_fax %][% i.page_count || "at least 1" %][% pages = pages + i.page_count || 1 %][% END %]</td>
+</tr>
+[%- END -%]
+<tr>
+    <td style="text-align:right;"><b>Totals:</b></td>
+    <td style="text-align:right;"><b>[% size + attached.tocsize || 0 | file_size %]</b></td>
+    <td style="text-align:right;"><b>[% pages + attached.tocpages || 0 %]</b></td>
+</tr>
+</table>
+<!-- PACKAGE END -->
+</div>
+[% END %]
+
+<table class="basic">
+<tr>
+    <td>
+        <input type="submit" class="button btn_send" value="Send" />
+        <input type="submit" class="button" name="save" value="Save" />
+        <input type="submit" class="button" name="discard" value="Discard" onclick="return confirm('Are you sure you want to discard this message?');" />
+    </td>
+</tr>
+</table>
+</form>
+<script type="text/javascript">
+
+[% recipients = message ? message.recipients : force_recipients %]
+[% IF recipients  %]
+var toObj = $('#to_search_input');
+var bccObj = $('#bcc_input');
+[% FOR r IN recipients %]
+    var data = {};
+    [% IF r.contact_id %]
+    data.id = '[% r.contact_id.private_person_id %]';
+    data.name = '[% r.contact_id.name %]';
+        [% IF r.contact_id.addressbook_company_id %]
+        data.company_id = '[% r.contact_id.addressbook_company_id.addressbook_company_id %]';
+        [%# need to escape quotes here, therefore: replace() %]
+        data.company_name = '[% r.contact_id.addressbook_company_id.company_fullname | replace("'","\\'") | html %]';
+        [% END %]
+    [% END %]
+    data.address = '[% r.address | replace("'", "\\'") | html %]';
+    data.type = '[% r.type %]';
+    [% r.is_bcc() ? "bccObj" : "toObj" %].addRecipient(data);
+[% END %]
+
+[% END %]
+
+$.bs.n_contacts_cart = [% n_contacts_cart || 0 %];
+
+</script>

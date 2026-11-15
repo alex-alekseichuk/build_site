@@ -1,0 +1,45 @@
+name: person_contacts_edit
+javascript: 0
+method: post
+fields:
+  id:
+    type: hidden
+    required: 0
+  given_name:
+    label:  First Name
+    type:  text
+    size:  40
+    required:  1
+  family_name:
+    label:  Last Name
+    type:  text
+    size:  40
+    required:  0
+  addressbook_company_id:
+    label: Existing Company
+    type: select
+    required: 0
+    selectname: Select the company
+  new_company_name:
+    label: or New Company
+    type: text
+    size: 40
+    required: 0
+  work_phone:
+    label: Phone #
+    type:  text
+    size:  25
+    required:  0
+  fax:
+    label: Fax #
+    type:  text
+    size:  25
+    required:  0
+  email:
+    label: Email Address
+    type: text
+    validate: EMAIL
+    size: 25
+    required: 0
+
+submit:  Submit

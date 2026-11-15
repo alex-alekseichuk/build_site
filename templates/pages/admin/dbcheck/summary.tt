@@ -1,0 +1,59 @@
+[%- IF user.is_bs_admin -%]
+
+[%-
+	page_title = report_title
+-%]
+
+[% PROCESS 'admin/crumbs.tt'
+	dbcheck = 1
+    dbcheck_report = report_name
+    dbcheck_report_title = report_title
+%]
+
+    [%- IF info_fields -%]
+        <form id="formTimestamp" method="GET" style="padding-bottom:10px;">
+            <select name="timestamp" id="selTimestamp">
+            [%- FOREACH timestamp = timestamps -%]
+                <option value="[% timestamp %]"[% IF timestamp == now %] selected="selected"[% END %]>[% timestamp %]</option>
+            [%- END -%]
+            </select>
+        </form>
+        <table class="basic" id="users-list">
+
+            <tr><th colspan="2">Manufacturers:</th></tr>
+            <tr><td>Total live</td><td>[% info_fields.company_live %]</td></tr>
+            <tr><td>Total in QA</td><td>[% info_fields.company_qa %]</td></tr>
+            <tr><td>Total live with 0 products</td><td>[% info_fields.company_no_products %]</td></tr>
+
+            <tr><th colspan="2">Products:</th></tr>
+            <tr><td>Total</td><td>[% info_fields.product %]</td></tr>
+            <tr><td>Total live</td><td>[% info_fields.product_live %]</td></tr>
+            <tr><td>Total in QA</td><td>[% info_fields.product_qa %]</td></tr>
+            <tr><td>Total suppressed</td><td>[% info_fields.product_suppressed %]</td></tr>
+
+            <tr><th colspan="2">Documents:</th></tr>
+            <tr><td>Total</td><td>[% info_fields.document %]</td></tr>
+            <tr><td>Total live</td><td>[% info_fields.document_live %]</td></tr>
+            <tr><td>Total in QA</td><td>[% info_fields.document_qa %]</td></tr>
+            <tr><td>Total suppressed</td><td>[% info_fields.document_suppressed %]</td></tr>
+            <tr><td>Total replaced</td><td>[% info_fields.document_replaced %]</td></tr>
+            <tr><td colspan="2">Total live by Doc Type</td></tr>
+            [%- FOREACH doc_type = doc_type_live -%]
+                <tr><td style="padding-left:30px;">[% doc_type.first %] </td><td>[% doc_type.last %]</td></tr>
+            [%- END -%]
+
+        </table>
+<script type="text/javascript"><!--
+    jQuery(function(){
+        jQuery('#selTimestamp').change(function(){
+            jQuery('#formTimestamp').submit();
+        });
+    });
+//--></script>
+    [%- ELSE -%]
+        No summary data
+    [%- END -%]
+
+[%- ELSE -%]
+	[% PROCESS "admin/account.tt" %]
+[%- END -%]

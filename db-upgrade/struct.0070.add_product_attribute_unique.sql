@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX product_attribute_value_ui ON product_attribute_value (product_id, attribute_id);

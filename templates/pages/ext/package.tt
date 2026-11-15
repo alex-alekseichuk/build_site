@@ -1,0 +1,25 @@
+[% PROCESS 'user_date.tt'; %]
+<table class="basic vert">
+    <tr><th>From:</th><td>[% message.sender.name %]</td></tr>
+    <tr><th>To:</th><td>[%- PROCESS to_contacts.tt message ext = 1 no_bcc = 1-%]</td></tr>
+    <tr><th>Date:</th><td>
+        [% IF message.time_sent %]
+            [% user_date(message.time_sent, '', message.sender.settings.list.time_zone) %]
+        [% END %]
+    </td></tr>
+    <tr><th>Subject:</th><td>[% message.subject %]</td></tr>
+</table>
+<table class="basic">
+<tr>
+    <th>Name</th>
+    <th>Size (kb)</th>
+    <th>Pg</th>
+</tr>
+[%- FOREACH i = package.items -%]
+<tr>
+    <td><a target="_blank" href="[% IF i.item_type == 'file' %]/ext/file/[% c.req.args.0 %]/[% i.id %]/[% ELSE %][% i.document_id.download_url || i.file_id.download_url %][% END %]"><img class="ico" alt="" src="/images/icons/[% i.item_type %].gif" /></a>&nbsp;&nbsp;<a target="_blank" href="[% IF i.item_type == 'file' %]/ext/file/[% c.req.args.0 %]/[% i.id %]/[% ELSE %][% i.document_id.download_url || i.file_id.download_url %][% END %]">[% i.title %]</a></td>
+    <td>[% IF i.item_type == 'document' %][% i.document_id.filesize_kb || 0 %][% ELSE %][% i.file_id.filesize_kb || 0 %][% END %]</td>
+    <td>[% IF i.item_type == 'document' %][% i.document_id.derived_pagecount || '' %][% ELSE %][% i.file_id.page_count || '' %][% END %]</td>
+</tr>
+[%- END -%]
+</table>

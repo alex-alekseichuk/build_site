@@ -1,0 +1,43 @@
+body {padding:0 5em;font:.75em arial,sans-serif;}
+
+.t-pers {margin:0 0 2em;font-size:.92em;}
+.t-pers td,.t-pers th {padding:0 10px .12em 0;}
+.t-pers .prim {font-size:1.33em;}
+
+th,td {vertical-align:top;text-align:left;padding:.25em 10px .25em 0;}
+th {width:5em; text-align:right;}
+.prim {font-size:1.17em;}
+.sec {font-size:.92em;}
+
+/*
+.footer {position:fixed; bottom:0px;}
+*/
+.f-logo {width:100%;}
+.f-br {clear:both; margin-bottom:2px;}
+.f-info {border-top:1px solid #000; width:100%; }
+.f-info p {font-size:0.8em;}
+
+#sender-logo { margin:2em 0 5em 0;}
+
+ul {margin:0 0 1em;padding:0; list-style:none; }
+
+/*
+.footer, .footer-wrapper {
+    margin-top:150px;
+    position:static !important;
+}
+*/
+
+#footer {
+    display: block;
+    position: running(footer);
+}
+
+@page {
+    size: A4;
+    margin: .3in .2in .8in .2in;
+
+    @bottom-left {
+        content: element(footer);
+    }
+}

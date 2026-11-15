@@ -1,0 +1,68 @@
+[%
+	USE XML.Escape;
+	
+	PROCESS 'user_date.tt';
+	
+	msg = recipient.message_id;
+	contact = recipient.contact_id;
+	sender = msg.sender;
+-%]
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="[% url_css %]" media="print"/>
+</head>
+<body>
+	<div id="footer">
+		<div class="f-logo">
+			<img src="[% url_bst_logo %]" />
+		</div>
+		<div class="f-info" style="border:none;">
+			<p>Product and technical information from <strong>BuildSite</strong></p>
+		</div>
+	</div>
+
+	<div id="sender-logo">
+		<img src="[% settings_path _ '/' _ msg.sender.settings.list.logo_file %]" />
+	</div>
+
+
+	<table class="t-pers">
+		<tr class="prim"><th>To:</th><td>[% contact.name | html %]</td></tr>
+		[% IF contact.addressbook_company_id | html %]<tr><th>Company:</th><td>[% contact.addressbook_company_id.company_fullname | html %]</td></tr>[% END %]
+		<tr><th>Fax:</th><td>[% recipient.address | html %]</td></tr>
+	</table>
+	<table class="t-pers">
+		<tr class="prim"><th>From:</th><td>[% sender.name | html %]</td></tr>
+		<tr><th>Location:</th><td>[% sender.location.addr_street | html %]<br />[% sender.location.addr_city _ ' ' _ sender.location.addr_region _ ' ' _  sender.location.addr_postal_code | html %]</td></tr>
+		<tr><th>Phone:</th><td>[% sender.location.location_phone | html %]</td></tr>
+		<tr><th>Fax:</th><td>[% sender.location.location_fax | html %]</td></tr>
+		<tr><th>Email:</th><td>[% sender.email_address | html %]</td></tr>
+	</table>
+
+
+	<table>
+		<tr class="prim"><th>Subject:</th><td>[% msg.subject | html %]</td></tr>
+		<tr class="sec"><th>Date:</th><td>[% user_date('now', '%a, %e %b %Y %H:%M', sender.settings.list.time_zone) %]</td></tr>
+		[% pages = 0 %]
+		[% IF msg.package.items_can_faxed %]
+		<tr class="sec"><th>Attachments:</th><td>
+			<ul>
+				[% FOREACH j = msg.package.items_can_faxed %]
+					<li>[% j = (j.document || j.file); j.file_title || j.title | html %]</li>
+					[% pages = pages + (j.page_count || j.derived_pagecount || 0 ) %]
+				[% END %]
+			</ul>
+		</td></tr>
+		[% END %]
+
+		<tr class="sec"><th>Pages:</th><td>[% IF msg.attach_type == 'file' %][% PROCESS 'pages.tt' stat = msg.package.get_page_stats %][% ELSE %]Cover page only[% END %]</td></tr>
+
+		[% IF msg.body %]<tr class="sec"><th>[% msg.package.items ? "Comments" : "Message" %]:</th><td>[% msg_body = msg.body | html %][% msg_body.replace("\n","<br />") %]</td></tr>[% END %]
+	</table>
+
+</body></html>

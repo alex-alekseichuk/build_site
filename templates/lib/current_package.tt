@@ -1,0 +1,27 @@
+[%-
+    current_package = c.current_package;
+-%]
+
+<div id="dlgSaveCP" style="visibility:hidden;">
+    <div class="hd">Save Current Package</div>
+    <div class="bd">
+        <form name="formSaveCP" method="POST" action="/packages/save">
+            <p id="messageSaveCP">Please enter package parameters:</p>
+			<table>
+				<tr><td><label for="cp_title">Package Name:</label></td><td><input id="cp_title" type="text" name="cp_title" /></td></tr>
+				<tr><td><label for="cp_title">Description:</label></td><td><input id="cp_comment" type="text" name="cp_comment" /></td></tr>
+		        <tr><td><label for="cp_folder">Level / Folder:</label></td><td><select id="cp_folder" type="text" name="cp_folder" /></select></td></tr>
+			</table>
+        </form>
+    </div>
+</div>
+
+<div id="fast-upload">
+<form method="post" enctype="multipart/form-data" action="/folders/upload">
+	<input type="hidden" name="scope" value="private" />
+	<input type="hidden" name="package_id" value="[% current_package.id %]" />
+	<label>File to upload</label>
+	<input type="file" name="file" />
+	<input type="submit" value="Upload" />
+</form>
+</div>

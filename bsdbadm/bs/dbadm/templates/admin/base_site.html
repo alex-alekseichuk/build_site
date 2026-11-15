@@ -1,0 +1,52 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">{% trans 'Django administration' %}</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block extrahead %}
+<script type="text/javascript" src="/django-media/js/jquery.js"></script>
+<script type="text/javascript" src="/django-media/js/edit_icons.js"></script>
+<script type="text/javascript" src="/django-media/js/collapsed_tabular_inlines.js"></script>
+<script type="text/javascript" src="/django-media/js/collapsed_stacked_inlines.js"></script>
+
+<script type="text/javascript" src="/django-media/js/jquery.RegexSelector.js"></script>
+
+<style type="text/css">
+#content-main {width: auto; }
+</style>
+<script type="text/javascript">
+$(function() {
+    if ($('#content-main').width() < $('body').width())
+    {
+        $('#content-main').css('width', '100%');
+    }
+});
+</script>
+<script type="text/javascript">
+    function djangoQuote(s) {
+        var unsafe = ':/_#?;@&=+$,"<>%\\';
+        var result = [];
+        for (var i = 0; i < s.length; i++) {
+            var c = s.charAt(i);
+
+            if (unsafe.indexOf(c) == -1) {
+                result[i] = c;
+            }
+            else {
+                var hex = c.charCodeAt(0).toString(16).toUpperCase();
+                if (hex.length == 1) {
+                    hex = "0"+hex;
+                }
+                result[i] = '_' + hex;
+            }
+        }
+        return result.join("");
+    }
+</script>
+{% endblock %}

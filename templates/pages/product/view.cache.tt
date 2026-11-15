@@ -1,0 +1,125 @@
+[% IF c.req.param('ajax') %]
+<h1>[% page_title %]</h1>
+<div id="product-details-dialog-wrapper">
+[% END %]
+
+<table class="t-basic t-vert t-prod-details">
+<tbody>
+	<tr><th>Manufacturer:</th><td>[% product.manufacturer.legal_name %]</td></tr>
+	<tr><th>Category:</th><td><a href="/categories/view?id=[% product.category.category_id %]">[% product.category.category_id.chunk(5).join('.') _ ' - '_ product.category.title %]</a></td></tr>
+	[% IF product.mfg_product_kicker %]<tr><th>Description:</th><td>[% product.mfg_product_kicker %]</td></tr>[% END %]
+	[% IF product.manufacturer.feature_enabled(c.user, 'productmatch')%][% IF product.mfg_long_text %]<tr><th>Features:</th><td>[% product.mfg_long_text %]</td></tr>[% END %][% END %]
+	[% PROCESS 'product/standards.tt' standards = product.standards %]
+	[% UNLESS c.req.param('ajax') %]
+		[% PROCESS 'product/attributes.tt' product = product %]
+	[% END %]
+	[% IF product.is_discontinued %]<tr><th><font color="red">This product is discontinued.</font></th></tr>[% END %]
+	[% IF product.suppress_reason_code %]<tr><th><font color="red">Suppress reason:</font></th><td><font color="red">[% product.suppress_reason_code %]</font></td></tr>[% END %]
+	[% IF product.manufacturer.feature_enabled(c.user, 'productmatch') %]<tr><th colspan="2">[%- INCLUDE 'inc/product_adflags.tt' p = product -%]</th></tr>[% END %]
+</tbody>
+</table>
+[% IF c.req.param('ajax') %]
+	[% IF product.leed_attributes %]
+	<table class="t-basic t-vert t-prod-details green-attr">
+		[% PROCESS "product/attributes.tt" %]
+	</table>
+	[% END %]
+</div>
+[% END %]
+
+[% UNLESS c.user.settings.list.disable_dealer_search || c.req.param('ajax') %]
+<div class="wrapper">
+<form id="zip-search" class="box" method="post" action="/product/zip_search">
+	<strong>Find a local distributor.</strong>
+	Enter your U.S. zip code:
+	<input type="hidden" name="id" value="[% product.id %]" />
+	<input type="text" name="zip" value="[% c.req.cookies.zip ? c.req.cookies.zip.value : c.user.primary_location.addr_postal_code %]" />
+	<input type="submit" value="Search" onclick="window.open('zip_search?popup=1&id=' + document.getElementsByName('id')[0].value + '&zip=' + document.getElementsByName('zip')[0].value,'buildsite_popup','height=500,width=660,resizable=1,location=0,menubar=0,scrollbars=1,status=0,titlebar=0,toolbar=0,directories=0'); return false" />
+</form>
+</div>
+[% END %]
+
+[%- product_documents = product.documents; -%]
+[%- IF product_documents -%]
+[% fixed_layout = product_documents.size > 50 ? 1 : 0 %]
+<table class="basic[% " fixed-layout" IF fixed_layout %]">
+[% IF fixed_layout %] 
+	<col width="95%" /><col width="5%" />
+[% END %]
+<thead>
+<tr>
+  <th>Product Documents</th>
+  <th class="col-pkg-chk">Pkg+</th>
+</tr>
+</thead>
+<tbody>
+[% FOREACH i = product_documents -%]
+<tr[% IF i.has_suppress_flag AND product.suppress_reason_code != 'prodsuppress' AND product.suppress_reason_code != 'pubsuppress' %] class="suppress"[% END %][% IF i.suppress_reason_code == 'afterqa' %] class="afterqa"[% END %]>
+<td>[% PROCESS 'inc/document_link.tt' document = i %] ([% i.derived_filesize | file_size %][% IF i.derived_pagecount %], [% i.derived_pagecount %]pg[% END %])
+</td>
+<td>
+<input type="checkbox" class="document groupChk" name="chkItem" value="[% i.document_id %]" />
+</td>
+</tr>
+[% END %]
+</tbody>
+</table>
+[%- END -%]
+
+
+[%- PROCESS "product/related_products.tt" IF product.related_products_package -%]
+[%- PROCESS "product/system_package.tt" IF product.system_package -%]
+
+
+[%- IF product.nrca_category_documents -%]
+[% fixed_layout = product.nrca_category_documents.size > 50 ? 1 : 0 %]
+<table class="basic[% " fixed-layout" IF fixed_layout %]">
+[% IF fixed_layout %] 
+	<col width="95%" /><col width="5%" />
+[% END %]
+<thead>
+<tr>
+  <th>NRCA Category Documents</th>
+  <th class="col-pkg-chk">Pkg+</th>
+</tr>
+</thead>
+<tbody>
+[% FOREACH i = product.nrca_category_documents -%]
+<tr[% IF i.has_suppress_flag AND product.suppress_reason_code != 'prodsuppress' AND product.suppress_reason_code != 'pubsuppress' %] class="suppress"[% END %][% IF i.suppress_reason_code == 'afterqa' %] class="afterqa"[% END %]>
+<td>[% PROCESS 'inc/document_link.tt' document = i %] ([% i.derived_filesize | file_size %][% IF i.derived_pagecount %], [% i.derived_pagecount %]pg[% END %])</td>
+<td><input type="checkbox" class="document groupChk" name="chkItem" value="[% i.document_id %]" /></td>
+</tr>
+[% END %]
+</tbody>
+</table>
+[%- END -%]
+
+[%- IF category_documents -%]
+[% fixed_layout = category_documents.size > 50 ? 1 : 0 %]
+<table class="basic[% " fixed-layout" IF fixed_layout %]">
+[% IF fixed_layout %] 
+	<col width="95%" /><col width="5%" />
+[% END %]
+<thead>
+<tr>
+  <th>Category Documents</th>
+  <th class="col-pkg-chk">Pkg+</th>
+</tr>
+</thead>
+<tbody>
+[% FOREACH i = category_documents -%]
+<tr[% IF i.has_suppress_flag AND product.suppress_reason_code != 'prodsuppress' AND product.suppress_reason_code != 'pubsuppress' %] class="suppress"[% END %][% IF i.suppress_reason_code == 'afterqa' %] class="afterqa"[% END %]>
+<td>
+[% PROCESS 'inc/document_link.tt' document = i %] ([% i.derived_filesize | file_size %][% IF i.derived_pagecount %], [% i.derived_pagecount %]pg[% END %])
+</td>
+<td>
+<input type="checkbox" class="document groupChk" name="chkItem" value="[% i.document_id %]"  />
+</td>
+</tr>
+[% END %]
+</tbody>
+</table>
+[%- END -%]
+
+[% PROCESS 'inc/company_documents.tt' product = product list = product.manufacturer.documents %]
+

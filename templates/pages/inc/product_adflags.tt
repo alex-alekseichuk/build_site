@@ -1,0 +1,3 @@
+[%- FOREACH adflag = p.adflags -%]
+    &nbsp;<img src="/images/adflags/[% adflag.img %]" title="[% adflag.title %]" alt="[% adflag.title %]" />
+[%- END -%]

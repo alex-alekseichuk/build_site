@@ -1,0 +1,34 @@
+[%-
+        USE url;
+-%]
+
+<h2>Package #[%- package_id -%]</h2>
+<script type="text/javascript">
+function doSubmit(action)
+{
+    var f = YAHOO.util.Dom.get('frmPackage');
+    f.action = action;
+    f.submit();
+}
+</script>
+<form id="frmPackage" method="post" action="/packages/item">
+<input type="hidden" id="id" name="id" value="[%- package_id -%]" />
+<input class="button" type="button" value="Add" onClick="alert('TODO');" />
+<input class="button" type="button" value="Make Current" onClick="location='make_current?id=[%- package_id -%]';" />
+[% IF package.items.size %]
+<table class="basic">
+<tr>
+  <th>Title</th>
+  <th>Type</th>
+</tr>
+[%- FOREACH i = package.items -%]
+<tr>
+  <td><a href="[% url(id = i.id) %]">go</a></td>
+  <td>[%- id = (i.file || i.document); id.id -%]</td>
+ </tr>
+[%- END -%]
+</table>
+[%- ELSE -%]
+  No items.
+[%- END -%]
+</form>

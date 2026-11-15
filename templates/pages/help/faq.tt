@@ -1,0 +1,68 @@
+[%- PROCESS "help/header.tt" caption = 'Frequently Asked Questions' -%]
+
+<div id="help-contents">
+
+<ul>
+	<li><a href="#General">General</a></li>
+	<li><a href="#Messaging">Messaging</a></li>
+	<li><a href="#Searching">Searching</a></li>
+</ul>
+
+<h2><a name="General"></a>General</h2>
+<dl>
+	<dt>Can viruses be transmitted when I upload a document from my PC?</dt>
+	<dd>
+		<p>BuildSite itself is not vulnerable to most viruses, because we aren't running Windows on our servers. However, if one of the documents you upload to us has a virus when it is uploaded by you, then it will still have that virus when BuildSite (at your request) sends that document as an attachment to your customer. We don't modify the documents uploaded by you -- we just provide a storage location for your documents.</p>
+		<p>Note that many viruses are sent as executable files such as .exe and .bat files, and we don't accept those as uploads.</p>
+	</dd>
+</dl>
+
+<h2><a name="Messaging"></a>Messaging</h2>
+<dl>
+	<dt>What is the required format for fax numbers?</dt>
+	<dd>
+		<p>555444333, 555-444-3333 or (555) 444-3333. You must include the area code. Do not include the "1" for long-distance.</p>
+	</dd>
+	<dt>How many times does BuildSite try to send a fax?</dt>
+	<dd>
+		<p>BuildSite will try to fax a document three times in three-minute intervals. After the third unsuccessful trial, your message will be sent to <a href="/messages/list?status=failed">failed messages</a>. </p>
+	</dd>
+	<dt>How do I resend a message?</dt>
+	<dd>
+		<p>Go to All Messages in the Message Center, click on the view link of the message you would like to resend, and click on the <b>Resend</b> link near the top of the page.</p>
+	</dd>
+	<dt>How do I delete the yellow Fax Failed Notice at the top of my screen?</dt>
+	<dd>
+		<p>Click on the notice.  This will take you to the message that failed.  You can either try and resend it, or do nothing.  Either way the notice should disappear, though you may need to reload your browser window, depending on your Internet Settings.</p>
+	</dd>
+	<dt>Is there a page limit to the faxes I send?</dt>
+	<dd>
+		<p>Yes. The limit is 75 pages (not including the cover page). This helps prevent tying up older model fax machines that print slowly.  If you need to send more pages, you can break up your package into two messages, or consider sending the package as email attachments or as a unique URL, from which the recipient can download the messages from their browser.</p>
+	</dd>
+	<dt>Is there a size limit to the emails I send?</dt>
+	<dd>
+		<p>Yes. The total file size limit is 500MB. This limit is in place because most mail recipients have a limit to both the largest email they can receive and their total mailbox size. If you receive an error message when attempting to send an email with a number of attachments, divide the attachments among two (or more) emails.</p>
+	</dd>
+	<dt>Do users within the same account location share the same customer contacts?</dt>
+	<dd>
+		<p>Yes, there is one customer database for each location within the account. All of the users within the location have access to the customer database. </p>
+	</dd>
+</dl>
+
+<h2><a name="Searching"></a>Searching</h2>
+<dl>
+	<dt>Why can't I find a document that I need even though the manufacturer is listed?</dt>
+	<dd>
+		<p>The BuildSite database contains the product data that manufacturers supply to us.  Some manufacturers do not want their MSDS's posted online, for example. If your company requires a document that you are not able to find in our database, please let us know by contacting us at <a href="mailto:support@buildsite.com">support@buildsite.com</a> and we will do our best to acquire that document from the manufacturer.</p>
+	</dd>
+	<dt>How do I find products meeting a specific ASTM standard?</dt>
+	<dd>
+		<p>To search for products by ASTM, choose the ASTM Search in the search menu at the top of your screen, enter an ASTM standard ID in the Search box and click Search. For example, type "C309", and click "Search."   NOTE: Click on the product name and view the product data sheet to verify the product meets the ASTM standard.</p>
+	</dd>
+	<dt>Can I send a different package without losing the package I am currently working on?</dt>
+	<dd>
+		<p>To send an older package you have already saved, go to the Packages & Files menu, and pick the location of your saved package, or go to All Files if you're not sure.  Go to the package detail screen of the package you wish to send by clicking on the package icon, and hit the Send button to add it to a message.  If you need to send a new package, save the current package you're working on by pointing your cursor at the top right button on the Current Package sidebar, and choosing Save Package.  You can now clear the package and begin working on a new one without losing your work.</p>
+	</dd>
+</dl>
+
+</div>

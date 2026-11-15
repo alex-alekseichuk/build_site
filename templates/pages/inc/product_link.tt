@@ -1,0 +1,16 @@
+[% a_titles = [];
+	a_titles.push("This product is only for use in the special jobsite product listing") IF p.check_flags.match("jobsite");
+	a_titles.push("We have confirmed with mfg that an msds is not required") IF p.check_flags.match("msds_not_needed");
+	a_titles.push("We know we don't have an msds, we are waiting on it") IF p.check_flags.match("msds_waiting");
+	a_titles.push("We have confirmed with mfg that this is a discontinued product") IF p.check_flags.match("disc_prod");
+	a_titles.push("We are awaiting confirmation that this is a discontinued product") IF p.check_flags.match("disc_waiting");
+	a_titles.push("This product has an absurd number of documents; don't warn me") IF p.check_flags.match("manydocs");
+	a_titles.push("This product has no product_data document; don't warn me") IF p.check_flags.match("nopd");
+	a_titles.push("Suppress this from the end user app, for reason explained in notes (do not abuse - each will be reported in check report)") IF p.check_flags.match("suppress");
+	a_titles.push("There is an issue which should cause a report warning (explained in notes).") IF p.check_flags.match("issue");
+	a_titles.push("Should only be shown to logged-in users") IF p.check_flags.match("notpublic");
+%]
+<a class="name" href="[% url('/product/view', id = p.id) %]"[% IF a_titles.size && c.user.is_bs_admin %] title="[% a_titles.join(" / "); %]"[% END %]>
+		[% p.product_name; ' (' _ p.mfg_product_id _ ')' IF (p.mfg_product_id && ! is_manufacturer && ! is_category) %]
+		[% IF row.suppress_reason_code %] (suppress reason: [% row.suppress_reason_code %])[% END %]
+</a>

@@ -1,0 +1,247 @@
+/*
+
+BuildSite Blocks&Modules styles
+
+Primitives
+	.b-block
+
+*/
+
+
+/* Primitives
+---------------------------------------------- */
+/* block */
+.b-block {
+	background:#fff;
+	border:1px solid #b8d0e1;
+	padding:10px;
+	margin:0 0 20px;
+	}
+.has-caption {
+	padding-top:2em;
+}
+.wrapper {
+	overflow:hidden;
+}
+
+/* temp */
+table.listing { border-collapse: collapse; }
+table.listing td,
+table.listing th { padding: 2px 8px 2px 8px; }
+
+input.button
+{
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 10px;
+}
+
+.fb_required
+{
+	font-weight:bold;
+}
+.fb_input
+{
+	width:400px;
+}
+.fb_button
+{
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 10px;
+}
+
+
+/* Companies
+---------------------------------------------- */
+.b-company {
+	overflow:hidden;
+	zoom:1;
+    margin-bottom:2em;
+	}
+	.b-company .logo {
+		float:left;
+		margin:0 38px 20px 0;
+		}
+	.b-company .desc {
+		overflow:hidden;
+		zoom:1;
+		padding:0 2px;
+		}
+		.b-company .desc H2{
+			font-size:1em;
+			font-weight:bold;
+			margin:0;
+			}
+		.b-company .desc UL.details {
+			margin:0 0 1.5em;
+			padding:0;
+			list-style:none;
+			}
+
+
+/* Two col */
+.b-two-col {
+	overflow:hidden;
+	zoom:1;
+	margin:0 0 1.5em;
+	}
+.b-two-col .section {
+	width:49%;
+	float:left;
+	}
+.b-two-col .side {
+	width:49%;
+	float:right;
+	}
+.b-two-col .cont{
+	border:1px solid #ccc;
+	color:#666;
+	margin:0 0 5px;
+	padding:10px 5px 0;
+	}
+.b-two-col H3 {
+	background:#ccc;
+	padding:3px 5px;
+	font-weight:bold;
+	color:#333;
+	font-size:1em;
+	}
+
+/* search */
+FORM#search {
+
+	}
+FORM#search TD{
+	padding:3px 5px;
+	}
+
+
+/* b-to-contacts */
+.l-body .b-to-contacts {
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+/* messages */
+.b-mess-body {
+	background:#eee;
+	padding:10px 15px;
+	margin:0 0 1em;
+}
+
+#frmCompose #tblTo {
+	margin:0;
+}
+
+
+/* b-block-over */
+.b-block-over {
+	position:absolute;
+	width:50%;
+	left:25%;
+	top:5%;
+	background:#fff;
+	border:2px solid #6092b8;
+	}
+	.b-block-over-h {
+		background:#d8ebf1;
+		padding:7px 10px 5px;;
+		overflow:hidden;
+		zoom:1;
+		}
+		.b-block-over-h H2 {
+			font-size:1.2em;
+			font-weight:bold;
+			color:#a8a9a9;
+			float:left;
+			}
+		.b-block-over-h .bt-close {
+			background:url(../images/bt/bt-close.gif) no-repeat 0 0;
+			width:17px;
+			height:17px;
+			float:right;
+			margin:2px 0 0;
+			}
+	.b-block-over .section {
+		padding:7px 10px;
+		}
+		.b-block-over .section TABLE {
+			margin:0 0 15px;
+			}
+		.b-block-over .section UL {
+			padding:0 0 0 15px;
+			list-style:disc;
+			}
+
+
+/* t-prod-details */
+TABLE.t-prod-details {
+	border:1px solid #d5d5d5;
+	width:70%;
+	margin:0 0 15px;
+	}
+.t-prod-details TH {
+	font-weight:normal;
+    text-align:left !important;
+	}
+
+.t-prod-details .title TH,
+.t-prod-details .title TD {
+	font-size:1.2em;
+	border-bottom:1px dotted #d5d5d5;
+	}
+.t-prod-details .title TD {
+	color:#f7c121;
+	}
+
+.t-prod-details TABLE.t-prod-details {
+	font-size:1em;
+}
+
+.t-prod-details UL LI {
+    list-style:none;
+    background:url(/images/misc/li.gif) no-repeat 0px 6px;
+    padding-left:12px;
+}
+
+
+.b-tabs .ui-tabs-panel ul {
+	margin-bottom:0;
+}
+
+
+
+
+/* error list */
+
+ul.error {
+	border:1px solid #DBDB70;
+	padding: 1em;
+	padding-left: 2em;
+}
+ul.error li {
+	color: red;
+	}
+
+#toc-create-details {background: #eee; position: absolute; padding:7px 5px; border:1px solid #ddd;}
+
+
+#category-list td {
+    padding-top:6px;
+    padding-bottom:6px;
+}
+
+.box {
+	background:#FEFDDF;
+	border:1px solid #FEEAB5;
+	padding:7px 10px;
+	float:left;
+}
+
+#zip-search {
+	margin-bottom:10px;
+}
+
+.grayedout { color:#a8a9a9; }

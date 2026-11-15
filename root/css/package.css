@@ -1,0 +1,98 @@
+#package-header {
+	overflow:hidden;
+	zoom:1;
+	height:29px;
+}
+
+#package-header #toc-type-switcher {
+	float:right;
+}
+
+
+#toc-type-switcher {
+	background:#ddd;
+	padding:5px 10px;
+}
+	#toc-type-switcher label {
+		padding-right:0.7ex;
+	}
+
+H2 {
+	font-size:2em;
+}
+
+.h-section H3 {
+	text-align: center;
+	font-size:1em;
+	font-weight:bold;
+}
+
+
+.dragItemRow td {
+    background-color: #eee;
+}
+
+/* drag screw column */
+td.item_ico, td.item_ico_ro {
+    /*background-image: url(/images/bt/screw.gif);*/
+    background-repeat: no-repeat;
+    background-position: 5px 4px;
+    width: 10px;
+    xxx-line-height: 3;
+    padding: 0;
+}
+td.item_ico {
+    cursor: move;
+}
+td.item_img {
+    background-image: url(/images/icons/file.gif);
+}
+td.ajax {
+    background-image: url(/css/images/spinner.gif);
+    background-repeat: no-repeat;
+    background-position: right;
+}
+td.ajax input.groupChk {
+    display: none;
+}
+
+.table-action-bar {
+	margin-bottom:1em;
+}
+.table-action-bar input {
+	margin-right:10px;
+}
+
+
+#copymovee-dialog th, #copymove-dialog td  {
+    padding-bottom:2px;
+}
+#copymove-dialog label {
+    padding-right:10px;
+    cursor:pointer;
+}
+
+
+.autosave-notice {
+	float:right;
+	font-weight:bold;
+}
+
+.autosave-notice.ajax, .ajax.autosave-notice {
+	padding-right:24px;
+}
+
+#package-details DIV.half {
+	float:left;
+	width:50%;
+}
+
+#package-details {
+	overflow:hidden;
+	zoom:1;
+	background:#ddd; 
+}
+
+#tbl_items .item_row .ajax {
+    background-position: center;
+}

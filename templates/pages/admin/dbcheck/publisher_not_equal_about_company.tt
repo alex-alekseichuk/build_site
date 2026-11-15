@@ -1,0 +1,34 @@
+[%- IF user.is_bs_admin -%]
+
+[%-
+	page_title = report_title
+-%]
+
+[% PROCESS 'admin/crumbs.tt'
+	dbcheck = 1
+    dbcheck_report = report_name
+    dbcheck_report_title = report_title
+%]
+
+
+<table class="basic" id="users-list">
+<thead>
+<tr><th>Document</th><th>Publisher</th><th>About Company</th></tr>
+</thead>
+[%- IF items -%]
+    <tbody>
+    [%- FOREACH row = items -%]
+      <tr>
+        <td><a href="[% base_url %][% row.info_fields.url %]" target="_blank">[% row.info_fields.title %]</a></td>
+        <td><a href="[% base_url %][% row.info_fields.publisher_url %]" target="_blank">[% row.info_fields.publisher_title %]</a></td>
+        <td><a href="[% base_url %][% row.bads_fields.about_company_url %]" target="_blank">[% row.bads_fields.about_company_title %]</a></td>
+      </tr>
+    [%- END -%]
+    </tbody>
+[%- END -%]
+</table>
+
+
+[%- ELSE -%]
+	[% PROCESS "admin/account.tt" %]
+[%- END -%]

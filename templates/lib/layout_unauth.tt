@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>[% page_title %]</title>
+
+<!-- Meta Tags -->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="robots" content="index, follow" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="author" content="" />
+
+<!-- CSS -->
+<link rel="stylesheet" href="/css/style.css" media="screen,projection" type="text/css" />
+<link rel="stylesheet" href="/css/login.css" media="screen,projection" type="text/css" />
+[% IF ext && css.size %][% FOREACH s = css %]
+<link rel="stylesheet" type="text/css" href="[% s.url %]" media="[% s.media || "screen" %]" />
+[% END %][% END %]
+<!--[if IE]><link rel="stylesheet" type="text/css" media="all" href="/css/ie.css" /><![endif]-->
+</head>
+<body>
+
+<div class="l-meta">
+	<div class="l-header">
+		<h1 class="logo"><img src="/images/layout/logo.png" alt="BuildSite" /></h1>
+	</div><!--l-header-->
+
+	<div class="l-body">
+	<div class="l-section"><div class="h-section">
+		<div class="b-block">
+
+			[% content %]
+
+		</div><!-- b-block -->
+	</div></div>
+	</div><!--l-body-->
+
+	<div class="l-footer-wrapper">
+	[% INCLUDE "page_footer.tt" %]
+	</div>
+</div><!--l-meta-->
+[% INCLUDE "user_tracking.tt" %]
+</body>
+</html>

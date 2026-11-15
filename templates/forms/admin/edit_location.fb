@@ -1,0 +1,62 @@
+name: edit_location
+method: post
+fields:
+	location_id:
+		type: hidden
+		required: 0
+	account_id:
+		type: hidden
+		required: 1
+	location_nickname:
+		label: Nickname
+		type:  text
+		size:  40
+		required: 1
+		validate: /^[a-z0-9_]+$/
+		jsmessage: - Nickname field requires lowercase_underscore formatting.
+	location_fullname:
+		label: Name
+		type:  text
+		size:  40
+		required: 1
+	location_url:
+		label: URL
+		type:  text
+		size:  40
+		required: 0
+	location_phone:
+		label: Phone
+		type:  text
+		size:  40
+		required: 0
+	location_fax:
+		label: Fax
+		type:  text
+		size:  40
+		required: 0
+	addr_street:
+		label: Street
+		type:  text
+		size:  40
+		required: 0
+	addr_city:
+		label: City
+		type:  text
+		size:  40
+		required: 0
+	addr_region:
+		label: Region
+		type:  text
+		size:  40
+		required: 0
+	addr_postal_code:
+		label: Postcode
+		type:  text
+		size:  40
+		required: 0
+	block_access:
+		label: Location Status
+		type:  select
+		options: Active, Blocked
+		required: 1
+submit: Save

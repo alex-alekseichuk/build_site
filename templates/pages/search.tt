@@ -1,0 +1,116 @@
+[%-
+	USE url;
+	page_title = 'Search';
+
+	show_all_searches = 0;
+	crumb_url = url("/search/", where = FormBuilder.params('where'));
+	crumb_title = "Search";
+
+
+	SWITCH FormBuilder.params('where');
+	CASE 'pname';
+		list_template = 'product/list.tt';
+		crumb_title = 'Product Name Search';
+
+	CASE 'manufacturer';
+		list_template = 'companies/list.tt';
+		crumb_title = 'Manufacturer Search';
+
+	CASE 'astm';
+		list_template = 'product/list.tt';
+		crumb_title = 'ASTM Search';
+
+	CASE 'category';
+		list_template = 'categories/list.tt';
+		crumb_title = 'Product Category Search';
+
+	CASE;
+		show_all_forms = 1;
+		crumb_url = "/search/";
+	END;
+
+	crumb(crumb_title, crumb_url);
+	
+	caption = crumb_title;
+	caption_class = c.req.param('where') == "astm" ? "astm" : "search";
+-%]
+
+[% FormBuilder.template = c.config.home _ '/templates/forms/search.tpl' %]
+
+[%- IF (c.request.param('q') && c.user.settings.list.default_allow_publishers) || (c.request.param('q') && c.user.is_bs_admin) -%]
+	<div style="margin: 10px 0pt;">
+	[% USE tab_url = url('/search/', term = FormBuilder.params('term'), where = FormBuilder.params('where'), q = FormBuilder.params('q')); %]
+	[%- IF c.request.param('mfg_my_all') == 'all' -%]
+		<a href="[% tab_url(mfg_my_all = 'my') %]">My Manufacturers</a> &nbsp;|&nbsp;
+		All Manufacturers
+	[%- ELSE -%]
+		My Manufacturers &nbsp;|&nbsp;
+		<a href="[% tab_url(mfg_my_all = 'all') %]">All Manufacturers</a>
+	[%- END -%]
+	</div>
+[%- END -%]
+
+[%- IF ! FormBuilder.params('q') || ! list.all.size -%]
+	<p align="right"><a href="/search/advanced">Go to Advanced Search</a></p>
+<div>
+	[%- IF show_all_forms || FormBuilder.params('where') == 'pname' -%]
+	<form method="get">
+	[% IF FormBuilder.params('q') && ! list.all.size %]<p>No products matched your search terms.</p>[% END %]
+		<p>Enter a product name, either general (e.g. "concrete") or more specific (e.g. "aqua cure"):
+		<p><input type="hidden" name="where" value="pname" />
+		<input type="text" name="q" size="60" value="[% FormBuilder.params('q') %]" />
+		<input type="submit" value="Search" />
+	[%- IF FormBuilder.params('q') && ! list.all.size -%]
+			<p>You may want to try another <a href="[% url("/search/") %]">search</a>.</p>
+		[%- END -%]
+	</form>
+	[%- END -%]
+
+	[%- IF show_all_forms || FormBuilder.params('where') == 'manufacturer' -%]
+	<form method="get">
+		[% IF FormBuilder.params('q') && ! list.all.size %]<p>No manufacturers matched your search terms.</p>[% END %]
+		<p>Enter a manufacturer's name to see a full list of their products:
+		<p><input type="hidden" name="where" value="manufacturer" />
+		<input type="text" name="q" size="60" value="[% FormBuilder.params('q') %]" />
+		<input type="submit" value="Search" />
+		[%- IF (!show_all_forms || FormBuilder.params('q')) && ! list.all.size -%]
+			<p>You may want to try another <a href="[% url("/search/") %]">search</a> or browse <a href="[% url("/companies/list") %]">all manufacturers</a>.</p>
+		[%- END -%]
+	</form>
+	[%- END -%]
+
+	[%- IF show_all_forms || FormBuilder.params('where') == 'astm' -%]
+	<form>
+	[% IF FormBuilder.params('q') && ! list.all.size %]<p>No products matched your search terms.</p>[% END %]
+		<p>Enter an ASTM standard ID, for example, "C309":
+		<p><input type="hidden" name="where" value="astm" />
+		<input type="text" name="q" size="60" value="[% FormBuilder.params('q') %]" />
+		<input type="submit" value="Search" />
+	[%- IF FormBuilder.params('q') && ! list.all.size -%]
+			<p>You may want to try another <a href="[% url("/search/") %]">search</a>.</p>
+		[%- END -%]
+	</form>
+	[%- END -%]
+
+	[%- IF show_all_forms || FormBuilder.params('where') == 'category' -%]
+	<form>
+	[% IF FormBuilder.params('q') && ! list.all.size %]<p>No categories matched your search terms.</p>[% END %]
+		<p>Enter a product category name, either general (e.g. "insulation") or more specific (e.g. "epoxy grout"):
+		<p><input type="hidden" name="where" value="category" />
+		<input type="text" name="q" size="60" value="[% FormBuilder.params('q') %]" />
+		<input type="submit" value="Search" />
+	[% IF (!show_all_forms || FormBuilder.params('q')) && ! list.all.size %]
+			<p>You may want to try another <a href="[% url("/search/") %]">search</a> or browse <a href="[% url("/categories/list") %]">all categories</a>.</p>
+		[% END %]
+	</form>
+	[%- END -%]
+</div>
+
+[%- ELSE;
+	FormBuilder.render;
+	page_title = 'Search results for \'' _ FormBuilder.params('q') _ '\'';
+-%]
+
+[%- PROCESS $list_template list = list.all; -%]
+
+[%- END -%]

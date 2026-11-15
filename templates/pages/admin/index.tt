@@ -1,0 +1,18 @@
+[%- IF user.is_bs_admin -%]
+[%-
+	page_title = 'Buildsite Administrator'
+-%]
+
+[%- PROCESS 'admin/crumbs.tt'
+	admin_index = 1
+-%]
+
+<ul>
+	<li><a href="/admin/list/accounts/">Accounts</a></li>
+	<li><a href="/settings/list/">Global settings</a></li>
+	<li><a href="/admin/payments/recurring">Recurring Payments</a></li>
+	<li><a href="/admin/dbcheck">Business Rules Validation Reports</a></li>
+</ul>
+[%- ELSE -%]
+	[% PROCESS "admin/account.tt" %]
+[%- END -%]

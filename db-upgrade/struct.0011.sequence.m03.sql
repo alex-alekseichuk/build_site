@@ -1,0 +1,2 @@
+-- create sequence to generate ID for all new objects of the system
+--create sequence main start 100000;

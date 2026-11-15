@@ -1,0 +1,61 @@
+<script type="text/javascript" src="/js/expandable.js"></script>
+<div id="system-package" class="expandable">
+	<h2 class="more"><label>System Package</label></h2>
+
+<div class="content">
+<ul id="system-package" class="expanable">
+[% FOREACH section = system_package -%]
+<li>
+	[% section.title %]
+	<ul class="expandable">
+	[% FOREACH r_product = section.products -%]
+		[% i_product = loop.count %]
+		<li>
+			[%- IF r_product.id -%]
+				<a[% IF c.req.param("ajax") %] target="_blank"[% END %] href="/product/view?id=[% r_product.id %]">[% r_product.name %]</a>
+			[%- ELSE -%]
+				[%- r_product.name -%]
+			[%- END -%]
+
+			<ul	[% IF r_product.secondary_docs && r_product.secondary_docs.size > 0 %]class="sp-secondary"[% END %]>
+			[% FOREACH doc = r_product.primary_docs %]
+				<li>
+					<span class="checkbox-wrapper"><input class="document groupChk" name="chkItem" value="[% doc.document_id %]" type="checkbox"></span>
+					[% PROCESS 'inc/document_link.tt' document = doc %] ([% doc.derived_filesize | file_size %][% IF doc.derived_pagecount %], [% doc.derived_pagecount %]pg[% END %])
+				</li>
+			[% END %]
+			[% IF r_product.secondary_docs && r_product.secondary_docs.size > 0 %]
+				<li class="more expandable"><label>(click to see [% r_product.secondary_docs.size + r_product.category_docs.size %] more documents)</label>
+				<div class="content">
+				<ul>
+				[% FOREACH doc = r_product.secondary_docs %]
+					<li>
+						<span class="checkbox-wrapper"><input class="document groupChk" name="chkItem" value="[% doc.document_id %]" type="checkbox"></span>
+						[% PROCESS 'inc/document_link.tt' document = doc %] ([% doc.derived_filesize | file_size %][% IF doc.derived_pagecount %], [% doc.derived_pagecount %]pg[% END %])
+					</li>
+				[% END -%]
+				</ul>
+
+				<h3>[% r_product.category_docs.size %] related category documents for "[%- r_product.name -%]" below here</h3>
+				<ul>
+				[% IF r_product.category_docs && r_product.category_docs.size > 0 %]
+					[% FOREACH doc = r_product.category_docs %]
+						<li>
+							<span class="checkbox-wrapper"><input class="document groupChk" name="chkItem" value="[% doc.document_id %]" type="checkbox"></span>
+							[% PROCESS 'inc/document_link.tt' document = doc %] ([% doc.derived_filesize | file_size %][% IF doc.derived_pagecount %], [% doc.derived_pagecount %]pg[% END %])
+						</li>
+					[% END -%]
+				[% END %]
+				</ul>
+			[% END %]
+			</ul>
+		</li>
+	[% END %]
+	</ul>
+</li>
+[% END %]
+</ul>
+</div>
+</div>
+
+<!-- TODO: li.content has no list-style-image after it was shown -->

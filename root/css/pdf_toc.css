@@ -1,0 +1,166 @@
+
+
+body {
+    background: white;
+    font:8pt Arial, sans-serif;
+    }
+/* Links
+----------------------------------------------- */
+a {
+    color:black;
+    text-decoration:none;
+    }
+a img {
+    border-width:0;
+    }
+
+/* Headings
+----------------------------------------------- */
+h1, h2, h3 {
+    margin:.6em 0 0 0;
+    font-weight:normal;
+    clear:both;
+    }
+    h1 {
+        margin-top:.5em;
+        font-size:180%;
+        }
+    h2 {
+        font-size:240%;
+        margin:.3em 0 0 0;
+        padding-bottom:0;
+        }
+    h3 {
+        font-size:150%;
+        margin-bottom:0;
+        }
+p{
+    margin:0 0 .6em 0;
+    }
+blockquote{
+    font-style:italic;
+    }
+h3+blockquote, h2+blockquote, p+ul, h2+ul, h3+ul{
+    margin-top:.2em;
+    }
+
+
+/* Blocks
+----------------------------------------------- */
+
+.b-customer-header {
+    padding:10px 16px;
+    /*border:1px solid #666;*/
+    margin-bottom:20px;
+    }
+
+#customer-logo {
+    text-align: center;
+    }
+
+.l-header {
+    margin:0 3em 3em 3em;
+    }
+
+.l-header h1 {
+    text-align: left;
+    font-size:1.3em;
+    margin:1em 0 2em;
+    font-weight:bold;
+    }
+
+.l-header th,
+.l-header td {
+    vertical-align:top;
+    }
+
+.l-header th {
+    text-align:left;
+    padding:0 15px 0 0;
+    height:1.5em;
+    }
+    
+
+
+table.t-data {
+    width:100%;
+    margin:0 0 20px;
+    }
+
+.t-data tr,
+.t-data th,
+.t-data td {
+    padding:.5em 1em;
+    text-align:left;
+    vertical-align:top;
+    border-bottom:.1pt solid #666;
+    }
+
+.t-data td {
+    font-size:85%;
+    }
+    
+
+@media screen {
+    #header {
+        display: none;
+    }
+
+    #footer {
+        display: none;
+    }
+}
+
+@media print {
+
+    #header {
+        display: block;
+        position: running(header);
+    }
+    #footer {
+        display: block;
+        position: running(footer);
+    }
+
+    #pagenumber:before {
+        content: counter(page);
+    }
+
+    #pagecount:before {
+        content: counter(pages);
+    }
+
+}
+
+
+@page {
+    size: A4;
+    margin: .8in .2in .8in .2in;
+
+    @top-left {
+        content: element(header);
+    }
+
+    @bottom-left {
+        content: element(footer);
+    }
+    @bottom-right {
+		font-size: 10pt;
+        content: "Page " counter(page) " of " counter(pages);
+    }
+}
+
+
+@page :first {
+    margin-top: .3in;
+    @top-left {
+        content : "";
+    }
+    @bottom-left {
+        content: element(footer);
+    }
+    @bottom-right {
+		font-size: 10pt;
+        content: "Page " counter(page) " of " counter(pages);
+    }
+}

@@ -1,0 +1,38 @@
+[%-
+   page_title = 'Accounts';
+-%]
+[%
+	USE url;
+	USE pageurl = url('/' _ c.req.path);
+%]
+[% PROCESS 'admin/crumbs.tt'
+	accounts = 1
+%]
+
+<p><a href="/admin/account/">Create an account</a></p>
+
+<table class="basic tablesorter" id="accounts-list">
+<thead>
+<tr>
+	<th class="sorter"><a href="[% pageurl(order = order == 'account asc' ? 'account desc' : 'account asc') %]">Account</a></th>
+	<th class="sorter">Type</th>
+	<th class="sorter">Address</th>
+	<th class="sorter">Phone/fax</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH row = items -%]
+<tr>
+    <td><a href="/admin/account/?account_id=[% row.account_id %]">[% row.company ? row.company.name : row.account_id %]</a></td>
+    <td>[% row.account_type %]</td>
+    [% IF row.company %]
+        <td>[% row.company.addr_street %]<br />[% row.company.addr_city %][% IF row.company.addr_region %], [% row.company.addr_region %][% ELSE %][% END %] [% row.company.addr_postal_code %]</td>
+        <td>[% IF row.company.location_phone %][% row.company.location_phone %] (ph)[% END %]<br />
+        [% IF row.company.location_fax %][% row.company.location_fax %] (fax)[% END %]</td>
+    [% ELSE %]
+        <td colspan="2"></td>
+    [% END %]
+</tr>
+[%- END -%]
+</tbody>
+</table>

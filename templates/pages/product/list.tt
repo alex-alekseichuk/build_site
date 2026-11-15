@@ -1,0 +1,45 @@
+[%-
+	USE url;
+	page_title = 'List Products' UNLESS leedcredit;
+
+	PROCESS "inc/manufacturer_crumb.tt" IF manufacturer;
+	PROCESS "inc/category_crumb.tt" IF category;
+	crumb('Product List') UNLESS leedcredit;
+
+	is_pname = c.req.param('where') == 'pname' && !advanced ? 1 : 0;
+	is_astm  = c.req.param('where') == 'astm' || astm ? 1 : 0;
+	is_manufacturer = c.req.param('where') == 'manufacturer' && !advanced || manufacturer ? 1 : 0;
+	is_category = c.req.param('category') && !advanced ? 1 : 0;
+
+	caption = "Browse Products" UNLESS leedcredit;
+	caption_class = c.req.param('where') == 'astm' || astm ? "astm" : "product" UNLESS leedcredit;
+-%]
+
+<!--p><strong>Product list by [% FormBuilder.params('manufacturer') || FormBuilder.params('category') %]<strong><br/>[% list.count %] products total.</p-->
+
+[%# need no to show ASTM column when astm search has no results, and
+we search in product_name  -%]
+
+[%- IF show_keywords -%]
+    <p>Searched Products for: [%- show_keywords -%]</p>
+[%- END -%]
+
+[%- IF has_and_search -%]
+    <p><a href="#" onclick="$.bs.search_term('and')">[% has_and_search %] [% has_or_search == 1 ? "Product" : "Products" %] matching ALL search terms</a></p>
+[%- END -%]
+[%- IF has_or_search -%]
+    <p><a href="#" onclick="$.bs.search_term('or')">
+    [%- IF has_or_search > 250 -%]
+        Over 250 products matching at least one search term
+    [%- ELSE -%]
+        [% has_or_search %] [% has_or_search == 1 ? "Product" : "Products" %] matching at least one search term
+    [%- END -%]
+    </a></p>
+[%- END -%]
+
+[% USE cache = BSACache(c.bst_config('html_cache')) %]
+[% cache.inc(
+  template => "product/list.table.tt",
+  key      => c.cache_key
+) %]
+

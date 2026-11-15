@@ -1,0 +1,36 @@
+[%- IF user.is_bs_admin -%]
+
+[%-
+	page_title = 'Business Rules Validation Reports'
+-%]
+
+[% PROCESS 'admin/crumbs.tt'
+	dbcheck = 1
+%]
+
+<ul>
+    <li>
+        <a href="/admin/dbcheck/summary">Summary</a>
+    </li>
+
+[%- FOREACH type_name = reports.keys -%]
+    <li>
+        [% type_name %]
+        <ul>
+        [%- reports_list = reports.$type_name.reports -%]
+        [%- FOREACH report_name = reports_list.keys -%]
+            <li>
+                <a href="/admin/dbcheck/[% report_name %]">[% reports_list.$report_name.title %]</a>
+                [%- IF report_counts.$report_name -%]
+                    ([%- report_counts.$report_name.n -%])
+                [%- END -%]
+            </li>
+        [%- END -%]
+        </ul>
+    </li>
+[%- END -%]
+</ul>
+
+[%- ELSE -%]
+	[% PROCESS "admin/account.tt" %]
+[%- END -%]

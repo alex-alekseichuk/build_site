@@ -1,0 +1,1 @@
+ALTER TABLE account ADD COLUMN customer_order_id int DEFAULT null;

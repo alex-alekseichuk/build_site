@@ -1,0 +1,16 @@
+[%-
+	USE url;
+	page_title = obj.get_column('leed_area_id') _ ' ' _ obj.leed_section_name;
+	caption = page_title;
+	caption_class = 'green';
+	crumb('LEED Credit Browse', '/leed-credits/list');
+	crumb(page_title);
+-%]
+
+<h2>[% obj.leed_area_id.leed_area_title %] - [% obj.leed_section_name %] : [% obj.leed_title %] </h2>
+[% obj.buildsite_description_html %]
+
+<p style="font-style:italic;">For more information on this and other LEED credits, visit U.S. Green Building Council <a href="http://www.usgbc.org/leed" target="_blank">website</a>.</p>
+
+[% products = obj.products.get_product_attributes(obj.attributes) %]
+[%- PROCESS 'product/list.tt' list = products leedcredit = 1 attributes = obj.attributes IF products -%]

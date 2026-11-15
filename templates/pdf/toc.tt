@@ -1,0 +1,132 @@
+[% UNLESS ext -%]
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="[% url_css %]" title="Style" media="[% css_media %]" />
+</head>
+<body>
+[% END %]
+[%- #IF url_logo_small || package.package_toc_data.meta.project -%]
+<div id="header">
+    [%- IF url_logo_small %]<img src="[% url_logo_small %]" style="vertical-align: middle;" />[% END -%]
+    [%- IF package.package_toc_data.meta.project %]<span style="margin-left: 2em;"><strong>Project:</strong> [% package.package_toc_data.meta.project | html %]</span>[% END -%]
+</div>
+[%- #END -%]
+[%- IF url_logo -%]
+<div class="b-customer-header">
+    <div id='customer-logo'>
+        <img src="[% url_logo %]" />
+    </div>
+    <div style="clear:both;" />
+</div>
+[%- END -%]
+<div class="l-header[% IF ext %]2[% END %]">
+    <h1 style="width:100%;text-align:center;">[% package.package_toc_data.meta.title | html %]</h1>
+   [%
+      i = 0;
+   %]
+    <table class="meta" style="width:100%" cellspacing="1" cellpadding="1">
+        [% FOREACH field = type_column1 %]
+        [%- field2 = type_column2.shift -%]
+        [%- IF field.name != 'title' && field.name != 'footer_comment' && (field.required || package.package_toc_data.meta.${field.name}) -%]
+        <tr>
+            <th style="width:20%">[% field.label %]:</th>
+            <td style="width:30%">[%- IF field.type == 'select' -%]
+                    [% field.options.${package.package_toc_data.meta.${field.name}} | html %]
+                [%- ELSE -%]
+                    [% package.package_toc_data.meta.${field.name} | html %]
+                [%- END -%]
+            </td>
+            [% IF field2 %]
+            <th style="width:20%" class="col2">[% field2.label %]:</th>
+            <td style="width:30%">[%- IF field2.type == 'select' -%]
+                    [% field2.options.${package.package_toc_data.meta.${field2.name}} | html %]
+                [%- ELSE -%]
+                    [% package.package_toc_data.meta.${field2.name} | html %]
+                [%- END -%]
+            </td>
+            [% END %]
+        </tr>
+        [%- END -%]
+        [% i = i + 1 %]
+        [%- END -%]
+    </table>
+</div>
+
+<table class="t-data" cellspacing="0" cellpadding="0">
+<thead>
+<tr>
+    [%- FOREACH column = table_columns -%]
+        [%- IF column.type == 'text' || column.name == 'product_submitted' || column.name == 'items' -%]
+            <th>[% column.coverpage_label || column.label | html %]</th>
+        [%- END -%]
+    [%- END -%]
+</tr>
+</thead>
+<tbody>
+[%- FOREACH row = package.package_toc_data.table -%]
+    <tr>
+        [%- FOREACH column = table_columns -%]
+            [%- IF column.type == 'text'  -%]
+                <td>[% IF row.${column.name}; row.${column.name} | html; ELSE; "&nbsp;"; END;%]</td>
+            [%- ELSIF column.name == 'product_submitted' -%]
+                <td>
+                    [%- IF NOT row.product_submitted_id  -%]
+                        [% IF row.${column.name}; row.${column.name} | html; ELSE; "&nbsp;"; END; %]
+                    [%- ELSE -%]
+                        [% IF ext %]<a target="_blank" href="http://free.buildsite.com/query/detail/product/[%row.product_submitted_id%]"><img class="ico" alt="" src="/images/icons/products.gif" /></a>
+                            <a target="_blank" href="http://free.buildsite.com/query/detail/product/[%row.product_submitted_id%]">[% row.${column.name} | html %]</a>
+                        [% ELSE %]
+                            [% row.${column.name} | html %]
+                        [% END %]
+                    [%- END -%]
+                </td>
+            [%- ELSIF column.name == 'items' -%]
+                <td>
+                    [% IF row.items.size %]
+                    [%- FOREACH item = row.items -%]
+                        [% IF ext %]<a target="_blank" href="[% IF item.type == 'file' %]/ext/file/[% c.req.args.0 %]/[% item.id %]/[% ELSE %][% item.download_url %][% END %]"><img class="ico" alt="" src="/images/icons/[% item.type %].gif" /></a>
+                        <a target="_blank" href="[% IF item.type == 'file' %]/ext/file/[% c.req.args.0 %]/[% item.id %]/[% ELSE %][% item.download_url %][% END %]">[% END %]
+                            [%- IF row.product_submitted_id && item.shorttitle && item.is_product_document && item.product_id == row.product_submitted_id -%]
+                                [%- item.shorttitle | html %]
+                            [%- ELSE  -%]
+                                [%- item.title | html %]
+                            [%- END -%]
+                            [%- IF item.page_count > 0 || item.file_size > 0 -%]
+                                (
+                                    [%- IF item.page_count > 0 -%]
+                                        [%- item.page_count -%] pg
+                                    [%- END -%]
+                                    [%- IF item.page_count > 0 && item.file_size > 0 -%], [%- END -%]
+                                    [%- IF item.file_size > 0 -%]
+                                        [%- item.file_size -%] kB[%- END -%])
+                            [%- END -%]
+                        [% IF ext %]</a>[% END %]
+                        <br />
+                    [%- END -%]
+                    [% ELSE %]
+                        &nbsp;
+                    [% END %]
+                </td>
+            [%- END -%]
+        [%- END -%]
+    </tr>
+[%- END -%]
+</tbody>
+</table>
+
+<div id='notes'>
+    <p>[% package.package_toc_data.meta.footer_comment %]</p>
+</div>
+
+<div id="footer">
+    <img src="[%  url_bst_logo || "/images/logos/logo.gif" %]" />
+</div>
+[% UNLESS ext %]
+</body>
+</html>
+[% END %]

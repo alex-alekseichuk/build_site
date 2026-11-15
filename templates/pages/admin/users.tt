@@ -1,0 +1,36 @@
+[%
+	page_title = 'Users';
+
+	USE url;
+	USE pageurl = url('/' _ c.req.path, account_id => path.account_id);
+
+	PROCESS 'admin/crumbs.tt' users = 1; 
+	caption = "Users";
+
+	caption_class = "preferences";
+%]
+
+
+<p><a href="/admin/edit/user[% IF c.user.is_bs_admin %]?account_id=[% path.account_id %][% END %]">Add new user</a></p>
+
+<p><span class="deny">*</span> Indicates listed user is blocked from accessing BuildSite.</p>
+
+<table class="basic" id="users-list">
+<thead>
+<tr><th class="sorter"><a href="[% pageurl(order = order == 'login_id asc' ? 'login_id desc' : 'login_id asc') %]">Username</a></th><th class="sorter">Firstname</th><th class="sorter">Lastname</th><th class="sorter">Email</th><th class="sorter">Role</th><th>Settings</th></tr>
+</thead>
+[%- IF items -%]
+    <tbody>
+    [%- FOREACH row = items.all -%]
+      <tr [% IF row.user_role == 'admin' %]class="important"[% END %]>
+        <td><a href="/admin/edit/user?user_id=[% row.user_id %]">[% row.login_id%]</a>[%- IF row.block_access -%]<font color="red">*</font>[%- END -%]</td>
+        <td>[% row.given_name %]</td>
+        <td>[% row.family_name %]</td>
+        <td>[% row.email_address %]</td>
+        <td>[%- IF row.user_role == 'admin'-%]Admin[%- ELSE -%]Normal[%- END -%]</td>
+        <td><a href="/settings/list/?scope=[% SCOPE_USER %]&scope_value=[% row.user_id %]">Settings</a></td>
+      </tr>
+    [%- END -%]
+    </tbody>
+[%- END -%]
+</table>

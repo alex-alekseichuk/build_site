@@ -1,0 +1,25 @@
+name: file_upload
+method: post
+enctype: multipart/form-data
+fields:
+  title:
+    label: File Title
+    type:  text
+    size:  60
+    required: 1
+  comment:
+    label: Description
+    type:  text
+    size:  60
+    required: 0
+  pid:
+  	label: Level / Folder
+    type: hidden
+    required: 0
+    selectname: 0
+  file:
+    label: File To Upload
+    type: file
+    required: 1
+
+submit: Upload

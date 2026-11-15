@@ -1,0 +1,22 @@
+[% a_titles = [] %]
+[%
+	a_titles.push(document.document_id) IF c.user.is_bs_admin;
+	a_titles.push("suppress_reason_code = " _ document.suppress_reason_code) IF c.user.is_bs_admin && document.suppress_reason_code;
+	a_titles.push("Suppress this from the end user app, for reason explained in notes (do not abuse - each will be reported in check report)") IF document.check_flags.match("suppress");
+	a_titles.push("There is an issue which should cause a report warning (explained in notes).") IF document.check_flags.match("issue");
+	a_titles.push("There is no title for this document; make one up using doc_type") IF document.check_flags.match("no_title");
+	a_titles.push("Despite errors, assume the image html is ok") IF document.check_flags.match("html_ok");
+	a_titles.push("The html is bad in the document (say missing a gif)") IF document.check_flags.match("bad_html_image_file");
+	a_titles.push("Despite automatic checking, just treat the image pdf as uncorrupted") IF document.check_flags.match("pdfok");
+	a_titles.push("The original file is no good, and we should not make an automatic derived file from it") IF document.check_flags.match("bad_pdf_image_file");
+	a_titles.push("We have confirmed with the publisher that this is a discontinued document") IF document.check_flags.match("disc_doc");
+	a_titles.push("We are awaiting confirmation from the publisher that this is a discontinued document") IF document.check_flags.match("disc_doc_waiting");
+	a_titles.push("This product document is shared by multiple products") IF document.check_flags.match("multiple_product_ok");
+	a_titles.push("Do not complain about this being unmapped; it is known there is no electronic version available from publisher") IF document.check_flags.match("noelectronic");
+%]
+<a target="_blank" class="document[% IF c.user.is_bs_admin %] tooltip[% END %]" href="[% document.download_url %]"[% IF a_titles.size %] title="[% a_titles.join(" / ") %]"[% END %]><img src="/images/icons/document.gif" alt="" />
+[% document.title(1) %]</a>
+[% IF c.user.is_bs_admin && document.get_column("replaced_by_document_id") && document.suppress_reason_code %](replaced with [% document.get_column("replaced_by_document_id") %], suppress reason: [% document.suppress_reason_code %])
+[% ELSIF document.get_column("replaced_by_document_id") && c.user.is_bs_admin %](replaced with [% document.get_column("replaced_by_document_id") %])
+[% ELSIF c.user.is_bs_admin && document.suppress_reason_code %]<span class="reason">(suppress reason: [% document.suppress_reason_code %])</span>
+[% END %]

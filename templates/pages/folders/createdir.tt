@@ -1,0 +1,6 @@
+[% PROCESS 'folders/crumbs.tt'
+	action = "Creating new folder"
+	caption = "Create Folder";
+	caption_class = "folder";
+%]
+[% FormBuilder.render %]

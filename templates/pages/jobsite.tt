@@ -1,0 +1,25 @@
+[%
+	crumb('Jobsite MSDS');
+	page_title = "Jobsite MSDS document listing";
+
+	caption = "Jobsite MSDS";
+	caption_class = "msds";
+%]
+
+<p>This section lists the most popular fuels, lubricants, and other items used in equipment or by workers on a job site. These material safety data sheets can be easily added to the required job site MSDS book.</p>
+
+[%- FOREACH group = groups -%]
+<table class="basic">
+<tr>
+  <th>[% group.name %]</th>
+  <th class="col-pkg-chk">Pkg+</th>
+</tr>
+[% FOREACH i = group.msds_documents -%]
+[% doc = i.document_id.replaced_by_document_id ? i.document_id.replacement : i.document_id %]
+<tr[% IF doc.has_suppress_flag %] class="suppress"[% END %][% IF i.suppress_reason_code == 'afterqa' %] class="afterqa"[% END %]>
+	<td>[% PROCESS 'inc/document_link_msds.tt' document = doc %] ([%IF doc.derived_filesize %][% doc.derived_filesize | file_size %][% END %], [% doc.derived_pagecount %]pg)</td>
+	<td><input type="checkbox" class="document groupChk" name="chkItem" value="[% doc.document_id %]" /></td>
+</tr>
+[% END %]
+</table>
+[%- END -%]

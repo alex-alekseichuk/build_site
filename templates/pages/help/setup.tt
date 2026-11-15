@@ -1,0 +1,58 @@
+[%- PROCESS "help/header.tt" caption = 'Installation and Setup Guide' -%]
+
+<div id="help-contents">
+
+<p>To use BuildSite, you should have a screen size of at least 1024x768 pixels. If you do not have these, please view the Optimization section for suggestions on how to improve your BuildSite usage.</p>
+
+<ul class="li-pad">
+	<li><b>Print this page (optional).</b><br />
+		Click on the printer icon located on the browser toolbar. Following the instructions on the print-out may improve reading and instruction clarity.
+	</li>
+
+	<li><b>Set Internet Explorer to check for newer versions of stored pages.</b><br />
+		In Internet Explorer, under the Tools menu, select Internet Options. On the General Tab, in the Browsing History section, click on Settings (located in the middle of the dialog box).<br />In the Settings dialog box, select "Every time I visit the webpage".
+	</li>
+	<li><b>Increase the amount of disk space to use for temporary internet files (optional).</b><br />
+		In the Settings dialog box from the previous step, move the slider to the right until you reach your desired MB value.<br/>We suggest that the minimum value be 250 MB. If you have a large amount of <a>free disk space</a> on your computer, we suggest that you increase this value.<br/>Click OK repeatedly until all dialog boxes disappear.
+	</li>
+</ul>
+
+<p style="margin-top:2em;">In addition to the above settings, you must have this software installed: </p>
+<ul class="nopad">
+	<li><a href="http://get.adobe.com/reader/">Adobe Reader</a>, version 7 or newer.  Version 9 is recommended.</li>
+	<li><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx">Internet Explorer</a>, version 6 or newer.  Version 7 is <i>highly</i> recommended.  Firefox is not officially supported at this point, as the print center software runs only on IE.</li>
+	<li><a href=">http://www.microsoft.com/downloads/details.aspx?familyid=95E24C87-8732-48D5-8689-AB826E7B8FDF&displaylang=en">Microsoft Word</a> viewer (if you do not have Microsoft Word)</li>
+</ul>
+
+<h2>Optimization</h2>
+<ul class="li-pad">
+	<li>
+		<b>If you are using Internet Explorer 8.0 or higher and your search bar or other elements are not displaying correctly:</b><br />
+		Click on the Compatibility View button next to your address bar:<br />
+		<img src="/images/misc/help/compatibility.jpg" alt="Compatibility button" />
+	<li>
+		<b>If you glance at the pdfs more often than you read them:</b>
+		<ol style="margin-bottom:0px;">
+			<li>In Acrobat, under the File menu, select Preferences, then General.</li>
+			<li>In the Default Zoom field (located in the middle of the dialog box), select "Fit in Window".</li>
+			<li>Select OK.</li>
+		</ol>
+		This will speed up scrolling through pdfs.
+	</li>
+	<li>
+		<b>If you view the same pdfs repeatedly:</b>
+		<ol>
+			<li>In Internet Explorer, under the Tools menu, select Internet Options.</li>
+			<li>On the General Tab, click on Settings (located in the middle of the dialog box).</li>
+			<li>In the Settings dialog box, in the Browsing History section, select "automatically".</li>
+		</ol>
+		Note: Although this will speed up the time for you to view the same pdfs repeatedly, it will not show you the latest versions of pdfs unless you periodically restart Internet Explorer. We suggest that you restart Internet Explorer at least biweekly to ensure that you view the latest pdfs.
+	</li>
+	<li>
+		<b>If the application does not fit on your screen:</b><br />
+		The application assumes that your computer display has at least 1024x768 resolution, and shows at least 16-bit (65000) colors.<br />
+		You can control the resolution and colors using Start/Control Panel/Display/Settings.
+	</li>
+</ul>
+
+</div>

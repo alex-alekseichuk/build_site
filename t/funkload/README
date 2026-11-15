@@ -1,0 +1,6 @@
+a simple way to execute a test:
+
+$ perl t/funkload/run-test.pl t/funkload/test_01_basic_browsing.py -u http://crunch.ahinea.com:3005 --simple-fetch -v
+
+this creates a temporary directory and runs the test(s) from within that directory.
+

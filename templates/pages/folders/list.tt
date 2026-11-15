@@ -1,0 +1,120 @@
+[%-
+	USE url;
+	PROCESS 'inc/unix_time.tt';
+	page_title = 'Packages & Files' _ add_title;
+	
+	caption = "All Files";
+	IF folder;
+	    caption = folder.file_title;
+	ELSE;
+	    SWITCH (c.req.params.scope);
+		CASE SCOPE_ACCOUNT;
+		    caption = "Company Files";
+		CASE SCOPE_LOCATION;
+		    caption = "Location Files";
+		CASE SCOPE_USER;
+		    caption = "Personal Files";
+		CASE;
+		    caption = "All Files";
+	    END;
+	END;
+	caption_class = "folder";
+-%]
+<script type="text/javascript" src="/js/folders.list.js"></script>
+
+[% PROCESS 'folders/crumbs.tt' %]
+
+[% 
+	can_write = c.user.is_bs_admin ? 1 : 0;
+	IF folder && folder.can_write(c.user);
+		can_write = 1;
+	ELSIF c.req.params.scope == SCOPE_ACCOUNT && c.user.is_account_admin;
+		can_write = 1;
+	ELSIF !folder && c.req.params.scope != SCOPE_ACCOUNT;
+		can_write = 1;
+	END 
+%]
+
+[% IF can_write %]
+<div id="action-bar">
+	<input type="button" id="action-upload" value="Upload file" alt="[% url('/folders/upload', scope = c.req.params.scope, pid = c.req.params.id) %]" />
+	<input type="button" id="action-mkdir" value="Create new folder" alt="[% url('/folders/mkdir', scope = c.req.params.scope, file_id = c.req.params.id) %]" />
+	[% IF folder %]<input type="button" id="action-delete" value="Delete folder" alt="[% url('/folders/delete', scope = c.req.params.scope, file_id = c.req.params.id) %]" />[% END %]
+</div>
+[% END %]
+
+[% IF c.req.param('success') %]
+    [% IF c.req.params.success == 'remove' %]
+    <p class="notice">File deleted.</p>
+    [% ELSE %]
+    <p>File was successfully uploaded</p>
+    [% END %]
+[% END %]
+
+<p>Items: [% folder_items.size %]</p>
+
+[% IF folder && folder.file_id && folder_items.count == 0 && folder.can_write(c.user) %]
+<form method="post" action="/folders/delete">
+    <input type="hidden" name="file_id" value="[% folder.file_id %]" />
+    <input type="submit" class="button" value="Delete folder" />
+</form>
+<br />
+
+[% END %]
+
+<form id="frmFolder" action="list" method="get">
+<input type="hidden" name="id" value="[% folder.file_id %]" />
+<input type="hidden" name="scope" value="[% scope %]" />
+
+
+<table class="basic tablesorter" id="folders-list">
+<thead>
+<tr>
+    <th class="col-ico"></th>
+    <th class="sorter">Title</th>
+    <th class="sorter">Creator</th>
+    <th class="sorter">Size</th>
+    <th>Edit</th>
+    <th class="col-pkg-chk">Pkg+</th>
+</tr>
+</thead>
+<tbody>
+
+[%- FOREACH fi = folder_items;
+    last_mod = "last modified at "_ unix_time(time=fi.file_mtime);
+
+-%]
+[%- IF fi.file_class == "folder" -%]
+<tr class="folder">
+    <td><a href="?id=[% fi.file_id %]"><img src="/images/icons/folder.gif" alt="Folder" /></a></td>
+    <td class="folder"><a class='fileitem' href="?id=[% fi.file_id %]">[% fi.file_title %]</a></td>
+    <td class="folder">[% fi.creator_user.login_id %]</td>
+    <td class="filesize"></td>
+    <td><a href="[% url('/folders/edit', file_id = fi.file_id) %]">edit</a></td>
+    <td>&nbsp;</td>
+</tr>
+[%- ELSIF fi.file_class == "file" -%]
+<tr class="file">
+    <td><a href="[% url('/folders/download', file_id = fi.id) %]"><img src="/images/icons/file.gif" alt="File" /></a></td>
+    <td class="file"><a title="[% last_mod %]" class='fileitem'  href="[% url('/folders/download', file_id = fi.id) %]" target="_blank">[% fi.file_title %]</a>[% ' - ' _ fi.file_comment IF fi.file_comment %]</td>
+    <td class="file">[% fi.creator_user.login_id %]</td>
+    <td class="filesize">[% (fi.file_size || 0) | file_size %][% IF fi.page_count %], [% fi.page_count FILTER format ("%d") %] pg [% END %]</td>
+    <td><a href="[% url('/folders/edit', file_id = fi.file_id) %]">edit</a></td>
+    <td><input type="checkbox" name="chkItem" class="file groupChk" value="[% fi.file_id %]" /></td>
+</tr>
+[%- ELSIF fi.file_class == "archive" -%]
+<tr class="archive">
+    <td><a href="[% url('/folders/edit', file_id = fi.file_id) %]" ><img src="/images/icons/package.gif" alt="Package" /></a></td>
+    <td class="archive" title="[% last_mod %]" ><a class='fileitem' href="[% url('/folders/edit', file_id = fi.file_id) %]">[% fi.file_title %]</a>[% ' - ' _ fi.file_comment IF fi.file_comment %]</td>
+    <td class="archive">[% fi.creator_user.login_id %]</td>
+    <td class="filesize"></td>
+    <td><a href="[% url('/folders/edit', file_id = fi.file_id) %]">edit</a></td>
+    <td><input type="checkbox" name="chkItem" class="pkg groupChk" value="[% fi.file_id %]" /></td>
+</tr>
+[%- END -%]
+
+[%- END -%]
+</tbody>
+</table>
+
+</form>

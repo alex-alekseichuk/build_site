@@ -1,0 +1,12 @@
+name: edit_account
+method: post
+javascript: 1
+fields:
+	account_id:
+		type: text
+		label: Account Id
+		size:  40
+		required: 1
+		validate: /^[a-z0-9_]+$/
+		jsmessage: - account_id field requires lowercase_underscore formatting.
+submit: Save

@@ -1,0 +1,9 @@
+name: categories_view
+javascript: 0
+method: get
+fields:
+  manufacturer:
+    type: hidden
+    required: 0
+
+submit:  Submit

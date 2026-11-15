@@ -1,0 +1,15 @@
+[%- 
+    company_title = item.id ? item.company_fullname : 'New';
+    page_title = 'Edit contact - ' _ company_title;
+    USE url;
+    pageurl = url('/' _ c.req.path, c.req.params);
+
+    crumb("Messages", "/messages/");
+    crumb("Companies", "/contacts/company/list");
+    crumb(company_title);
+
+    caption = "Addressbook Company Details";
+    caption_class = "company";
+-%]
+[% IF c.req.param('action') %]<p class="notice">[% IF c.req.param('action') == 'update'%]Company successfully updated.[% ELSIF c.req.param('action') == 'new' %]Company successfully added.[% END %]</p>[% END %]
+<div class="t-basic t-vert">[% FormBuilder.render %]</div>

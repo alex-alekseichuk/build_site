@@ -1,0 +1,25 @@
+<div class="b-company">
+	[%- IF obj.company_logo_file -%]
+	<div class="logo"><img src="[% 'http://buildsite.com/companyfiles/' _ obj.id  _ '/logo_files/' _ obj.company_logo_file %]" /></div>
+	[%- END -%]
+	<div class="desc">
+		<h2>[% obj.legal_name %]</h2>
+		<ul class="details">
+			<li>[% obj.addr_street %]</li>
+			<li>[% obj.addr_city %], [% obj.addr_region %] [% obj.addr_postal_code %]</li>
+			[% IF obj.country %]<li>[% obj.country %]</li>[% END %]
+			<li>Phone: [% obj.location_phone %]</li>
+			<li>Fax: [% obj.location_fax %]</li>
+			<li>Website: <a target="_blank" href="[% url(obj.company_url) %]">[% obj.company_url.replace('^https?://', '') %]</a></li>
+		</ul>
+
+		[% IF obj.products.size %]
+		<div class="relative-links">
+			<p class="box"><a href="[% url('/product/list', manufacturer = obj.id) %]">Browse [% obj.name %]'s Products <img src="/images/icons/products.gif" alt="" /></a></p>
+			<p class="box"><a href="[% url('/categories/list', manufacturer = obj.id) %]">Browse [% obj.name %]'s Categories <img src="/images/icons/categories.gif" alt="" /></a></p>
+		</div>
+		[% END %]
+	</div><!--desc-->
+</div><!--b-company-->
+[% PROCESS 'inc/company_documents.tt' list = obj.documents %]
+[% PROCESS 'inc/category_documents.tt' list = obj.category_documents %]

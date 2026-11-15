@@ -1,0 +1,8 @@
+[%
+	crumb("DBEdit", "/dbedit");
+	crumb(name, "/dbedit/" _ name _ "/list");
+	crumb(pkvalue);
+%]
+[% IF updated %]<p class="notice">DB record updated!</p>[% END %]
+[% IF errortext %]<p class="notice">[% errortext %]</p>[% END %]
+[%- FormBuilder.render -%]

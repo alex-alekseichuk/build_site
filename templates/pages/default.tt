@@ -1,0 +1,37 @@
+[%-
+	USE url;
+	page_title = "BuildSite Home";
+	no_sidebar = 1;
+	custom_css = "welcome";
+-%]
+<!--[if IE 6]>
+<script src="/js/jquery.ifixpng.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.l-col h2').ifixpng();
+});
+</script>
+<![endif]-->
+
+<h1>Welcome to the New BuildSite!</h1>
+<div class="b-wrap">
+	<div class="r-col">
+		<!--[if IE]><![if gte IE 7]><![endif]-->
+		<img src="/images/misc/welcome/screenshot.png" alt="" width="474" height="484" />
+		<!--[if IE]><![endif]><![endif]-->
+		<!--[if lt IE 7]>
+		<img src="/images/misc/welcome/screenshot.ie6.gif" alt="" width="474" height="484" />
+		<![endif]-->
+		<h3>New BuildSite Submittal Template</h3>
+		<p><a href="/jspackage/blank?type=submittal">Create an Electronic&nbsp;Submittal</a>&nbsp;| <a href="/search">Start a Product&nbsp;Search</a>&nbsp;| <a class="last" href="/companies/list">View&nbsp;Manufacturers</a></p>
+	</div>
+	<div class="l-col">
+		<h2 class="new">What's New?</h2>
+		<p>Lots!  We've set up a current package sidebar (like a shopping cart on Amazon) for you to use as a workspace.  You can send the package as a message, add it to Print Center or, using our new submittal templates, create a product submittal and cover page tied to project specs.  You can send submittals electronically and take advantage of new contact management tools.</p>
+		<p><a href="/companies/list">You can find out more about the new BuildSite or take it for a spin right now!</a></p>
+		<h2 class="imp">What We've Improved!</h2>
+		<p>The first thing you'll notice is our new search bar.  The drop-down menus allow you to search or browse for content from any page.  On product or manufacturer detail pages, the check boxes drop documents right into your current package.  You no longer have to navigate back and forth to your message, the Print Center or a package.  Do it all in one step. </p>
+		<p><a href="/help">Find out more!</a></p>
+		<div style="clear:both;"><!-- --></div>
+	</div>
+</div><!--b-wrap-->

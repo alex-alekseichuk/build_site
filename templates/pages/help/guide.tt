@@ -1,0 +1,33 @@
+[%- PROCESS "help/header.tt" caption = 'Quick Reference Guide' -%]
+
+<div id="help-contents">
+<h2 class="first">Using the Search and Navigation Bar</h2>
+<p>Our new search and navigation bar allows you do any search you&acute;d like from any screen.</p>
+<p><img src="/images/misc/help/navigation-bar.png" width="850" height="140" alt="Navigation bar" /></p>
+
+<h2>Using the Current Package Sidebar</h2>
+<p>The <b>Current Package Sidebar</b> works just like a shopping cart on Amazon.com or other web stores.  Search for the documents you want and add them to the <b>Current Package</b>.  You&acute;ll be able to see the <b>Current Package</b> from any product or search page.</p>
+<p><img src="/images/misc/help/sidebar.png" width="850" height="305" alt="Current Package Sidebar" /></p>
+<p>To add documents to the <b>Current Package</b>, just check the <b>Pkg+</b> box.  If you want, you can even drag and drop the document with your mouse.   That&acute;s all there is to it.  Then you can do another search; or if you&acute;ve got all you&acute;re looking for, you can print, email, fax, or create a submittal with your package.</p>
+
+<p class="section"><img src="/images/misc/help/sidebar-menu.png" width="288" height="220" alt="Sidebar Popup Menu" class="left" align="left" /></p>
+<p>Place your cursor over the right button on your <b>Current Package</b> to take the next step. Choose any of eight options: view/send/print/switch/clear/save the package or upload/attach a file.</p>
+<p><b>View Package</b> will take you to the package details screen&nbsp;&mdash; from which you&acute;ll be able to add a table of contents or submittal cover page&nbsp;&mdash; or send the package in a message, batch print the package, or save it to your files on BuildSite.</p>
+<p>You can upload a file from your local or network drives by choosing <b>Upload File</b>, or add a document you already have saved on BuildSite by selecting <b>Attach File</b>.</p>
+<p>You can also <b>Clear Package</b> to start over or <b>Save Package</b> to work on later or use as a template.</p>
+<br />
+
+<h2 class="section">Sending Messages</h2>
+<p>Sending messages on BuildSite is easier than ever.  Our new messaging software works just like most Web-based email programs.  Simply start typing in a name or email address, and BuildSite instantly begins searching through your contacts for a match.  Pick the name, email address, or fax number you&acute;re looking for or just type in the email address/fax number to send your message.</p>
+<p>If you enter in a new email address or fax number, you&acute;ll have the chance to add it to your address book after you send the message.</p>
+<p><img src="/images/misc/help/compose-autocomplete.gif" width="652" height="554" alt="Compose Message Page" /></p>
+<p><b>Send current package as URL</b>: Another new feature in our messaging software is the ability to send messages as URL&acute;s. If you choose this option, rather than sending your documents as attachments to your email, BuildSite will post them online and add a link to your message.  This can be easily forwarded, cut and pasted into other applications.  It&acute;s also an easy way to send large packages without overwhelming your recipient&acute;s email inbox or fax machine.  (Our current fax and email limits are 75 pages and 5,000,000 kb, respectively.)</p>
+
+<h2>Packages and Files</h2>
+<p><img src="/images/misc/help/packages-menu.png" width="195" height="210" alt="Packages &amp; Files Popup Menu" class="left" align="left" /></p>
+<p>We&acute;ve replaced our old concept of &#147;document drawers&#148; with a simpler <b>Packages & Files</b> menu. You can upload files from your computer, create a new package, view the details of your current package, and access packages you&acute;ve saved on BuildSite. Files and packages can still be saved in either your <b>Company Files</b>&nbsp;&mdash; where they will be accessible to users from your entire company, your <b>Location Files</b>&nbsp;&mdash; where they can be used by anyone at your branch or location, or in your <b>Personal Files</b>&nbsp;&mdash; accessible only to you. These 3 folders are also where you store documents uploaded from your desktop, such as price quotes, or credit forms.</p>
+<p>BuildSite&acute;s Files menus work much like Windows Explorer folders.  You can save files directly to the Company, Location or Personal folder, or you can add and name sub-folders.</p>
+<br />
+<p class="section"><img src="/images/misc/help/document-drawer.png" width="850" height="440" alt="Location Files Screen" /></p>
+<p><img src="/images/misc/help/document-drawer-legend.gif" width="451" height="152" alt="Legend" /></p>
+</div>

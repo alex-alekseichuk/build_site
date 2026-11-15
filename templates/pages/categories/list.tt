@@ -1,0 +1,28 @@
+[%-
+  USE url;
+  page_title = 'List Categories';
+  
+  PROCESS "inc/manufacturer_crumb.tt" IF manufacturer;
+  crumb('Categories');
+
+  caption = "Browse Categories";
+  caption_class = "category";
+  manufacturer = c.req.param('manufacturer');
+-%]
+
+[%- IF show_keywords -%]
+    <p>Searched Categories for: [%- show_keywords -%]</p>
+[%- END -%]
+
+[%- IF has_and_search -%]
+    <p><a href="#" onclick="$.bs.search_term('and')">[% has_and_search %] [% has_or_search == 1 ? "Category" : "Categories" %] matching ALL search terms</a></p>
+[%- END -%]
+[%- IF has_or_search -%]
+    <p><a href="#" onclick="$.bs.search_term('or')">[% has_or_search %] [% has_or_search == 1 ? "Category" : "Categories" %] matching at least one search term</a></p>
+[%- END -%]
+
+[% USE cache = BSACache(c.bst_config('html_cache')) %]
+[% cache.inc(
+  template => "categories/list.table.tt",
+  key      => c.cache_key
+) %]

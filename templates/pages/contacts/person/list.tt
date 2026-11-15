@@ -1,0 +1,70 @@
+[%-
+    page_title = company ? 'Contacts from ' _ company.company_fullname : 'Customers Address Book';
+    USE url;
+    USE pageurl = url('/' _ c.req.path, c.req.params);
+    crumb("Messages", "/messages/");
+    IF company;
+    	crumb("Companies", "/contacts/company/list");
+	    crumb(company.company_fullname _ ' contacts', url("/contacts/person/list", company = company.addressbook_company_id));
+    ELSE;
+    	crumb("Contacts", "/contacts/person/list");
+    END;
+    
+    caption = "Browse Address Book Contacts";
+    caption_class = "contact";
+-%]
+
+<script src="/js/contacts-cart[% ".pack" IF c.bst_config("use_compressed_static") %].js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var contacts_cart = [[% contacts_cart %]];
+</script>
+
+<form method="get">
+	<p>Search: <input type="text" size="40" name="q" value="[% c.req.params.q %]" />&nbsp;<input type="submit" value="Search" /></p>
+</form>
+
+<p><a href="/contacts/person/create">Create New Contact</a></p>
+[% IF contacts.size %]
+<table class="basic tablesorter" id="contacts-list">
+<thead>
+<tr>
+  <th class="col-ico"></th>
+  <th class="sorter"><a href="[% pageurl(order='given_name') %]">First</a> / <a href="[% pageurl(order='family_name') %]">Last</a></th>
+  <th class="sorter"><a href="[% pageurl(order='company_fullname') %]">Company</a></th>
+  <th>Fax / Email</th>
+  <th colspan="2">Actions</th>
+  <th class="col-pkg-chk">Msg+</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH i = contacts -%]
+<tr>
+  <td><img src="/images/icons/person.gif" alt="" class="ico" /></td>
+	<td><a href="[% url('/contacts/person/edit', id=i.private_person_id) %]">[% IF i.is_nameless && i.given_name.length > 25 %][% i.given_name FILTER long_email %][% ELSE %][% i.given_name _ (i.family_name ? " " _ i.family_name : "" )%][% END %]</a></td>
+  <td>[% i.addressbook_company_id.company_fullname %]</td>
+  <td>
+    [% IF i.fax_phone %][% 'Fax: ' _ i.fax_phone %][% END %]
+    [% IF i.fax_phone && i.email_address %]<br />[% END %]
+    [% IF i.email_address %][% IF i.email_address.length > 25 %][% i.email_address FILTER long_email %][% ELSE %][% i.email_address %][% END %][% END %]
+  </td>
+  <td>
+    [% IF i.fax_phone %]<a href="/messages/blank?type=fax&contact_id=[% i.private_person_id %]">Send Fax</a>[% END %]
+    [% IF i.fax_phone && i.email_address %]<br />[% END %]
+    [% IF i.email_address %]<a href="/messages/blank?type=email&contact_id=[% i.private_person_id %]">Send Email</a>[% END %]
+  </td>
+  <td>
+    <a href="/messages/list?contact_id=[% i.private_person_id %]&status=all">View Messages</a>
+  </td>
+  <td>
+    [% IF i.fax_phone %]<div class="spinable"><input type="checkbox" name="chkContact" class="msgChk" value="[% i.private_person_id %]" contact_type="fax" title="Fax: [% i.fax_phone %]" /></div>[% END %]
+    [% IF i.email_address %]<div class="spinable"><input type="checkbox" name="chkContact" class="msgChk" value="[% i.private_person_id %]" contact_type="email" title="Email: [% i.email_address %]" /></div>[% END %]
+  </td>
+</tr>
+[%- END -%]
+</tbody>
+</table>
+
+[%- ELSE -%]
+<p>Nothing found.</p>
+[% END %]

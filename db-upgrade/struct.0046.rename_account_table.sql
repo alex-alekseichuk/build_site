@@ -1,0 +1,1 @@
+ALTER TABLE legacy_account RENAME TO account

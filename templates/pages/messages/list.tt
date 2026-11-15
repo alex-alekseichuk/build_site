@@ -1,0 +1,121 @@
+[%-
+	USE url;
+	USE autoformat(case => 'title');
+	USE pageurl = url('/' _ c.req.path, filter);
+    
+    PROCESS 'user_date.tt';
+    
+	cr = "All messages";
+
+	SWITCH filter.status;
+		CASE 'sent';
+			page_title = "Sent Messages";
+		CASE 'failed';
+			page_title = "Failed Messages";
+		CASE 'drafts';
+			page_title = "Drafts";
+		CASE DEFAULT;
+			page_title = "All Messages";
+	END;
+
+
+	IF filter.contact_id;
+		crumb( "Messages", '/messages/' );
+		crumb("Contacts", "/contacts/person/list");
+		contact_name = autoformat(contact.given_name _ ' ' _ contact.family_name) | trim;
+		crumb( contact_name, url("/contacts/person/edit", id = filter.contact_id));
+		crumb( "Message List");
+		page_title = "Message List";
+	ELSIF filter.company_id;
+		crumb( "Messages", '/messages/' );
+		crumb( "Companies", '/contacts/company/list' );
+		crumb( company.company_fullname, '/contacts/company/edit?id=' _ company.addressbook_company_id );
+		crumb( "Message List");
+		page_title = "Message List";
+	ELSE;
+		crumb( "Messages", '/messages/' );
+		crumb( page_title , '/messages/list' );
+	END;
+	
+	caption = page_title;
+	caption_class = "message";
+-%]
+
+<p><a href="/messages/blank[% "?contact_id=" _ filter.contact_id IF filter.contact_id %]">Compose New Message</a>[%- IF has_current_message -%] &nbsp;|&nbsp; <a href="/messages/current">Current Message</a>[%- END -%]</p>
+<script type="text/javascript">
+function applyFilter() {
+	document.getElementById('filter-form').submit();
+}
+</script>
+
+
+<form action="[% pageurl %]" method="get" style="margin-bottom:1em;" id="filter-form">
+[% IF c.req.param('company_id') || filter.company_id %]<input type="hidden" name="company_id" value="[% c.req.param('company_id') || filter.company_id %]"/>[% END %]
+[% IF c.req.param('contact_id') || filter.contact_id %]<input type="hidden" name="contact_id" value="[% c.req.param('contact_id') || filter.contact_id %]"/>[% END %]
+<label for="status-filter">View:</label>
+<select id="status-filter" onchange="applyFilter();" name="status">
+	<option value="drafts"[% ' selected="selected"' IF filter.status == 'drafts' %]>Drafts</option>
+	<option value="failed"[% ' selected="selected"' IF filter.status == 'failed' %]>Failed</option>
+	<option value="sent"[% ' selected="selected"' IF filter.status == 'sent' %]>Sent</option>
+	<option value="all"[% ' selected="selected"' IF filter.status == 'all' %]>All</option>
+</select>&nbsp;
+<label for="from-filter">Messages From:</label>
+<select id="from-filter" onchange="applyFilter();" name="from">
+	<option value="me"[% ' selected="selected"' IF filter.from == 'me' %]>Me</option>
+	<option value="location"[% ' selected="selected"' IF filter.from == 'location' %]>My Location</option>
+<!-- [% IF c.user.is_bs_admin %]<option value="all"[% ' selected="selected"' IF filter.from == 'all' %]>All</option>[% END %]-->
+</select>&nbsp;
+<label for="date-filter">During:</label>
+<select id="date-filter" onchange="applyFilter();" name="date">
+	<option value="week"[% ' selected="selected"' IF filter.date == 'week' %]>Past Week</option>
+    <option value="month"[% ' selected="selected"' IF filter.date == 'month' %]>Past Month</option>
+	<option value="all"[% ' selected="selected"' IF filter.date == 'all' %]>Anytime</option>
+</select>
+</form>
+
+[% IF messages.count %]
+<table class="basic tablesorter" id="messages-list">
+<thead>
+<tr>
+    <th>&nbsp;</th>
+    <th class="sorter"><a href="[% pageurl(order = order == 'sender asc' ? 'sender desc' : 'sender asc') %]">From</a></th>
+    <th class="sorter"><a href="[% pageurl(order = order == 'subject asc' ? 'subject desc' : 'subject asc') %]">Subject</a></th>
+    <th class="sorter"><a href="[% pageurl(order = order == 'to asc' ? 'to desc' : 'to asc') %]">To</a></th>
+    <th class="sorter"><a href="[% pageurl(order = order == 'time_sent desc' ? 'time_sent asc' : 'time_sent desc') %]">Time Sent</a></th>
+</tr>
+</thead> 
+[% IF (order == 'to asc') %]
+	[% messages = messages.all.sort('recipients[0].recipient.contact_id.name') %]
+[% ELSIF (order == 'to desc') %]
+	[% messages = messages.all.sort('recipients[0].recipient.contact_id.name').reverse %]
+[% ELSE %]
+	[% messages = messages.all %]
+[% END %]
+<tbody>
+[% FOREACH message = messages -%]
+[% IF message.message_status == 'not sent' OR NOT message.time_sent; edit_link = 1; ELSE; edit_link = 0; END %]
+<tr [% IF message.message_status_ack == 'none' && filter.status == 'failed' %]class="unseen"[% END %]>
+    <td>[% IF edit_link -%]
+           <a href="/messages/edit?message_id=[% message.id %]">Edit</a>
+        [%- ELSE -%]
+           <a href="/messages/item?id=[% message.message_id %]">View</a>
+        [%- END %]</td>
+    <td>[% message.sender.name %]</td>
+    <td><a href="/messages/[% IF edit_link %]edit?message_[% ELSE %]item?[% END %]id=[% message.message_id %]">[% message.subject | html %]</a></td>
+    <td>[%- PROCESS to_contacts.tt 
+        message 
+        show_status = message.message_status == "not sent" ? 0 : 1 
+    -%]</td>
+    <td>
+        [% IF message.time_sent %]
+            [% user_date(message.time_sent) %]
+        [% END %]
+    </td>
+</tr>
+
+[%- END %]
+</tbody>
+</table>
+[% ELSE %]
+No messages.
+[% END %]

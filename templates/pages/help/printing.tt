@@ -1,0 +1,97 @@
+[%- PROCESS "help/header.tt" caption = 'Printer Center Frequently Asked Questions' -%]
+
+<div id="help-contents">
+<ul class="contents">
+	<li><a href="#1">What is the Print Center?</a></li>
+	<li><a href="#2">Features and Benefits of the Print Center</a></li>
+	<li><a href="#3">How does the Print Center Work?</a></li>
+	<li><a href="#4">What are the system requirements?</a></li>
+	<li><a href="#5">Required Browser Settings</a></li>
+	<li><a href="#6">Testing for installation of BuildSite's ActiveX components</a></li>
+	<li><a href="#7">Do you have questions that weren't answered by this FAQ?</a></li>
+</ul>
+
+<h2><a name="1"></a>What is the Print Center?</h2>
+<p>The Print Center allows you to print a group of documents in one step.  All you have to do is add the documents you'd like to print to a package and either click on the Print button or choose Print Package from the package menu.</p>
+
+<h2><a name="2"></a>Features and Benefits of the Print Center</h2>
+<ul>
+	<li>Save time. The Print Center allows you to select and print any number of documents with a few clicks.  If you just need to print out group of documents, simply add them to your current package and choose Print Package from the Current Package menu to get to the Print Center.  Hit the Print button to send your documents to your printer.  You can also drag and drop the documents to change the print order.</li>
+	<li>Building a submittal? You can add the documents you will be submitting to a package, and choose View Package to see the Package Details screen.  From there you can add a table of contents or submittal cover sheet to the package.  Then click the Print button to send the whole thing to the Print Center.</li>
+	<li>Don't have time to finish building your package? Don't worry. When you log back into BuildSite, your list will still be there, just as you left it.  You can also save the package to your personal, location or company folder.</li>
+</ul>
+
+<h2><a name="3"></a>How does the Print Center work?</h2>
+<p>All manufacturer documents can be added to the Print Center. From any manufacturer or product detail page, check the documents of interest, select "add to the Print Center", and click "Submit."</p>
+<p>Inside the document drawer, items such as packages, uploaded documents, and shortcuts can be added to the Print Center. Please note: the Print Center limit is 70 documents (documents, not pages). In the case where a large package containing more than <u>70 documents</u> is added to the Print Center, not all of the documents will be added.</p>
+<p>In order to use the Print Center, a small piece of software needs to be downloaded by your browser. When you go to the Print Center for the first time, you should see a dialog box asking you if you'd like to install this piece of software. If you don't see a dialog box, either your browser has already downloaded this software or else your browser is configured to not allow software downloads and installation.</p>
+<p>If you find that you cannot change your browser settings, please contact your desktop support administrator for help in installing BuildSite's software.</p>
+<p>You or your administrator can download and explicitly install the software by clicking <a href="http://bs1.buildsite.com/images/ScriptXClientKit.msi">ScriptXClientKit.msi</a> (also available from www.meadroid.com/scriptx/getsx.asp).</p>
+<p>If you aren't sure whether the software has been installed, click here for <a href="http://bs1.buildsite.com/enduser/html/print_faq.html#testing">instructions</a> on testing the software.</p>
+
+
+<h2><a name="4"></a>What are the System Requirements?</h2>
+<ol>
+	<li>Your computer must running one of these Windows versions: 98, 2000, XP or Vista.</li>
+	<li>You must be running Internet Explorer. The Print Center will not work in other browsers. We recommend you run IE 7.0 or greater.</li>
+	<li>You must be able to install ActiveX components (or "plug-ins"). For more details, view the admin doc.</li>
+	<li>You must be able to print from your computer.</li>
+	<li>To print Microsoft Word documents, you must have Microsoft Word installed. To print Adobe PDF files, you must have Adobe Acrobat installed. Both of these programs should be configured to print.</li>
+</ol>
+
+<p>On the first time you hit the Print Center page, a dialog box should pop up asking you if you would like to install and run "MeadCo's ScriptX" distributed by Mead Company Limited. In order for batch printing to work, this component has to be installed. Please click "Yes." An image of this dialog box is shown in figure 1:</p>
+
+<p class="img"><img src="/images/misc/help/image003.gif" width="439" height="321" alt="fig. 1 First dialog box" /><br />Fig. 1 <i>First dialog box</i></p>
+
+<p>After you have clicked "Yes", another dialog box should appear "The Publisher BuildSite LLC requests your permission to deploy ActiveX content that may not be marked as 'safe'. In order for batch printing to work, please click "Accept." An image of this dialog box is shown in figure 2:</p>
+
+<p class="img"><img src="/images/misc/help/image004.gif" width="461" height="350" alt="Fig. 2 Second dialog box" /><br />Fig. 2 <i>Second dialog box</i></p>
+
+<p>If you find that you've never seen these two dialog boxes, your browser may be configured to not allow installation of ActiveX components. You may want to review the <a href="http://bs1.buildsite.com/enduser/html/print_faq.html#browser_reqs" >Browser Requirements</a> or contact your desktop administrator.</p>
+
+<h2><a name="5"></a>Browser Settings</h2>
+
+<p>In order for BuildSite's Print Center to be able to batch print documents, your browser needs to download and run two ActiveX components provided by BuildSite. These components allow the browser to communicate with your printer. If you have already accepted and downloaded the ActiveX components, you do not need to make any modifications to your browser settings.</p>
+<p>In order to be able to install the ActiveX components, your browser must have certain security settings. There are two different ways that the settings can be changed to allow the browser to download BuildSite's ActiveX component.</p>
+<p>Option 1: Change the security settings for all websites you visit (there may be some slight variation n these options depending on the version of IE you are using.  Please contact your desktop administrator or BuildSite Support for assistance if needed.)</p>
+
+<ol>
+	<li>Go to Tools -> Internet Options... -> Security.</li>
+	<li>Select "Internet" zone. By default, this is set to "Medium".</li>
+	<li>Under "Custom" settings:
+		<ul>
+			<li>"Download signed ActiveX controls" should be set to "prompt" </li>
+			<li>"Run ActiveX controls and plug-ins" should be set to "enable" </li>
+			<li>"Script ActiveX controls marked as safe for scripting" should be set to "enable" </li>
+		</ul>
+	</li>
+</ol>
+
+<p>Option 2: Add BuildSite to your "Trusted Sites" (safer than option 1)</p>
+<ol>
+	<li>Go to Tools -> Internet Options... -> Security.</li>
+	<li>Select "Trusted sites."  </li>
+	<li>Click the "Sites..." button.  </li>
+	<li>Uncheck the "Require server verification (https:) for all sites in this zone" checkbox.  </li>
+	<li>Under "Add this Web site to the zone:", enter in "http://bs1.buildsite.com" and click "Add."  </li>
+	<li>Hit the "OK" button.  </li>
+	<li>When you go back to the Print Center, the page should load slowly. Meanwhile, the ActiveX components are being downloaded. You should not see any prompts in relation to the installation of the components.  </li>
+</ol>
+
+<p>In the case that you cannot view or modify your browser settings, please contact your desktop adminstrator for help. He or she may need to make the modifications for you.</p>
+
+<h2><a name="6"></a>Testing for installation of BuildSite's ActiveX components</h2>
+<p>Unsure as to whether the components are installed? You can check to see if your browser has installed the components.</p>
+
+<ol>
+	<li>Go to Tools -> Internet Options .. -> General Tab. </li>
+	<li>Under "Temporary Internet Files" or “Browsing History”, hit the "Settings" button. </li>
+	<li>Click the "View Objects" button. </li>
+	<li>A window should pop up with the title bar saying "Downloaded Program Files." </li>
+	<li>Inside this window, you should see a file called "MeadCo ScriptX Advanced", if not, then you do not have the component installed. </li>
+</ol>
+
+
+<h2><a name="7"></a>Do you have questions that weren't answered by this FAQ?</h2>
+<p>Having difficulties getting the Print Center to work? Do you have questions that weren't addressed in this FAQ? Please feel free to contact support by emailing <a href="mailto:support@buildsite.com">support@buildsite.com</a>. BuildSite support can also be reached by calling (888) 717-8665.</p>
+</div>

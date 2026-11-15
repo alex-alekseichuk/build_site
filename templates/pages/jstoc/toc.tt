@@ -1,0 +1,108 @@
+[%-
+    USE url;
+-%]
+[%- IF current_package.id == package.file_id -%]
+[% no_sidebar = 1 %]
+[% END %]
+<style type="text/css">
+    tr.view input {
+        display:none;
+    }
+    tr.edit span, tr.edit a.data {
+        display:none;
+    }
+    tr.edit input {
+        width:99%;
+        color:#333;
+    }
+</style>
+<script>
+if(jQuery) (function($) {
+    $(document).ready(function() {
+        $('#form_switch select').change(function() {
+            $(this).parent('form').submit();
+        });
+    });
+})(jQuery);
+</script>
+
+[% IF package.package_toc_type != "" %]
+    [% IF c.bst_config("use_compressed_static") %]
+    <link rel="stylesheet" type="text/css" href="/css/toc.pack.css" />
+    <script src="/js/jstoc.pack.js" type="text/javascript"></script>
+    [% ELSE %]
+    <link rel="stylesheet" type="text/css" href="/css/toc.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery-autocomplete.css" />
+
+    <script src="/js/jquery.timers.js" type="text/javascript"></script>
+    <script src="/js/jquery.json.js" type="text/javascript"></script>
+    <script src="/js/jquery.tablednd.js" type="text/javascript"></script>
+    <script src="/js/toc.autocomplete.js" type="text/javascript"></script>
+    <script src="/js/toc.templates.js" type="text/javascript"></script>
+    <script src="/js/toc2.js" type="text/javascript"></script>
+    <script src="/js/toc.buttons.js" type="text/javascript"></script>
+    [% END %]
+[%- END -%]
+
+[% PROCESS 'folders/crumbs.tt' istoc = 1 %]
+
+<div style="float:left">
+[%- IF (package.file_class == 'archive') -%]
+<div style="margin: 10px 0;">
+<a href="[% url('/jstoc/toc_html', id = package.id) %]">View HTML</a>
+| <a href="[% url('/jstoc/toc_pdf', id = package.id) %]">Download PDF</a>
+</div>
+[%- END -%]
+</div>
+
+<div id="action-bar" class="table-action-bar">
+	<input type="button" id="save-button" value="Save as" />
+	<input type="button" id="print-button" value="Print" />
+	<input type="button" id="attach-button" value="Attach a file" />
+	<input type="button" id="clear-button" value="Clear" />
+	<input type="button" id="delete-button" value="Delete" />
+</div>
+
+
+<div style="float:right;">
+<form id="form_switch" method="post" action="/jstoc/switch_toc">
+    <input type="hidden" name="package_id" value="[%- package.package_id -%]" />
+    Template: <select name="template_name">
+        <option value=""></option>
+        [%- FOREACH i = types -%]
+            <option value="[% i %]"[% IF package.package_toc_type == i %] selected="selected"[% END %]>[% i %]</option>
+        [%- END -%]
+    </select>
+</form>
+</div>
+
+<br style="clear:both;" />
+
+[% IF package.package_toc_type != "" %]
+
+<div>
+<form method="post" action="/packages/make_current">
+    <input type="hidden" name="id" value="[%- package.file_id -%]" />
+    [%- IF current_package.id != package.file_id -%]<input type="submit" class="button destructive" value="Make Current" />[% END %]
+</form>
+</div>
+
+<script type="text/javascript">
+    var package_id = '[%- package.package_id -%]';
+    var toc_columns = [% column_fields_JSON %];
+    var toc_table = [% toc_table_JSON %];
+</script>
+
+<div style="margin-top:10px;">
+[%- FormBuilder.render -%]
+</div>
+
+<table id="toc" class="basic rich">
+</table>
+<div style="float:right;">
+    <input type="button" id="btn_toc_add" value="Add Row" />
+</div>
+
+<div style="clear:both;"></div>
+
+[%- END -%]

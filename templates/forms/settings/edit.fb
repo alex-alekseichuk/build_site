@@ -1,0 +1,12 @@
+name: settings_edit
+method: post
+fields:
+  scope:
+  	type: hidden
+  scope_value:
+  	type: hidden
+  att_name:
+  	type: hidden
+  value:
+  	label: Value
+    required: 0

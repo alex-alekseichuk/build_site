@@ -1,0 +1,28 @@
+<script language="JavaScript" type="text/javascript" src="/js/print.js"></script>
+
+<div style="display:none">
+
+
+<!-- MeadCo Security Manager -->
+<object id="secmgr" viewastext="viewastext" style="display:none"
+  classid="clsid:5445be81-b796-11d2-b931-002018654e2e"
+  codebase="/js/smsx.cab#Version=6,3,434,26">
+  <param name="GUID" value="{E74B587E-C36B-11D6-A31F-0020ED1AFD98}">
+  <param name="Path" value="/js/sxlic.mlf">
+  <param name="Revision" value="6">
+</object>
+
+<!-- MeadCo ScriptX -->
+<object viewastext="viewastext" id="factory" style="display:none"
+  classid="clsid:1663ed61-23eb-11d2-b92f-008048fdd814"
+  codebase="/js/smsx.cab#Version=6,3,434,26">
+</object>
+
+
+
+<div id="idWait" class="noprint" style="visibility: hidden; position: absolute; left: 40px; top: 40px; height: 40px; background-color: #FFFFFF; color: #990000; font: bold 11pt Arial, helvetica, sans-serif; border: thin inset threedface; padding: 40px;">
+	<p>Please wait for spooling to complete...</p>
+</div>
+
+</div>
+

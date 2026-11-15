@@ -1,0 +1,14 @@
+[%
+	crumb("DBEdit");
+%]
+
+[% FOREACH group = tablegroups %]
+<div>  
+  <h3>[% group.label %]</h3>
+  <ul>
+    [% FOREACH table = group.tables %]
+    <li><a href="/dbedit/[% table %]/list">[% table %]</a></li>
+    [% END %]
+  </ul>
+</div>
+[% END %]

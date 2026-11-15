@@ -1,0 +1,345 @@
+class AccountPrivateLocation(models.Model):
+    in_directory = models.CharField(max_length=250)
+    location_phone = models.CharField(max_length=250)
+    location_fax = models.CharField(max_length=250)
+    addr_po = models.CharField(max_length=250)
+    addr_street = models.CharField(max_length=250)
+    addr_city = models.CharField(max_length=250)
+    addr_region = models.CharField(max_length=250)
+    addr_region_i = models.CharField(max_length=250)
+    addr_postal_code = models.CharField(max_length=250)
+    addr_postal_code_i = models.CharField(max_length=250)
+    addr_country = models.CharField(max_length=250)
+    private_location_id = models.CharField(max_length=250, primary_key=True)
+    account_private_company_ref = models.ForeignKey('AddressbookCompany', db_column='account_private_company_ref')
+    location_nickname = models.CharField(max_length=250)
+    location_state = models.CharField(max_length=250)
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    class Meta:
+        db_table = u'account_private_location'
+
+class AccountUser(models.Model):
+    given_name = models.CharField(max_length=250)
+    family_name = models.CharField(max_length=250)
+    vcard_fullname = models.CharField(max_length=250)
+    vcard_name = models.CharField(max_length=250)
+    job_title = models.CharField(max_length=250)
+    work_phone = models.CharField(max_length=250)
+    cell_phone = models.CharField(max_length=250)
+    fax_phone = models.CharField(max_length=250)
+    home_phone = models.CharField(max_length=250)
+    pager_phone = models.CharField(max_length=250)
+    email_address = models.CharField(max_length=250)
+    comment = models.CharField(max_length=1024)
+    user_id = models.CharField(max_length=250, primary_key=True)
+    staff_user = models.CharField(max_length=250)
+    user_password = models.CharField(max_length=250)
+    preferences = models.CharField(max_length=250)
+    user_role = models.CharField(max_length=250)
+    primary_location = models.CharField(max_length=250)
+    primary_only = models.CharField(max_length=250)
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    login_id = models.CharField(max_length=250)
+    mail_opt_out = models.CharField(max_length=250)
+    user_department = models.CharField(max_length=250)
+    email_opt_out = models.CharField(max_length=250)
+    block_date = models.CharField(max_length=250)
+    block_access = models.BooleanField()
+    block_reason = models.CharField(max_length=250)
+    test_user = models.CharField(max_length=250)
+    email_opt_out_date = models.CharField(max_length=250)
+    mail_opt_out_date = models.CharField(max_length=250)
+    document_queue = models.CharField(max_length=11000)
+    current_message = models.ForeignKey('Message')
+    current_package = models.ForeignKey('File')
+    class Meta:
+        db_table = u'account_user'
+
+class AddressbookPerson(models.Model):
+    given_name = models.CharField(max_length=250)
+    family_name = models.CharField(max_length=250)
+    vcard_fullname = models.CharField(max_length=250)
+    vcard_name = models.CharField(max_length=250)
+    job_title = models.CharField(max_length=250)
+    work_phone = models.CharField(max_length=250)
+    cell_phone = models.CharField(max_length=250)
+    fax_phone = models.CharField(max_length=250)
+    home_phone = models.CharField(max_length=250)
+    pager_phone = models.CharField(max_length=250)
+    email_address = models.CharField(max_length=250)
+    comment = models.CharField(max_length=1024)
+    private_person_id = models.CharField(max_length=250, primary_key=True)
+    person_state = models.CharField(max_length=250)
+    addressbook_company = models.ForeignKey('AddressbookCompany')
+    primary_location = models.CharField(max_length=250)
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    owner = models.ForeignKey('AccountLocation', db_column='owner')
+    class Meta:
+        db_table = u'addressbook_person'
+
+
+class AddressbookCompany(models.Model):
+    in_directory = models.CharField(max_length=250)
+    location_phone = models.CharField(max_length=250)
+    location_fax = models.CharField(max_length=250)
+    addr_po = models.CharField(max_length=250)
+    addr_street = models.CharField(max_length=250)
+    addr_city = models.CharField(max_length=250)
+    addr_region = models.CharField(max_length=250)
+    addr_region_i = models.CharField(max_length=250)
+    addr_postal_code = models.CharField(max_length=250)
+    addr_postal_code_i = models.CharField(max_length=250)
+    addr_country = models.CharField(max_length=250)
+    owner = models.ForeignKey('AccountLocation', db_column='owner')
+    addressbook_company_id = models.CharField(max_length=250, primary_key=True)
+    company_fullname = models.CharField(max_length=250)
+    company_url = models.CharField(max_length=250)
+    company_state = models.CharField(max_length=250)
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    class Meta:
+        db_table = u'addressbook_company'
+
+class AccountLocation(models.Model):
+    in_directory = models.CharField(max_length=250)
+    location_phone = models.CharField(max_length=250)
+    location_fax = models.CharField(max_length=250)
+    addr_po = models.CharField(max_length=250)
+    addr_street = models.CharField(max_length=250)
+    addr_city = models.CharField(max_length=250)
+    addr_region = models.CharField(max_length=250)
+    addr_region_i = models.CharField(max_length=250)
+    addr_postal_code = models.CharField(max_length=250)
+    addr_postal_code_i = models.CharField(max_length=250)
+    addr_country = models.CharField(max_length=250)
+    account_location_id = models.CharField(max_length=250, primary_key=True)
+    location_nickname = models.CharField(max_length=250)
+    location_fullname = models.CharField(max_length=250)
+    location_url = models.CharField(max_length=250)
+    account = models.ForeignKey('Account')
+    company_location_ref = models.ForeignKey('Company', db_column='company_location_ref')
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    mail_opt_out = models.CharField(max_length=250)
+    email_opt_out = models.CharField(max_length=250)
+    email_opt_out_date = models.CharField(max_length=250)
+    mail_opt_out_date = models.CharField(max_length=250)
+    block_date = models.CharField(max_length=250)
+    block_access = models.BooleanField()
+    block_reason = models.CharField(max_length=250)
+    class Meta:
+        db_table = u'account_location'
+
+
+class File(models.Model):
+    file_id = models.CharField(max_length=250, primary_key=True)
+    creator_user = models.ForeignKey('AccountUser', db_column='creator_user')
+    owner = models.ForeignKey('AccountLocation', db_column='owner')
+    file_original_path = models.CharField(max_length=250)
+    file_format_type = models.CharField(max_length=250)
+    file_mtime = models.CharField(max_length=250)
+    file_title = models.CharField(max_length=250)
+    file_comment = models.CharField(max_length=1024)
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    page_count = models.CharField(max_length=250)
+    is_public = models.BooleanField()
+    scope = models.CharField(max_length=250)
+    parent = models.ForeignKey('self', db_column='parent')
+    shortcut_to = models.CharField(max_length=250)
+    file_size = models.CharField(max_length=250)
+    replaced_by_doc = models.CharField(max_length=250)
+    deleted_date = models.CharField(max_length=250)
+    is_deleted = models.BooleanField()
+    replaced_by_date = models.CharField(max_length=250)
+    deleted_by_user = models.CharField(max_length=250)
+    replaced_by_user = models.CharField(max_length=250)
+    file_class = models.TextField() # This field type is a guess.
+    package_toc_type = models.CharField(max_length=255)
+    package_toc_template = models.CharField(max_length=255)
+    package_toc_data = models.TextField()
+    package_ext_id = models.CharField(max_length=250)
+    file_extension = models.CharField(max_length=10)
+    class Meta:
+        db_table = u'file'
+
+
+
+class CustomerUser(models.Model):
+    customer_user_id = models.IntegerField(primary_key=True)
+    customer_account = models.ForeignKey('CustomerAccount')
+    login_id = models.CharField(max_length=250)
+    login_password = models.CharField(max_length=250)
+    user_role = models.CharField(max_length=250)
+    fullname = models.CharField(max_length=1024)
+    email = models.CharField(max_length=250)
+    phone = models.CharField(max_length=250)
+    employer_name = models.CharField(max_length=250)
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    last_login = models.DateTimeField()
+    document_list = models.ForeignKey('DocumentList')
+    class Meta:
+        db_table = u'customer_user'
+
+class CompanyFeature(models.Model):
+    company_feature_id = models.IntegerField(primary_key=True)
+    company = models.ForeignKey('Company')
+    feature_name = models.CharField(max_length=250)
+    feature_level = models.CharField(max_length=250)
+    feature_status = models.CharField(max_length=250)
+    feature_params = models.CharField(max_length=1024)
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    class Meta:
+        db_table = u'company_feature'
+
+class GatewayPayment(models.Model):
+    payment_id = models.IntegerField(primary_key=True)
+    customer_order = models.ForeignKey('CustomerOrder')
+    credit_card = models.ForeignKey('CreditCard')
+    recur_index = models.IntegerField()
+    txn_start_epoch = models.IntegerField()
+    txn_finish_epoch = models.IntegerField()
+    txn_status_flag = models.TextField() # This field type is a guess.
+    txn_type = models.CharField(max_length=20)
+    txn_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    txn_avs_flags = models.CharField(max_length=10)
+    txn_verif_flags = models.CharField(max_length=10)
+    txn_id = models.CharField(max_length=250)
+    txn_refnum = models.CharField(max_length=250)
+    txn_result_code = models.CharField(max_length=250)
+    txn_message = models.CharField(max_length=1024)
+    gw_system = models.CharField(max_length=250)
+    gw_account = models.CharField(max_length=250)
+    gw_testmode = models.BooleanField()
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    class Meta:
+        db_table = u'gateway_payment'
+
+
+class CustomerAccount(models.Model):
+    customer_account_id = models.IntegerField(primary_key=True)
+    account_name = models.CharField(max_length=250)
+    company = models.ForeignKey('Company')
+    account_type = models.CharField(max_length=250)
+    account_purpose = models.CharField(max_length=250)
+    block_reason = models.CharField(max_length=250)
+    location_phone = models.CharField(max_length=250)
+    location_fax = models.CharField(max_length=250)
+    addr_po = models.CharField(max_length=250)
+    addr_street = models.CharField(max_length=250)
+    addr_city = models.CharField(max_length=250)
+    addr_region = models.CharField(max_length=250)
+    addr_postal_code = models.CharField(max_length=250)
+    addr_country = models.CharField(max_length=250)
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    class Meta:
+        db_table = u'customer_account'
+
+
+class CreditCard(models.Model):
+    credit_card_id = models.IntegerField(primary_key=True)
+    customer_account = models.ForeignKey('CustomerAccount')
+    card_active = models.BooleanField()
+    billing_from_account = models.BooleanField()
+    billing_name = models.CharField(max_length=250)
+    billing_street = models.CharField(max_length=250)
+    billing_city = models.CharField(max_length=250)
+    billing_region = models.CharField(max_length=250)
+    billing_postal_code = models.CharField(max_length=250)
+    billing_country = models.CharField(max_length=250)
+    cc_type = models.CharField(max_length=250)
+    cc_number_encrypted = models.CharField(max_length=1024)
+    cc_number_last4 = models.CharField(max_length=20)
+    cc_expire_month = models.TextField() # This field type is a guess.
+    cc_expire_year = models.TextField() # This field type is a guess.
+    cc_verif_number = models.TextField() # This field type is a guess.
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    class Meta:
+        db_table = u'credit_card'
+
+class CustomerOrder(models.Model):
+    customer_order_id = models.IntegerField(primary_key=True)
+    customer_user = models.ForeignKey('CustomerUser')
+    service_nickname = models.ForeignKey('Service', db_column='service_nickname')
+    service_dsn = models.CharField(max_length=250)
+    product_params = models.CharField(max_length=1024)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    recur_interval = models.CharField(max_length=250)
+    created_epoch = models.IntegerField()
+    order_start = models.DateField()
+    order_expires = models.DateField()
+    order_status = models.CharField(max_length=250)
+    free_until = models.DateField()
+    ipaddr = models.CharField(max_length=20)
+    private_comments = models.CharField(max_length=11000)
+    credit_card = models.ForeignKey('CreditCard')
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    class Meta:
+        db_table = u'customer_order'
+
+
+class MsdsDocument(models.Model):
+    msds_group = models.ForeignKey('MsdsGroup')
+    document = models.ForeignKey('Document')
+    position = models.SmallIntegerField()
+    class Meta:
+        db_table = u'msds_document'
+
+class ProductRelated(models.Model):
+    product_related_id = models.IntegerField(primary_key=True)
+    product = models.ForeignKey('Product')
+    related_product = models.ForeignKey('Product', related_name='related_products_set')
+    related_product_name = models.CharField(max_length=250)
+    related_type = models.CharField(max_length=250)
+    display_order = models.IntegerField()
+    section_title = models.CharField(max_length=250)
+    section_document = models.ForeignKey('Document')
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    class Meta:
+        db_table = u'product_related'
+
+
+
+class Setting(models.Model):
+    setting_id = models.CharField(max_length=250, primary_key=True)
+    scope = models.CharField(max_length=250)
+    scope_value = models.CharField(max_length=250)
+    att_name = models.CharField(max_length=250)
+    att_val = models.CharField(max_length=10000)
+    auto_ctime = models.CharField(max_length=100)
+    auto_mtime = models.CharField(max_length=100)
+    class Meta:
+        db_table = u'setting'
+
+class SystemInfo(models.Model):
+    att_name = models.CharField(unique=True, max_length=250)
+    att_val = models.CharField(max_length=10000)
+    class Meta:
+        db_table = u'system_info'
+
+class Service(models.Model):
+    service_nickname = models.CharField(max_length=250)
+    service_title = models.CharField(unique=True, max_length=250)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    recur_interval = models.CharField(max_length=250)
+    service_discontinue_date = models.DateField()
+    class Meta:
+        db_table = u'service'
+
+class MsdsGroup(models.Model):
+    msds_group_id = models.CharField(max_length=250, primary_key=True)
+    name = models.CharField(max_length=250)
+    position = models.IntegerField()
+    class Meta:
+        db_table = u'msds_group'
+

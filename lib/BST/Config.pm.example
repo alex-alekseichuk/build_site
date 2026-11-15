@@ -1,0 +1,265 @@
+package BST;
+use strict;
+
+my $HOME = '/home/buildsite';
+
+# if you add / modify / remove parameters here, please update
+# http://trac.ahinea.com/bs-app/wiki/ConfigurationParameters
+# wiki page
+
+sub configuration {
+    {
+        dbname => 'bsdata',
+        dbuser => 'bsadmin',
+        dbpass => '***', # optional
+
+        home => $HOME . '/bs-app',
+        temp => $HOME . '/temp',
+        sent_messages_path     => $HOME . '/bsfiles/sent_messages',
+        account_locations_path => $HOME . '/bsfiles/account_locations',
+        publishers_path        => $HOME . '/bsfiles/publishers',
+        settings_path          => $HOME . '/bsfiles/settings',
+
+        # annotation tool
+        pdf_files_dir     => "$HOME/temp",
+        pdf_images_dir    => "$HOME/pdf_images",
+        pdf_annotated_dir => "$HOME/pdf_annotated",
+
+        server_engine => {
+            min_spare_servers => 2, #Defaults to 2
+            max_spare_servers => 10, #Defaults to 10
+            min_servers => 3, #Defaults to 5
+            max_servers => 50, #Defaults to 50
+            max_requests => 100, #Defaults to 1000
+            restart_graceful => undef,
+            pidfile => undef,
+            background => undef,
+        },
+
+        toc             => $HOME . '/bsfiles/toc',
+        templates       => $HOME . '/bs-app/templates',
+        root_static     => $HOME . '/bs-app/root',
+
+        pdf_generator   => $HOME . '/bs-app/pdf/generate_pdf.bat',
+
+        toc_thumb_size  => 400,
+
+        document_url => 'http://buildsite.com/dbderived/%%publicationid%%/derived_files/%%derived_path%%',
+
+        cache_db => 60,
+
+        send_message => 1,
+
+        sendmail => "/usr/lib/sendmail -t -oi -oem",
+
+        # if smtp_host is not defined, we would use /usr/bin/sendmail instead
+        #smtp_host => "localhost",
+        #smtp_port => 25,
+
+        email_size_limit => 500,
+        email_size_warning => 10,
+        send_address_whitelist => {
+          'kurmanka@yandex.ru' => 1,
+          'kikudjiro@gmail.com' => 0,
+          '+375-29-6664555' => 0,
+        },
+        # send a copy of each outbound message to this address. useful for debugging:
+        #send_message_BCC => 'debug-messages@ahinea.com',
+
+        # Session
+        session_storage_plugin => 'Session::Store::File',
+        session_storage_params => {
+            storage     => '/tmp/session',
+        },
+
+        #session_storage_plugin  => 'Session::Store::Memcached',
+        #session_storage_params  => {
+        #    servers     => ['127.0.0.1:11211'],
+        #    namespace   => '',
+        #},
+
+        # fax sending account info
+        fax_pagecount_limit        => 10,
+        interfax_account           => 'buildsite@crunch.ahinea.com',
+        interfax_reply_to          => 'buildsite@crunch.ahinea.com',
+        interfax_domain            => '@fax.tc',
+
+        log_dir => $HOME . '/bs-app/log2',
+        logger => {
+            prefix => $HOME . '/bs-app/log2',
+            mode => 'append',
+            categories => {
+                # package       => name
+                'BST::Product'  => 'search',
+                'BST::Category' => 'category',
+                'BST'           => 'bst',
+                'dbcheck.pl'    => 'dbcheck',
+            },
+        },
+
+        zip_codes_file => $HOME . '/bs-app/ZIPCODEWORLD-US-PREMIUM.CSV',
+        zip_search_max_distance => 150,
+
+        page_count_command => {
+            word => '/usr/bin/wvSummary "%s" | grep Pages',
+            pdf  => '/usr/bin/pdfinfo "%s" | grep Pages',
+        },
+
+        # Object cache
+        cache   => 'BST::Cache::Dumb',
+
+        # CGI::FormBuilder config:
+        #formbuilder_debug => 1,
+
+        # Log::Dispatch captures and redirects the usual server output
+        # like the list of actions and controllers and their exceptions
+        # to a log. Exceptions (die-s) go to bsa-error-{date} log, and
+        # the list of actions and request details go to bsa-debug-{date}
+        # log in log2/ dir.
+        'Log::Dispatch' => [{
+            class       => 'File::Stamped',
+            name        => 'bsa-debug',
+            min_level   => 'debug',
+            filename    => $HOME . '/bs-app/log2/bsa-debug',
+            mode        => 'append',
+            stamp_fmt   => '%Y%m%d',
+#        format    => '[%p] %m %n',
+        },{
+            class       => 'File::Stamped',
+            name        => 'bsa-error',
+            min_level   => 'error',
+            filename    => $HOME . '/bs-app/log2/bsa-error',
+            mode        => 'append',
+            stamp_fmt   => '%Y%m%d',
+#        format    => '[%p] %m %n',
+        }],
+
+        # START: BST::Schema cache
+        schema_cache_backend    => 60 * 5,
+        schema_cache_tables     => [qw/
+            category category_descendant category_grouping category_keyword
+            company company_feature company_grouping company_keyword
+            product product_keyword product_related product_standard
+            document document_list document_list_member doc_type_info
+            publication
+            grouping
+            standard
+        /],
+        schema_cache_backend            => 'Cache::Memcached',
+        schema_cache_backend_settings   => {
+            'Cache::Memcached'      => {
+                servers             => [
+                    '127.0.0.1:11211'
+                ],
+                namespace           => 'BST::Schema::',
+                connect_timeout     => 0.2,
+                io_timeout          => 0.5,
+                close_on_error      => 1,
+                compress_threshold  => 200_000,
+                compress_ratio      => 0.9,
+                compress_methods    => [
+                    \&IO::Compress::Gzip::gzip,
+                    \&IO::Uncompress::Gunzip::gunzip
+                ],
+                max_failures        => 3,
+                failure_timeout     => 2,
+                ketama_points       => 150,
+                nowait              => 1,
+                hash_namespace      => 2,
+                serialize_methods   => [
+                    \&Storable::freeze,
+                    \&Storable::thaw
+                ],
+                utf8                => ($^V ge v5.8.1 ? 1 : 0),
+                max_size            => 512 * 1024,
+                debug               => 0
+            },
+            'Cache::File'           => {
+                cache_root          => '/tmp/bst-schema-cache',
+            }
+        },
+        # END: BST::Schema cache
+
+        ###
+        email_errors    => {
+            from            => 'randal@buildsite.com',
+            to              => 'bs-ah-project@googlegroups.com',
+            response_status => 500,
+            error_template  => 'default.tt'
+        },
+        ###
+
+        # "post to URL" feature
+        enable_send_package_URL => 1,
+
+        # max lifetime period for the "cached" toc xhtml+pdf+thumb files, in minutes
+        package_toc_output_cache_min => 1,
+
+        # max lifetime period (in seconds) for some data stored in session
+        package_json_lifetime   => 5,
+        undelivered_messages_list_lifetime => 10,
+
+        # the Google Analytics website id for user tracking
+        google_analytics_id => "UA-9236361212-1",
+        user_tracking_snippet => q~<script type='text/javascript'>alert('user tracking!');</script>~,
+        system_id => "BS5555",
+
+        # height limit for 2nd page logo of pdf toc
+        # it needs to correct appropriate values in CSS as well: pdf_toc.css, ext.css
+        toc_pdf_2nd_page_header_logo_height_max => 50,
+
+        # use minified version of jquery code
+        use_minified_javascript => 1,
+
+        # max file upload limit in MBytes
+        max_file_upload_size => 5,
+
+        #Value for the Return-Path: header for all outgoing emails
+        mail_return_path => 'return-path@buildsite.com',
+
+        # enable green features
+        green_features_enable => 1,
+
+        # use compressed js and css
+        use_compressed_static => 1,
+
+        # enable memory logging
+        memory_leaks_tracking => 1,
+
+        # memory log file settings (Log::Dispatch::File::Stamped)
+        memory_log_settings   => {
+            name        => 'bsa-memory',
+            min_level   => 'debug',
+            filename    => $HOME . '/log2/bsa-memory',
+            mode        => 'append',
+            stamp_fmt   => '%Y%m%d',
+        },
+
+        html_cache => {
+            cache_root => '/tmp/bsa-cache/',
+            default_expires_in  => 100,
+            auto_purge_interval => 100,
+        },
+
+        db_editor_site => 'http://crunch.ahinea.com/dbadm/admin/dbadm',
+
+	payments => {
+            keyfileprivate => {
+                test => $GLOBAL . "/keys/test.key.private",
+                live => $GLOBAL . "/keys/creditcard_rsa.private"
+            },
+            keyfilepublic => {
+                test => $GLOBAL . "/keys/test.key.pub",
+                live => $GLOBAL . "/keys/creditcard_rsa.public"
+            },
+            gateway => {
+                class => 'LinkPoint',
+                account => '1011270',
+                keyfile => $GLOBAL . '/keys/linkpoint_live_1011270_buildsite.pem',
+            },
+            log_file => $GLOBAL . '/payments.log',
+        },
+     }
+}
+
+1;

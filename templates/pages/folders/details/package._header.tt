@@ -1,0 +1,15 @@
+<script type="text/javascript" src="/js/package.common.js"></script>
+<div id="package-header">
+    <form id="toc-type-switcher" method="post" action="/jstoc/switch_toc">
+        <input type="hidden" name="package_id" value="[% item.file_id %]" />
+        <label for="toc-type">Type: </label>
+        <select id="toc-type" name="template_name">
+            <option value="">Basic Package</option>
+            [%- FOREACH toc_type = toc_types -%]
+            <option value="[% toc_type.key %]"[% " selected=\"selected\"" IF item.package_toc_type == toc_type.key %]>[% toc_type.value %]</option>
+            [%- END -%]
+        </select>
+        [% INCLUDE "help.tt" class="top-right" hint="Add a Table of Contents or Submittal Cover Page to an existing package or build a new package using our Submittal Template." %]
+    </form>
+    <h2>[% saved ? item.file_title : "New Package" %]</h2>
+</div>

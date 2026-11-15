@@ -1,0 +1,31 @@
+BuildSite App v.3
+
+a guide to the source tree structure:
+
+db-upgrade/ 
+    the database upgrade scripts, assuming an existing 
+    buildsite bsdata database as a starting point.
+	
+lib/
+    perl modules
+    
+script/
+    Catalyst-generated helper scripts, including cgi and fastcgi 
+    frontends, and a standalone web server (bsa_server.pl).
+    
+bin/
+    command-line utilities. Primarily for testing and debugging 
+    individual BST features and the database.
+    
+templates/
+    Application page templates, in Template Toolkit language.
+    
+root/
+    Accessory files for the pages: images, css and javascript.
+
+t/
+    testing scripts
+    
+doc/
+    documentation
+

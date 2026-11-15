@@ -1,0 +1,72 @@
+[%- PROCESS "help/header.tt" -%]
+[% caption = "Support" %]
+
+<div id="help-contents">
+<h2 class="first">Contact BuildSite Support</h2>
+<p>Did you forget your login or password? Questions? Contact BuildSite Support.
+<br /><b>Toll-Free: (888) 717-8665</b>
+<br /><b>Email:</b> <a href="mailto:support@buildsite.com">support@buildsite.com</a></p>
+
+<h2>Browse Support Content</h2>
+<p>For further information on using and optimizing BuildSite, please refer to the following topics or contact Customer Support:</p>
+<ul class="nopad">
+	<li><a href="/help/guide/">Quick Reference Guide</a> (<a href="/images/pdf/QuickRefGuide.pdf">Download printable version</a>)</li>
+	<li><a href="/help/faq/">Frequently Asked Questions</a></li>
+	<li><a href="/help/setup/">Installation, Setup, and Optimization Guide</a></li>
+	<li><a href="/help/printing/">Print Center FAQ</a></li>
+	<li><a href="/help/green-features/">BuildSite Green Data</a></li>
+</ul>
+
+<h2>View BuildSite Demonstrations</h2>
+<p>Click on any of the links below for a brief 2-3 minute demo.  You will need Macromedia Flash 5 Player or greater to launch each demo.  <a href="http://www.macromedia.com/" target="_blank">Download the Flash Player</a>.  If you have speakers, turn them on for optimal experience.</p>
+
+<h3>BuildSite Green (<span style="color:orange; font-weight:bold;">NEW!</span>)</h3>
+<ul>
+	<li><a href="/help/demo?name=GreenDataDemo.swf" target="_blank">Green Data Demo</a></li>
+</ul>
+
+<h3>BuildSite Search</h3>
+<ul>
+	<li><a href="/help/demo?name=search.swf" target="_blank">Search for Concrete</a></li>
+	<li><a href="/help/demo?name=search_interiors.swf" target="_blank">Search for Interiors</a></li>
+	<li><a href="/help/demo?name=search_roofing.swf " target="_blank">Search for Roofing</a></li>
+	<li><a href="/help/demo?name=currentpackage.swf" target="_blank">Using the Current Package Sidebar</a></li>
+	<li><a href="/help/demo?name=msds.swf" target="_blank">BuildSite Jobsite MSDS</a></li>
+</ul>
+
+<h3>Submittal</h3>
+<ul>
+	<li><a href="/help/demo?name=Submittals.swf" target="_blank">Concrete Submittals</a></li>
+	<li><a href="/help/demo?name=Submittals_roofing.swf" target="_blank">Roofing Submittals</a></li>
+	<li><a href="/help/demo?name=Submittals_interior.swf" target="_blank">Interior Submittals</a></li>
+	<li><a href="/help/demo?name=Systems.swf" target="_blank">Using System Packages and Accessory Lists</a></li>
+</ul>
+
+<h3>Messaging</h3>
+<ul>
+	<li><a href="/help/demo?name=message.swf" target="_blank">Sending Messages</a></li>
+	<li><a href="/help/demo?name=contacts.swf" target="_blank">Adding and Managing Contacts</a></li>
+</ul>
+
+<h3>Printing</h3>
+<ul>
+	<li><a href="/help/demo?name=printer.swf" target="_blank">Printing and Using Printing Center</a></li>
+</ul>
+
+<h3>Packages and Files</h3>
+<ul>
+	<li><a href="/help/demo?name=packagesandfiles.swf" target="_blank">Using BuildSite Packages and Files</a></li>
+	<li><a href="/help/demo?name=uploading.swf" target="_blank">Uploading Documents to Buildsite</a></li>
+</ul>
+
+<h3>Preferences</h3>
+<ul>
+	<li><a href="/help/demo?name=preferences.swf" target="_blank">Changing Your Password and Preferences</a></li>
+</ul>
+
+<h3>Administrative</h3>
+<ul>
+	<li><a href="/help/demo?name=addingUsers.swf" target="_blank">Adding and Deleting Users</a></li>
+</ul>
+
+</div>

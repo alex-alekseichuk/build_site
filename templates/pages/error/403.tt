@@ -1,0 +1,12 @@
+[%
+     page_title = 'Access denied';
+     crumb( "Error" );
+     
+     caption = "Access denied";
+     caption_class = "error";
+%]
+<link rel="stylesheet" type="text/css" href="/css/no-sidebar.css" />
+
+<p>The link you followed is incorrect. You don't have a privilege to access the resource. But of course this could also be a sign of internal error.</p>
+
+<p><a href='/'>Go home</a>, or contact support, if you are lost.</p>

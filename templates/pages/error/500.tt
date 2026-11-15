@@ -1,0 +1,9 @@
+[% crumb( 'Error' ) %]
+
+<h1>Oops! Internal Error</h1>
+
+<p style='margin-top:3em; font-size: 130%'><b>Something went wrong. It is not your fault. The error has been logged and the engineers have been automatically notified. Please try again later. Please contact support for urgent help.</b></p>
+
+<p style='margin-top:4em'>The error details:</p>
+
+<h2>[% c.error.0 %]</h2>

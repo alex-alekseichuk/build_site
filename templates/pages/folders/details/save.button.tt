@@ -1,0 +1,7 @@
+[% submit_style = can_write ? "" : " style=\"width:100%;\"" %]
+<div class="input-row"[% submit_style %]>
+<div class="submit"[% submit_style %]>
+	<input type="submit" value="Save" [% UNLESS can_write %]disabled="disabled" [% END %]/>
+	[% UNLESS can_write %]<span style="font-size:0.8em;">You have not enough permissions to change properties of this [% item.file_class %]. Try to copy it to the private scope.</span>[% END %]
+</div>
+</div>

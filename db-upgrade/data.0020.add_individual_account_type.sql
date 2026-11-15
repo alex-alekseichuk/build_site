@@ -1,0 +1,1 @@
+UPDATE account SET account_type='individual' WHERE account_id LIKE 'individual%';

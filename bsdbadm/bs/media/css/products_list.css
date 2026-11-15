@@ -1,0 +1,7 @@
+#changelist .ac_input {
+    display: none;
+}
+
+#changelist img[alt="Lookup"] {
+    display: none;
+}

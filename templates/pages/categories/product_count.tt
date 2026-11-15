@@ -1,0 +1,3 @@
+([% hide_suppressed ? row.category_counts.products : row.category_counts.products_admin %]) 
+[% cnt = hide_suppressed ? row.category_counts.green_products : row.category_counts.green_products_admin %]
+[% IF cnt %]<span class="green-product-count">([% cnt %])</span>[% END %]

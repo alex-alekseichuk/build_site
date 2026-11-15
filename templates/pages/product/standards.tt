@@ -1,0 +1,9 @@
+[% IF standards %]<tr><th>Standards:</th>
+	<td>
+		<table class="t-basic t-vert t-prod-details">
+				[% FOREACH product_standard = standards %]
+				<tr><th>[% product_standard.standard.standard_org_id FILTER upper %][% IF product_standard.standard.standard_document_identifier %]:[% END %]</th><td>[% FOREACH i= product_standard.standard.standard_document_identifier.split("; ") %][% IF product_standard.standard.standard_org_id == 'astm' %]<a href="/search/?term=and&mfg_my_all=my&where=astm&q=[% i %]">[% END %][% i %][% IF product_standard.standard.standard_org_id == 'astm' %]</a>[% END %][% UNLESS loop.last %], [% END %][% END %] [% product_standard.standard_parameters %]</td><tr>
+				[% END %]
+		</table>
+	</td>
+[% END %]

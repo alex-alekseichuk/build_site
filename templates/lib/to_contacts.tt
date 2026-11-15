@@ -1,0 +1,52 @@
+[%# external parameters: 
+      message 
+-%]
+[% 
+	bcc = [];
+%]
+[% IF display_table_tags %]<tr><th>To:</th><td>[%END%]
+<ul class="b-to-contacts">
+	[% 
+		FOREACH recipient = message.recipients;
+			IF !recipient.is_bcc;
+				PROCESS display_recipient;
+			ELSE;
+				bcc.push(recipient);
+			END;
+		END;
+	%]
+</ul>
+[% IF display_table_tags %]</td></tr>[%END%]
+
+[% IF bcc.size && !no_bcc %]
+[% IF display_table_tags %]<tr><th>Bcc:</th><td>[% ELSE %]<b>Bcc:</b>[%END%]
+<ul class="b-to-contacts">
+	[%- FOREACH recipient = bcc -%]
+		[% INCLUDE display_recipient %]
+	[% END %]
+</ul>
+[% IF display_table_tags %]</td></tr>[%END%]
+[% END %]
+
+
+[% BLOCK display_recipient %]
+	<li>
+		[%- IF recipient.contact_id -%]
+			[%- IF recipient.contact_id.name -%]
+				[% UNLESS ext %]<a href="/contacts/person/edit?id=[%- recipient.contact_id -%]">[% END %][%- recipient.contact_id.name -%][% UNLESS ext %]</a>[% END %]
+			[%- ELSE -%]
+				Unknown
+			[%- END -%]
+
+			[%- IF recipient.contact_id.addressbook_company_id -%],
+				[% UNLESS ext %]<a href="/contacts/company/edit?id=[%- recipient.contact_id.addressbook_company_id %]">[% END %][%- recipient.contact_id.addressbook_company_id.company_fullname -%][% UNLESS ext %]</a>[% END %]
+			[%- END -%]
+			&lt;[%- recipient.address -%]&gt;
+		[%- ELSE -%]
+			[%- recipient.address -%]
+		[%- END -%]
+		[% IF show_status || recipient.status.match('^failed') %]
+		([% PROCESS "messages/status.tt" rec = recipient %])
+		[% END %]
+	</li>
+[% END %]

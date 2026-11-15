@@ -1,0 +1,75 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_modify adminmedia %}
+
+{% block extrahead %}{{ block.super }}
+
+{% if remembered_fields and add %}
+<script type="text/javascript" src="/django-media/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var rememberedFields = ['{{ remembered_fields|join:"', '" }}'];
+
+        for (var i = 0; i < rememberedFields.length; i++) {
+            var $field = $("#id_"+rememberedFields[i]);
+
+            $field.parent().children(":not(.help)").filter(':last').after(
+                '<span>&nbsp;&nbsp;&nbsp;'
+                + '<input type="checkbox" id="id_'+rememberedFields[i]+'_remember" class="remember-checkbox">'
+                + ' Remember this value</span>'
+            );
+
+            var value = $.cookie('{{ model_name }}_'+rememberedFields[i]);
+            //alert('Cookie value: '+ value);
+            if (value != null) {
+                $("#id_"+rememberedFields[i]+"_remember").attr('checked', 'checked'); // tick checkbox
+                $field.val(value).change();
+            }
+        }
+        $("#{{ model_name }}_form").submit(function() {
+            $(".remember-checkbox").each(function() {
+                var checkboxID = $(this).attr("id");
+                var fieldID = checkboxID.substr(0, checkboxID.length - 9);
+                var fieldName = fieldID.substr(3);
+                if ($(this).is(':checked')) {
+                    $.cookie('{{ model_name }}_'+fieldName, $("#"+fieldID).val(), { expires: 1500 });
+                }
+                else {
+                    $.cookie('{{ model_name }}_'+fieldName, $("#"+fieldID).val(), { expires: -1 });
+                }
+            });
+            return true;
+        });
+    });
+</script>
+{% endif %}
+
+{% endblock extrahead %}
+
+{% block after_related_objects %}
+  {% if custom_links and object_id %}
+    <div class="inline-group">
+      <h2>Links</h2>
+        {% for link in custom_links %}
+          <div class="inline-related{% if forloop.last %} last-related{% endif %} custom-link">
+           <h3><a href="{{ link.1 }}" target="_blank">{{ link.0 }}</a></h3>
+          </div>
+        {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block object-tools %}
+{% if change %}{% if not is_popup %}
+  <ul class="object-tools" style="float:left;bottom: 18px; left: -10px;">
+    <li><a href="history/" class="historylink">{% trans "History" %}</a></li>
+    <li><a href="../add" target="_blank" class="addlink">{% blocktrans with opts.object_name.lower as name %}Add {{ name }}{% endblocktrans %}</a></li>
+  {% if has_absolute_url %}
+    <li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>
+  {% endif%}
+  </ul>
+	<script type="text/javascript">
+	  $('h1', $("#content")).css("padding", "10px 6px 0 0");
+	</script>
+{% endif %}{% endif %}
+{% endblock %}
+

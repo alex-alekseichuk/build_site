@@ -1,0 +1,3 @@
+-- we need this first added by hand
+--create sequence main start 100000;
+--alter table main OWNER TO bsadmin;

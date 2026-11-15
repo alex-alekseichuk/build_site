@@ -1,0 +1,23 @@
+body {background:url(/images/misc/welcome/bg.gif) repeat-x 0 106px;}
+
+.breadcrumbs {display:none;}
+.l-body {padding:0px 1px 0px 1px; margin-top:-2px; }
+.b-block {background:none; border:none; height:590px; margin-bottom:0px; padding-top:20px;}
+.l-body h1 {margin-bottom:3px; text-align:center; color:#fff; font:normal 36px Verdana, serif; margin-top:-7px; letter-spacing:-1px;}
+
+.b-wrap {overflow:hidden; zoom:1; padding-left:10px; padding-right:20px;}
+.b-wrap a {color:#0077ab; text-decoration:none;}
+
+.r-col {float:right;}
+.r-col h3 {text-align:center; font-size:1.15em; margin-bottom:5px; margin-top:-5px; color:#555657;}
+.r-col p {font-size:.9em; text-align:right;}
+.r-col p a {margin:0px 5px;}
+.r-col p a.last {margin-right:0px;}
+
+.l-col {padding-right:500px;}
+.l-col h2 {font:bold 18px Verdana, serif; background:url(/images/layout/1.gif) no-repeat 0 0; padding-left:70px; margin-bottom:0px;}
+.l-col h2.new {color:#ffbb00; background-image:url(/images/misc/welcome/icon.new.png); padding-top:18px; height:41px; }
+.l-col h2.imp {color:#64a418; background-image:url(/images/misc/welcome/icon.imp.png); padding-top:20px; height:39px; }
+.l-col h2, .l-col p {padding-left:70px;}
+
+.l-col p {font:normal 12px Verdana, serif; line-height:1.6em; padding-right:15px;}

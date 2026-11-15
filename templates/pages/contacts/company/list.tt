@@ -1,0 +1,49 @@
+[%-
+    page_title = 'Address Book: Companies';
+    USE url;
+    USE pageurl = url('/' _ c.req.path, c.req.params);
+
+    crumb("Messages", "/messages/");
+    crumb("Companies", "/contacts/company/list");
+    
+    caption = "Browse Address Book Companies";
+    caption_class = "company";
+-%]
+
+<form method="get">
+<p>Search: <input type="text" size="40" name="q" value="[% c.req.params.q %]" />&nbsp;<input class="button" type="submit" value="Search" /></p>
+</form>
+
+<p><a href="/contacts/company/create">Create New Company</a></p>
+
+[% IF contacts.count %]
+<table class="basic tablesorter" id="company-list">
+<thead>
+<tr>
+  <th class="sorter"><a href="[% pageurl(order='company_fullname') %]">Name</a></th>
+  <th class="sorter">Address</th>
+  <th class="sorter">Phone / Fax</th>
+  <th colspan="2">Show</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH i = contacts.all -%]
+<tr>
+  <td class="string"><a href="[% url('/contacts/company/edit', id = i.addressbook_company_id) %]">[% i.company_fullname %]</a></td>
+  <td>
+      [% i.addr_street _ ',<br /> ' _ i.addr_city _ ' ' _ i.addr_region _ ' '
+      _ i.addr_postal_code IF i.addr_street %]
+  </td>
+  <td>
+      [% i.location_phone IF i.location_phone %]
+      [%  ' / ' _ i.location_fax IF i.location_fax %]
+  </td>
+  <td><a href="[% url('/contacts/person/list', company= i.addressbook_company_id) %]">View&nbsp;Contacts</a></td>
+  <td><a href="[% url('/messages/list', company_id = i.addressbook_company_id, status = 'all') %]">View&nbsp;Messages</a></td>
+</tr>
+[%- END -%]
+</tbody>
+</table>
+[%- ELSE -%]
+  Nothing found.
+[%- END -%]

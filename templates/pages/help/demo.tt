@@ -1,0 +1,15 @@
+<html>
+<head>
+    <title>BuildSite Demonstration</title>
+</head>
+<body>
+<object height="600" width="900" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+<param value="http://buildsite.com/swfinfo/v3Flash/[% c.req.param("name") %]" name="movie"/>
+    <param value="transparent" name="wmode"/>
+    <param value="false" name="menu"/>
+    <param value="high" name="quality"/>
+    <embed height="600" width="900" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" quality="high" wmode="transparent" src="http://buildsite.com/swfinfo/v3Flash/[% c.req.param("name") %]"/>
+</object>
+
+</body>
+</html>

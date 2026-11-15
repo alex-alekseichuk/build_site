@@ -1,0 +1,116 @@
+[%
+    page_title = 'Recurring orders';
+
+    caption = "Recurring orders";
+    caption_class = "preferences";
+
+    crumb('Admin', '/admin');
+    crumb('Recurring orders');
+
+    no_sidebar = 1;
+%]
+
+    <form action='/admin/payments/recurring' method='get'>
+<p>
+  <input type="checkbox" class="checkbox" name="testaccounts" id='testaccounts' [% IF c.request.param('testaccounts') %]checked[% END %]
+  value="Y"/><label for='testaccounts'> testing accounts?</label>
+  <br/>
+
+  <input type="submit" value="show orders / accounts to be charged"/>
+</p>
+</form>
+
+
+    <p>Here are the accounts, that need to be charged.</p>
+
+    <p>
+    Testing:    <span id="testaccounts">[% c.request.param('testaccounts') || "N" %]</span><br/>
+    </p>
+
+    <p>orders:</p>
+
+    <table class="basic">
+      <tr>
+        <th> id </th>
+        <th> user id </th>
+        <th> start </th>
+        <th> expires </th>
+        <th> status </th>
+
+        <th> interval </th>
+        <th> free until </th>
+        <th> amount </th>
+        
+        <th> serv nick </th>
+        <th> prod params </th>
+        <th> serv dsn </th>
+
+        <th> comments </th>
+        <th> cc id </th>
+        <th> IP </th>
+
+        <th> ctime</th>
+        <th> mtime</th>
+
+        <th> block reason </th>
+      </tr>
+[% IF orders %]
+    [% FOREACH row = orders %]
+      <tr>
+        <td>[% row.customer_order_id %]</td>
+        <td align='right' linksub='/admin/customer'>[% row.get_column('customer_user_id') %]</td>
+        <td>[% row.order_start %]</td>
+        <td>[% row.order_expires %]</td>
+        <td>[% row.order_status %]</td>
+
+        <td>[% row.recur_interval %]</td>
+        <td>[% row.free_until %]</td>
+        <td>[% row.amount %]</td>
+
+        <td>[% row.get_column('service_nickname') %]</td>
+        <td>[% row.product_params %]</td>
+        <td>[% row.get_column('service_dsn') %]</td>
+        <td>[% row.private_comments %]</td>
+        <td>[% row.get_column('credit_card_id') %]</td>
+        <td>[% row.ipaddr %]</td>
+
+        <td>[% row.auto_ctime %]</td>
+        <td>[% row.auto_mtime %]</td>
+
+        <td>[% row.block_reason %]</td>
+      </tr>
+     [% END %]
+[% ELSE %]
+      <tr>
+        <td colspan='7' align='center'>nothing found</td>
+      </tr>
+[% END %]
+    </table>
+
+    <div class=''>
+
+    <h2>Sweep Recurring</h2>
+
+    <form action="/admin/payments/sweep" method='post'>
+    <p>
+     <label for='passphrase'>passphrase: </label> <br />
+     <input type='text' name='passphrase' id='passphrase'/>
+    </p>
+     
+    <p>
+     <input type="checkbox" class="checkbox" name="pretend" id='sweep-pretend'
+     value="Y"/><label for='sweep-pretend'> just pretend -- do no actual changes</label>
+     <br/>
+
+     <input type="checkbox" class="checkbox" name="stoponerror" id='stoponerror'
+     value="Y"/><label for='stoponerror'> stop on first error</label>
+     <br/>
+
+     <input type="checkbox" class="checkbox" name="testaccounts" id='sweep-test'
+      value="Y"/><label for='sweep-test'> work on testing accounts?</label>
+     <br/>
+
+     <input type="submit"  name="Submit" value="Charge recurring"/>
+    </p>
+    </form>
+    </div>

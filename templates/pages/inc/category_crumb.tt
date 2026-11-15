@@ -1,0 +1,8 @@
+[% IF c.req.param('manufacturer') %]
+[% crumb('Categories', url('/categories/list', manufacturer = c.req.param('manufacturer')) ); %]
+[% ELSE %]
+[% crumb('Categories', url('/categories/list') ); %]
+[% END %]
+[%-
+	crumb(category.category_id.chunk(5).join('.') _ ' - ' _ category.full_title, url('/categories/view', id = category.category_id) );
+%]

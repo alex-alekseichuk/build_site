@@ -1,0 +1,6 @@
+[% PROCESS 'folders/crumbs.tt'
+	action = "File upload"
+	caption = "File Upload";
+	caption_class = "document";
+%]
+<div class="t-basic t-vert">[% FormBuilder.render %]</div>

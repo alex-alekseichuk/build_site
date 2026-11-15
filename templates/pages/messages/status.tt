@@ -1,0 +1,27 @@
+[% SWITCH rec.status;
+      CASE "sent"; 
+         IF rec.type == 'email'; text = "Message was sent."; 
+         ELSE;                   text = "Fax Received."; 
+         END; 
+      CASE "pending"; 
+         text = "Message is being faxed. Waiting for a delivery notification.";
+      CASE "received";
+         text = "Fax Received.";
+      CASE "failed";
+         text = "Failed. Details unknown.";
+      CASE "failed-telephony";
+         text = "Failed: There was a phone or fax problem. Please confirm the number and contact the recipient if necessary.";
+      CASE "failed-line-busy";
+         text = "Failed: Fax machine was busy. Please try again.";
+      CASE "failed-disconnected";
+         text = "Failed: The line unexpectedly disconnected.  Please try again and confirm the number if necessary.";
+      CASE "failed-number";
+         text = "Failed: There was an issue with this fax number. Please confirm the  number and contact the recipient if necessary.";
+      CASE "failed-rendering";
+         text = "Failed: Rendering error: The system could not turn your documents into a fax. Make sure your documents contain no macros, that they are not password-protected, and that they are in our list of supported file types.";
+      CASE;
+         text = "Failed: Something unexpected has happened. Please contact support.";
+   END;
+
+   text;
+-%]

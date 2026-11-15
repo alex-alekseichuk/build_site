@@ -1,0 +1,4 @@
+[%-
+		crumb("Manufacturers", "/companies/list");
+		crumb(manufacturer.name, url("/companies/view", id = manufacturer.company_id));
+%]

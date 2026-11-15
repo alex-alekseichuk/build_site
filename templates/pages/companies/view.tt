@@ -1,0 +1,22 @@
+[%
+	USE url;
+	IF obj;
+		company_title = obj.name;
+		page_title = company_title _ ' Manufacturer Details';
+
+		crumb('Manufacturers', '/companies/list');
+		crumb(company_title, url('/companies/view', id = obj.company_id));
+
+		caption = "Manufacturer Details";
+		caption_class = "manufacturer";
+%]
+
+[% USE cache = BSACache(c.bst_config('html_cache')) %]
+[% cache.inc(
+	template => "companies/view.cache.tt",
+	key      => c.cache_key
+) %]
+[% ELSE %]
+
+	No such manufacturer.
+[% END %]

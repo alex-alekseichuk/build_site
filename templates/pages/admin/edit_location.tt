@@ -1,0 +1,19 @@
+[%-
+   page_title = 'Locations';
+-%]
+
+[% PROCESS 'admin/crumbs.tt'
+	locations = 1
+%]
+[% crumb("New location") UNLESS obj %]
+
+[%- IF obj -%]
+<form action="/admin/delete/location" id="delete_location" method="post" name="delete_location">
+<input name="account_location_id" type="hidden" value="[% obj.account_location_id %]"/>
+[% IF !obj.block_access %]<input name="delete" type="submit" value="Block Location" />[% END %]
+</form>
+[%- ELSE -%]
+<h2>New Location</h2>
+[%- END -%]
+
+<div class="t-basic t-vert">[%- FormBuilder.render -%]</div>

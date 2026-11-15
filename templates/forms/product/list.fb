@@ -1,0 +1,12 @@
+name: product_list
+javascript: 0
+method: get
+fields:
+  manufacturer:
+    type: hidden
+    required: 0
+  category:
+    type: hidden
+    required: 0
+
+submit:  Submit

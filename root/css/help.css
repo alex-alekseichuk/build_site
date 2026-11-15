@@ -1,0 +1,57 @@
+#help-contents {width:850px;}
+#help-contents H2 {margin-top:2em;}
+#help-contents H2.first {margin-top:0;}
+#help-contents H3 {font-size:1em; font-weight:bold;}
+
+#help-contents UL LI,
+#help-contents DL DT {
+	background:url(/images/misc/help/li.gif) no-repeat 0 8px;
+	padding-left:12px;
+	margin-left:10px;
+	list-style:none;
+}
+#help-contents DL DD {
+	margin-left:22px;
+}
+#help-contents UL {
+	margin-left:0;
+	padding-left:0;
+}
+#help-contents OL {
+	margin-left:20px;
+}
+
+#help-contents UL OL {
+	margin-left:0px;
+	margin-bottom:0px;
+}
+
+#help-contents UL.nopad {
+	margin-top:-1em;
+}
+
+#help-contents UL.li-pad LI {
+	margin-bottom:1em;
+}
+#help-contents UL.li-pad LI LI {
+	margin-bottom:0;
+}
+
+#help-contents DT {
+	font-weight:bold;
+}
+#help-contents UL.contents LI {
+	margin-left:0px;
+}
+
+#help-contents P.img {
+	text-align:center;
+	font-size:0.8em;
+}
+#help-contents P.img IMG {
+	margin-bottom:1em;
+}
+
+#help-contents IMG.left {margin-right:20px;}
+#help-contents .section {margin-top:1.5em;}
+#help-contents BR {clear:both;}

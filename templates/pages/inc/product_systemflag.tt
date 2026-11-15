@@ -1,0 +1,3 @@
+[%- IF p.show_system_flag -%]
+    <img src="/images/adflags/system.png" align="bottom" title="has related" alt="has related" />
+[%- END -%]

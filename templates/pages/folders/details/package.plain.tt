@@ -1,0 +1,45 @@
+<script src="/js/jquery.json.js" type="text/javascript"></script>
+<script src="/js/jquery.tablednd.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var package_id = '[%- item.file_id -%]';
+    var isCurrentPackage = '[% current_package.id %]' == '[%- item.file_id -%]';
+    var init_package_items = [];
+    [%- FOREACH i = item.items -%]
+        [%- j = i.is_file ? i.file : i.document; -%]
+        init_package_items[[%loop.count - 1%]] = {
+            package_item_id: '[% i.package_item_id %]'
+            ,id: '[% i.is_file ? i.file.file_id : i.document.document_id %]'
+            ,url: '[% j.download_url || url('/folders/download', file_id = j.id) %]'
+            ,title: '[% j.title | replace("'","\\'") %]' [%# title may contain quotes %]
+            ,type: '[% i.is_file ? "file" : "document" %]'
+            ,size: '[% (j.derived_filesize || j.file_size) | file_size %]'
+            ,page_count: '[% i.page_count || (i.is_faxable ? "at least 1" : '') %]'
+        };
+    [%- END -%]
+</script>
+<script src="/js/package.details.js" type="text/javascript"></script>
+
+[% PROCESS "folders/details/package._actions.tt" %]
+[% PROCESS "folders/details/package._header.tt" %]
+
+[% IF saved %]
+<form id="package-details" class="file-details" method="post" action="/folders/saveall">
+    <input type="hidden" name="file_id" value="[% item.file_id %]" />
+    <p class="autosave-notice"></p>
+
+    [% PROCESS "folders/details/file.details.tt" %]
+</form>
+[% END %]
+
+<h3>Documents Included</h3>
+
+<div id="table-action-bar" class="table-action-bar">
+    <input type="button" class="table-action-attach" value="Attach" />    [% IF item.can_write(c.user) %]<input type="button" class="table-action-clear" value="Clear" />[% END %]
+</div>
+
+<!-- here (after #table-action-bar) we put the table of package items -->
+
+[% IF !saved && c.req.param('return') %]
+    <p class="go-back"><a href="[% c.req.param('return') %]">&laquo; Go Back</a></p>
+[% END %]
+

@@ -1,0 +1,1 @@
+update message set message_status='not sent' where message_status='not send';

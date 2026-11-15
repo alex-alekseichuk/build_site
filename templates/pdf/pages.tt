@@ -1,0 +1,13 @@
+Cover page
+[% IF stat.faxable_pages %]
+    plus
+    [% IF stat.uncountable %]
+	[% stat.uncountable == stat.faxable ? "attachments" : " at least " _ stat.faxable_pages _ " pages" %]
+    [% ELSE %]
+	[% stat.faxable_pages %] pages
+    [% END %]
+[% ELSE %]
+    only
+[% END %]
+
+[% IF stat.unfaxable %] - incompatible attachments not included[% END %]

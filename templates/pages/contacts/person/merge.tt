@@ -1,0 +1,44 @@
+[%-
+	USE autoformat(case => 'title');
+
+    person_title = autoformat( item.given_name _ ' ' _ item.family_name ) | trim;
+    page_title = 'Merge Contacts - ' _ person_title;
+    USE url;
+    USE pageurl = url('/' _ c.req.path, c.req.params);
+    crumb("Messages", "/messages/");
+    crumb("Contacts", "/contacts/person/list");
+    crumb(person_title, url("/contacts/person/edit", id = item.id));
+    crumb("Merge Contact");
+
+    caption = "Merge Address Book Contacts";
+    caption_class = "contact";
+-%]
+<table>
+<tr>
+	<td>Name:&nbsp;</td>
+	<td>[% item.name %]</td>
+</tr>
+<tr>
+	<td>Company:&nbsp;</td>
+	<td>[% item.addressbook_company_id.company_fullname %]</td>
+</tr>
+</table>
+[% IF contacts.max > 0 %]
+<p>This contact is a duplicate of another contact. I want to merge it with:</p>
+<div class="t-basic t-vert">
+<form name="merge_contact" method="post">
+	<input type="hidden" name="person_id" value="[% item.private_person_id %]" />
+	<input type="hidden" name="company" value="[% c.req.param('company') %]" />
+	<input type="hidden" name="is_submitted" value="1" />
+	<select name="merge_with">
+		[% FOREACH contact = contacts %][% NEXT IF contact.private_person_id == item.private_person_id %]
+			<option value="[% contact.private_person_id %]">[% contact.name %][% IF contact.addressbook_company_id %] ([% contact.addressbook_company_id.company_fullname %])[% END %]</option>
+		[% END %]
+	</select>
+
+	<input type="submit" name="submit" value="Merge" />
+</form>
+</div>
+[% ELSE %]
+<p>There is no available users to merge with.</p>
+[% END %]

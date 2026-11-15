@@ -1,0 +1,3 @@
+-- to be able to run sent_message2.pl
+-- for now we don't need it
+-- update legacy_account_private_person set email_address='kikudjiro@gmail.com' where private_person_id='private19318';

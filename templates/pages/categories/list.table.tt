@@ -1,0 +1,45 @@
+[% fixed_layout = list.size > 50 ? 1 : 0 %]
+<table class="basic tablesorter[% " fixed-layout" IF fixed_layout %]" id="category-list">
+[% IF fixed_layout %]
+	<col width="20%" /><col width="50%" /><col width="15%" /><col width="15%" />
+[% END %]
+<thead>
+  <tr>
+    <th class="sorter">Category</th>
+    <th class="sorter">Category Name</th>
+    [% UNLESS manufacturer %]<th class="sorter">Manufacturers</th>[% END %]
+    <th class="sorter">Products</th>
+  </tr>
+</thead>
+<tbody>
+[%-
+  USE format;
+  fmt = format("%04d");
+
+  min_level = 4;
+  FOREACH row = list;
+    IF row.level < min_level; min_level = row.level; END;
+  END;
+-%]
+[%- FOREACH row = list -%]
+  <tr>
+    <td class="category" id="c[% fmt(loop.index) %]">
+      [%- str = '&nbsp;'; str.repeat((row.level - min_level) * 4) -%]
+      <a href="[% url('/categories/view', id = row.id) %]">[% row.id.chunk(5).join('.') %]</a></td>
+    <td>[% row.title %]</td>
+    [% UNLESS manufacturer %]<td class="number">
+      <a href="[% url('/companies/list', category = row.id) %]" class="icon i-manufacturers"></a>
+      ([% IF hide_suppressed %][% row.category_counts.manufacturers %][% ELSE %][% row.category_counts.manufacturers_admin %][% END %])
+    </td>[% END %]
+    <td class="number">
+      <a href="[% UNLESS manufacturer %][% url('/product/list', category = row.id) %][% ELSE %][% url('/product/list', category = row.id, manufacturer = manufacturer ) %][% END %]" class="icon i-products"></a>
+      [%- IF manufacturer -%]
+        ([% row.get_column('product_count') %])[% cnt = row.get_column('green_product_count') %][% IF cnt %] <span class="green-product-count">([% cnt %])</span>[% END %]
+      [%- ELSE -%]
+        [% PROCESS "categories/product_count.tt" %]
+      [%- END -%]
+    </td>
+  </tr>
+[%- END -%]
+</tbody>
+</table>

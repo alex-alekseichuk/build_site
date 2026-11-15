@@ -1,0 +1,134 @@
+[%- UNLESS leedcredit -%]
+[%- IF (list.size && list) -%]
+	<h2>Found [% cnt = list.max + 1 %] [% cnt %] [% cnt == 1 ? "product" : "products" %].</h2>
+[%- ELSE -%]
+	<h2>Nothing found.</h2>
+[%- END -%]
+[%- END -%]
+
+[% IF !advanced || (list.size && list) %]
+[% fixed_layout = list.size > 50 ? 1 : 0 %]
+<table class="basic t-adv tablesorter[% " fixed-layout" IF fixed_layout %]" id="products-list">
+
+[%
+  IF fixed_layout;
+    cols_w = [];
+    table_width = 100 - attributes.size * 10;
+    IF is_astm;
+	table_width = table_width - 10;
+    END;
+
+    IF is_manufacturer || is_category;
+	cols_w.push(table_width * 0.4);
+	cols_w.push(table_width * 0.25);
+	FOREACH attribute IN attributes;
+		cols_w.push(10);
+	END;
+	cols_w.push(table_width * 0.35);
+    ELSE;
+	cols_w.push(table_width * 0.3);
+	cols_w.push(table_width * 0.2);
+	FOREACH attribute IN attributes;
+		cols_w.push(10);
+	END;
+	cols_w.push(table_width * 0.2);
+	cols_w.push(table_width * 0.3);
+    END;
+
+    FOREACH col IN cols_w;
+        col FILTER format ('<col width="%d%%" />');
+    END;
+
+  END;
+%]
+<table class="basic t-adv tablesorter" id="products-list">
+<thead>
+  <tr>
+    <th class="sorter">Product Name</th>
+    <th>Description</th>
+    [% FOREACH attribute = attributes %]
+    <th class="sorter green-attr">
+        [% FOREACH attr IN attribute %]
+            [% attr.attribute_name %][% UNLESS loop.last %]<br />[% END %]
+        [% END %]
+    </th>
+    [% END %]
+    [% '<th class="sorter">ASTM</th>' IF is_astm %]
+    [% '<th class="sorter">Manufacturer</th>' IF !is_manufacturer %]
+    [% '<th class="sorter string">Category</th>' IF !is_category %]
+  </tr>
+</thead>
+<tbody>
+
+[%- FOREACH row = list -%]
+  [% classes = [] %]
+  [% classes.push('suppress') IF (row.is_suppressed AND (!manufacturer OR manufacturer.suppress_reason_code != 'mfgsuppress')) OR row.is_discontinued %]
+  [% classes.push('adv') IF row.productmatch_active %]
+  [% classes.push('afterqa') IF row.has_afterqa_docs || row.suppress_reason_code == 'afterqa' %]
+
+  <tr[% ' class="' _ classes.join(' ') _ '"' IF classes.size %]>
+    [%- IF row.productmatch_active -%]
+      <td>
+          <div id="[% row.id _ '_mfg_long_text' %]" class="adv-txt">[% row.mfg_long_text %]</div>
+          [%- INCLUDE 'inc/product_link.tt' p = row -%][% IF row.has_afterqa_docs %]<span class="has-afterqa-docs"> New documents</span>[% END %]
+      </td>
+      <td>
+        [%- INCLUDE 'inc/product_adflags.tt' p = row -%]
+        [%- INCLUDE 'inc/product_systemflag.tt' p = row -%]
+        [%- INCLUDE 'inc/product_greenflag.tt' p = row -%]
+        <br />[%- row.mfg_short_text -%]
+    </td>
+
+    [%- ELSE -%]
+      <td>[%- INCLUDE 'inc/product_link.tt' p = row -%][% IF row.has_afterqa_docs %]<span class="has-afterqa-docs"> New documents</span>[% END %]</td>
+      <td>
+        [%- INCLUDE 'inc/product_systemflag.tt' p = row -%]
+        [%- INCLUDE 'inc/product_greenflag.tt' p = row -%]
+      </td>
+    [%- END -%]
+    [% FOREACH attribute = attributes %]
+    <td [% FOREACH attr IN attribute %][% IF loop.first %]class="[% attr.sorttype %] green-attr"[% ELSE %]class="green-attr"[% END %][% END %]>
+        [% FOREACH attr IN attribute %]
+            [% row.attribute_value(attr.attribute_id) %][% UNLESS loop.last %]<br />[% END %]
+        [% END %]
+    </td>
+    [% END %]
+  [%- IF is_astm -%]
+    <td>
+        [% FOREACH s = row.product_standards %]
+            [% IF s.standard.standard_org_id == 'astm' %]
+                <b>Id:</b>&nbsp;[% s.standard.standard_document_identifier %]<br/>
+                [% IF s.standard_parameters %]
+                    [% IF (matches = s.standard_parameters.match('(?:Type\s)(.*?)(?:,?\s?(?:Class|Grade|Use|$))')) %]
+                        <b>Type:</b>&nbsp;[% matches.0 %]<br/>
+                    [% END %]
+                    [% IF (matches = s.standard_parameters.match('(?:Class\s)(.*?)(?:,?\s?(?:Grade|Use|$))')) %]
+                        <b>Class:</b>&nbsp;[% matches.0 %]<br/>
+                    [% END %]
+                    [% IF (matches = s.standard_parameters.match('(?:Grade\s)(.*?)(?:,?\s?Use|$)')) %]
+                        <b>Grade:</b>&nbsp;[% matches.0 %]<br/>
+                    [% END %]
+                    [% IF (matches = s.standard_parameters.match('(?:Use\s)(.*?)(?:,?$)')) %]
+                        <b>Use:</b>&nbsp;[% matches.0 %]<br/>
+                    [% END %]
+                [% END %]
+            [% END %]
+        [% END %]
+    </td>
+    [%- END -%]
+
+    [%- '<td><a href="' _ c.uri_for('/companies/view', id = row.manufacturer.id) _ '">' _ (row.manufacturer.name) _ '</a></td>' IF !FormBuilder.params('manufacturer') -%]
+
+    [%- IF !is_category -%]
+        <td>
+            <a href="[% c.uri_for('/categories/view', id = row.category.ancestors.last.id) %]">
+                [% PROCESS 'inc/category_ancestors.tt' list = row.category.ancestors %]
+            </a>
+        </td>
+    [%- END -%]
+
+  </tr>
+[%- END -%]
+</tbody>
+</table>
+[% END %]

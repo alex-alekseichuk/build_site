@@ -1,0 +1,141 @@
+.b-package-nav .drop li.wait {
+    background: url(images/spinner.gif) left no-repeat;
+}
+.b-package .product li .ico.wait {
+    background: url(images/spinner.gif) left no-repeat;
+}
+
+.b-package .product .ico.wait {
+    background: url(images/spinner.gif) left no-repeat;
+}
+
+.b-package .ico.wait {
+    background: url(images/spinner.gif) left no-repeat;
+}
+
+table.basic td.wait {
+    background: url(images/spinner.gif) 7px center no-repeat;
+}
+
+.expandable SPAN.wait {
+    background: url(images/spinner.gif) 1px center no-repeat;
+}
+
+
+.droppable-active {
+	background-color: lightgray;
+}
+
+.droppable-hover {
+	outline: 1px dotted black;
+}
+
+.novisible{
+	visibility: hidden;
+}
+
+
+.b-package .toc-link-cont a {
+	text-decoration: none;
+}
+
+.b-package .toc-link-cont span {
+	display:block;
+	float:left;
+}
+
+.b-package .ico_plus {
+	background:url(../images/icons/plus-small.png) no-repeat 0 center;
+	height:16px;
+	padding:0 5px 0 0;
+	width:14px;
+	cursor:pointer;
+}
+
+.b-package .minus {
+	background-image:url(../images/icons/minus-small.png);
+}
+
+
+.b-package .toc-link-cont a,
+.b-package .toc-link-cont span {
+	display:block;
+	float:left;
+}
+
+.b-package .toc-link-cont .edit-toc {
+	float: right;
+	x-margin-left: 4px;
+}
+
+.b-package .toc-link-cont {
+	overflow:hidden;
+	zoom:1;
+	height:16px;
+}
+
+
+#cps-size-alert {
+	background:lightyellow;
+	border:1px dotted red;
+	padding:10px;
+	margin-bottom:1em;
+}
+
+#savepackage-dialog th, #savepackage-dialog td  {
+	padding-bottom:2px;
+}
+#savepackage-dialog label {
+	padding-right:10px;
+	cursor:pointer;
+}
+
+#package-destructive-dialog p {margin-right:40px; margin-bottom:0.5em;}
+
+
+.document_drawer_folder {
+    display: block;
+	font-weight:bold;
+	background: url('/images/icons/folder.gif') no-repeat;
+	padding-left: 20px;
+	height: 20px;
+}
+
+.document_drawer_file {
+    display: block;
+/*	font-style:italic;*/
+	background: url('/images/icons/file.gif') no-repeat;
+	padding-left: 20px;
+	height: 20px;
+}
+
+.document_drawer_archive {
+    display: block;
+	background: url('/images/icons/package.gif') no-repeat;
+	padding-left: 20px;
+	height: 20px;
+}
+
+.dialog-dd-head {
+    margin: 10px auto;
+    font-weight: bold;
+    border-bottom: solid 1px #CCC;
+    padding-bottom: 5px;
+}
+.dialog-dd-section {
+    margin-left: 20px;
+}
+
+td.ajax {
+    background-image: url(/css/images/spinner.gif);
+    background-repeat: no-repeat;
+    background-position: right;
+}
+td.ajax input.groupChk {
+    display: none;
+}
+
+
+input.msgChk {
+    display: none;
+}

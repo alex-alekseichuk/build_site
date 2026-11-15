@@ -1,0 +1,1 @@
+<img src="/images/icons/document.gif" alt="" /> <a target="_blank" href="[% document.download_url %]">[% document.title %]</a> ([% document.file_size | file_size %], [% document.page_count %]pg)

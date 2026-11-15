@@ -1,0 +1,23 @@
+name: create_dir
+method: post
+fields:
+  title:
+    label: Folder Name
+    type:  text
+    size:  60
+    required: 1
+  comment:
+    label: Description
+    type:  text
+    size:  60
+    required: 0
+  scope:
+    label: Level
+    type:  select
+    required: 1
+    selectname: 0
+  pid:
+    type: hidden
+    required: 0
+
+submit: Create

@@ -1,0 +1,66 @@
+[%-
+	USE url;
+
+	PROCESS 'inc/unix_time.tt';
+	PROCESS 'folders/crumbs.tt';
+
+	page_title = "File details &ndash; " _ item.file_title;
+	caption = "File Details";
+	caption_class = "document";
+
+	can_write = item.can_write( c.user );
+%]
+
+[% IF c.req.params.success == 'reupload' %]
+	<p class="notice">Uploaded file successfully.</p>
+[% ELSIF c.req.params.success == 'save' %]
+	<p class="notice">File was saved.</p>
+[% END %]
+
+<div id="action-bar">
+	<input type="button" id="action-copy" value="[% can_write ? "Copy / Move" : "Copy" %]" />
+	<input type="button" id="action-delete" value="Delete" [% IF !can_write %] disabled="disabled" title="You have not enough permissions to delete this file." [% END %]/>
+</div>
+
+<form class="file-details" method="post" enctype="multipart/form-data" action="/folders/save">
+	<input name="file_id" id="file_id" type="hidden" value="[% item.file_id %]" />
+
+	[% PROCESS "folders/details/file.details.tt" name_label = "Name" %]
+	[% PROCESS "input.tt" type = "file" label="New version" name="file" value="" %]
+
+	[% PROCESS "folders/details/save.button.tt" %]
+</form>
+
+
+<table id="file-stats">
+	<tr>
+		<th>Created by:</th>
+		<td>[% item.creator_user.name %]</td>
+	</tr>
+
+	<tr>
+		<th>Last modified:</th>
+		<td>[% unix_time(time = item.file_mtime) %]</td>
+	</tr>
+
+	<tr>
+		<th>Format:</th>
+		<td>[% item.file_format_type %]</td>
+	</tr>
+
+	<tr>
+		<th>Size:</th>
+		<td>[% item.file_size | file_size %]</td>
+	</tr>
+
+	[% IF item.page_count %]
+	<tr>
+		<th>Page Count:</th>
+		<td>[% item.page_count FILTER format "%d" %] pg</td>
+	</tr>
+	[% END %]
+	<tr>
+		<th></th>
+		<td><a href="[% url('/folders/download', file_id = item.id) %]">Download file</a></td>
+	</tr>
+</table>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://crunch.ahinea.com:3000/" />
+<title>01upload-file</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">01upload-file</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>ieg</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>__IEG_TEST_PASSWORD__</td> <!-- replace with the test account's current password before running -->
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Login']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>echo</td>
+	<td>Logged as ieg successfully</td>
+	<td></td>
+</tr>
+<!--Uploading a file-->
+<tr>
+	<td>click</td>
+	<td>link=Upload File</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>file</td>
+	<td>C:\test.txt</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>test.txt</td>
+	<td></td>
+</tr>
+<!--Renaming the file. The drawer should contain one file only-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Personal Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name</td>
+	<td>New title for the test!</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>update</td>
+	<td></td>
+</tr>
+<!--Moving the file-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>move</td>
+	<td>label=Location:\</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>update</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>New title for the test!</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

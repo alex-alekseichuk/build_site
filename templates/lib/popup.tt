@@ -1,0 +1,55 @@
+[%-
+    USE url('/' _ c.req.path, c.req.params)
+-%]
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<title>[%- page_title -%]</title>
+
+<!-- Meta Tags -->
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="robots" content="index, follow" />
+
+
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="author" content="" />
+
+<!-- don't cache this page -->
+<meta http-equiv="Cache-Control" content="no-cache,post-check=0,pre-check=0,no-cache" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="Thu,01Dec199416:00:00GMT" />
+
+
+<!-- Favicon -->
+
+<!--<link rel="shortcut icon" href="" />-->
+
+
+
+<!-- CSS -->
+<link rel="stylesheet" href="/css/style.css" media="screen,projection" type="text/css" />
+<!--[if IE]><link rel="stylesheet" type="text/css" media="all" href="/css/ie.css" /><![endif]-->
+
+<!-- JavaScript -->
+<script src="/js/jquery.js" type="text/javascript"></script>
+</head>
+<body id="popup">
+
+<div class="l-meta">
+
+    <div class="l-body">
+        [%- PROCESS breadcrumbs.tt IF crumbs.size -%]
+        <div class="l-section"><div class="h-section">
+            <div class="b-block">
+                        [%- PROCESS error.tt error IF error.status -%]
+                        [% content %]
+            </div><!--b-block-->
+        </div></div><!--l-section-->
+    </div><!--body-->
+
+</div><!--l-meta-->
+
+</body>
+</html>

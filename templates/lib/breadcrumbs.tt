@@ -1,0 +1,14 @@
+[%# breadcrumbs trail block template -%]
+
+  <p class='breadcrumbs'>
+  [%- FOREACH cr = crumbs -%]
+     [%- IF cr.href && (!cr.active || cr.highlight) -%]
+        <a class="crumb" href="[% cr.href %]">[% cr.name %]</a>
+     [%- ELSE -%]
+        <span class="crumb">[% cr.name %]</span>
+     [%- END -%]
+     [%- UNLESS loop.last -%]
+       &gt;
+     [%- END -%]
+  [%- END -%]
+  </p>

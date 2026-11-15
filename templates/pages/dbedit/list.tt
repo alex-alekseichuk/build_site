@@ -1,0 +1,24 @@
+[%
+	crumb("DBEdit", "/dbedit");
+	crumb(name);
+	no_sidebar = 1;
+%]
+
+<p><a href="/dbedit/[%name%]/new">New record</a></p>
+
+<table class="basic">
+<tr>
+[% FOREACH column = columns %]
+    <th>[% column %]</th>
+[% END %]
+</tr>
+[% FOREACH obj = list %]
+<tr>
+[% FOREACH column = columns %]
+    <td><a href="/dbedit/[%name%]/[% obj.id %]">[% obj.$column %]</td>
+[% END %]
+</tr>
+[% END %]
+</table>
+
+<p><a href="/dbedit/[%name%]/new">New record</a></p>

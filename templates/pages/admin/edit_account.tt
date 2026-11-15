@@ -1,0 +1,12 @@
+[% IF c.user.is_bs_admin %]
+[%- IF obj -%]
+<form action="/admin/delete/account" id="delete_account" method="post" name="delete_account">
+<input name="account_id" type="hidden" value="[% obj.account_id %]"/>
+[% IF !obj.block_access %]<input name="delete" type="submit" value="Block Account" />[% END %]
+</form>
+[%- ELSE -%]
+<h2>New Account</h2>
+[%- END -%]
+
+<div class="t-basic t-vert">[%- FormBuilder.render -%]</div>
+[% END %]

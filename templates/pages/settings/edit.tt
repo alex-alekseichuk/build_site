@@ -1,0 +1,27 @@
+[%
+	page_title = 'Setting value: ' _ setting.meta.label;
+	list_link = c.user.is_single_user ? "/settings/list" : "/settings/list?scope=" _ setting.scope _ "&scope_value=" _ setting.scope_value;
+	PROCESS 'admin/crumbs.tt';
+
+	crumb("Settings", list_link);
+	crumb(setting.meta.label);
+	
+	caption = "Edit " _ setting.meta.label;
+	caption_class = "preferences";
+%]
+
+<p>[% setting.meta.description %]</p>
+
+[% IF read_only %]
+	<pre class="read-only">[% setting.value %]</pre>
+[% ELSE %]
+
+<div class="t-basic t-vert t-settings">[% form %]</div>
+
+[% IF setting_type == "file" %]
+	<p><a href="/settings/display/?att_name=[% setting.att_name %]&scope=[% setting.scope %]&scope_value=[% setting.scope_value %]">show file</a></p>
+[% END %]
+
+[% END %]
+
+<p><a href="[% list_link %]">Return to the list</a></p>

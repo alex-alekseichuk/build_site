@@ -1,0 +1,41 @@
+name: preferences
+method: post
+fields:
+	db__login_id:
+		label: Login Name
+		type: static
+	db__given_name:
+		label: First Name
+		type:  text
+		size:  40
+		required: 1
+	db__family_name:
+		label: Last Name
+		type:  text
+		size:  40
+		required: 1
+	db__email_address:
+		label: Email Address
+		type:  text
+		size:  40
+		required: 1
+	password:
+		label: Password
+		type:  password
+		size:  40
+		required: 0
+	confirm_password:
+		label: Confirm Password
+		type:  password
+		size:  40
+		required: 0
+	db__primary_location:
+		label: Location
+                type: static
+	db__user_role:
+		label: User Role
+		type: static
+	db__block_access:
+		label: User Status
+		type: static
+submit: Save

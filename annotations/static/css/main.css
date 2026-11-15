@@ -1,0 +1,363 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    color: black;
+    background: #bbb;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    zoom:1;
+    min-height:100%;
+}
+ 
+#wrap {
+    width: 950px;
+    margin: 0 auto;
+    background: white;
+    height: 100%;
+    z-index: 100;
+}
+
+#header 
+{
+    padding: 5px 10px;
+    overflow: hidden;
+    zoom: 1;
+}
+
+h1 
+{
+    margin: 0;
+    margin-bottom: 20px;
+    font-family: Verdana;
+    float: left;
+}
+
+#header .icons
+{
+    float: right;
+    width: 220px;
+    padding-left: 10px;
+}
+
+h2 
+{
+    margin: 0;
+    margin-bottom: 10px;
+    font-family: Verdana;
+    font-size: 16px;
+}
+
+h1.pdf
+{
+    background: url('../img/pdf_icon.png') no-repeat left center;
+    padding-left: 40px;
+}
+
+#wrap-inner 
+{
+    position: relative;
+}
+
+#main 
+{
+    width: 690px;
+    padding:10px 10px 0 0;
+}
+
+
+#sidebar {
+    position:absolute;
+    right:0;
+    top:0;
+    width: 220px;
+    overflow: hidden;
+    zoom: 1;
+    padding:0 10px;
+    }
+
+.clear
+{
+    clear: both;
+    height: 0;
+}
+
+* html .clear {
+    height: 1px;
+}
+
+div#toolbar
+{
+    position: relative;
+    overflow:hidden;
+    zoom:1;
+}
+
+div#tools
+{
+    float: left;
+    padding-left: 10px;
+}
+
+div#settings
+{
+    float: right;
+}
+
+div#settings span
+{
+    font-weight: bold;
+    font-size: small;
+}
+
+div#settings select
+{
+    font-size: x-small;
+}
+
+.color_picker
+{
+    display: inline-block;
+}
+
+div#color_selector
+{
+    z-index: 220;
+}
+
+#settings .settingsGroup
+{
+    display: none;
+    padding-left: 10px;
+    padding-right: 15px;
+}
+
+#toolbar button {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 5px;
+    padding: 1px;
+}
+
+div#sidebar
+{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.thumb
+{
+    border: 1px solid black;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.thumb .page-number
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 5px;
+    font: bold 15px Arial, "Arial Black", sans-serif;
+}
+
+.thumb .icons
+{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 200px;
+    text-align: center;
+    font: bold 15px Arial, "Arial Black", sans-serif;
+}
+
+.icons img
+{
+    cursor: pointer;
+}
+
+.icons img.restore
+{
+    display: none;
+}
+
+#main.deleted-page img.restore,
+.thumb.deleted .icons img.restore
+{
+    display: inline;
+}
+
+.icons img.delete
+{
+    display: inline;
+}
+
+#main.deleted-page img.delete,
+.thumb.deleted .icons img.delete
+{
+    display: none;
+}
+
+.thumb img
+{
+    padding: 0;
+}
+
+.overlay
+{
+    display: none;
+}
+
+.thumb.selected
+{
+    border: 3px solid #3333FF;
+}
+
+.thumb.deleted .overlay
+{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: gray;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+
+div#canvas
+{
+    overflow: auto;
+    /*overflow-x: auto;
+    overflow-y: auto;*/
+    /*height: 475px;*/
+    position: relative;
+}
+
+div#wrap-canvas
+{
+    position: relative;
+}
+
+div#canvas #editor
+{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 120;
+}
+
+div#footer
+{
+    padding:  7px;
+    height: 45px;
+    overflow: hidden;
+    zoom: 1;
+}
+
+div#footer #paging
+{
+    float: left;
+    width: 620px;
+    text-align: center;
+    padding-top: 13px;
+    overflow: hidden;
+    zoom: 1;
+}
+
+div#footer #paging *
+{
+    font: bold 12pt Tahoma, sans-serif;
+}
+
+div#footer #paging img
+{
+    cursor: pointer;
+    float: left;
+    margin: -5px 15px 0;
+    display: inline;
+}
+
+div#footer #paging img#next-page
+{
+    float: right;
+}
+
+div#footer #paging #paging-form
+{
+    margin: 0;
+    position: relative;
+    display: inline;
+} 
+
+div#footer .icons
+{
+    width: 50px;
+    float: right;
+}
+
+#main.deleted-page #toolbar .overlay,
+#main.deleted-page #wrap-canvas .overlay,
+#main.blocked #toolbar .overlay,
+#main.blocked #wrap-canvas .overlay
+{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: gray;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    z-index: 130;
+}
+
+#main.deleted-page #canvas
+{
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#main.deleted-page #canvas #undelete-message
+{
+    display: block;
+    position: absolute;
+    width: 250px;
+    height: 80px;
+    left: 50%;
+    top: 50%;
+    margin-left: -125px;
+    margin-top: -40px;
+    background-color: white;
+    border: 3px solid gray;
+    text-align: center;
+    padding: 15px;
+}
+
+#undelete-message
+{
+    display: none;
+    z-index: 200;
+}
+
+#undelete-message button
+{
+    padding: 4px 16px;
+    font-size: 12px;
+    font-weight: bold;
+}

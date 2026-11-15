@@ -1,0 +1,16 @@
+<div id="action-bar">
+    [% IF !saved %]
+        <input type="button" id="action-save" value="Save as" />
+    [% ELSE %]
+        <input type="button" id="action-copy" value="[% item.can_write( c.user) ? "Copy / Move" : "Copy" %]" />
+    [% END %]
+    <input type="button" id="action-send" value="Send" redirect="/messages/package?package_id=[% item.file_id %]" />
+    <input type="button" id="action-makecurrent" class="hashelp" value="Make Current" [% IF current_package.file_id == item.file_id %] disabled="disabled" [% END %]/>
+    [% INCLUDE "help.tt" hint="Click the Make Current button to edit this package. Its contents will also appear in your Current Package sidebar if you navigate away from this page." %]
+    <input type="button" id="action-print" value="Print" disabled="disabled" redirect="/print/?all=1&package_id=[% item.file_id %]" />
+
+    [% buttons %]
+
+    [% IF saved %]<input type="button" id="action-delete" value="Delete" />[% END %]
+</div>
+

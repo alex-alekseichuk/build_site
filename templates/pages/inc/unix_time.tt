@@ -1,0 +1,20 @@
+[%
+	USE date;
+	USE sec_to_date = DateTime::Format('DateTime::Format::Strptime', { pattern => "%F %T %z" });
+	USE date_to_str  = DateTime::Format('DateTime::Format::Strptime', { pattern => "%a, %e %b %Y %H:%M" });
+
+	MACRO unix_time BLOCK;
+		USE mydate = DateTime(
+			from_string => date.format(time, "%H:%M:%S %e-%b-%Y"),
+			pattern => "%H:%M:%S %e-%b-%Y"
+		);
+
+		USE mydate2 = DateTime(
+			from_string => sec_to_date.format(mydate),
+			pattern => "%F %T %z",
+			time_zone => c.user.settings.list.time_zone
+		);
+
+		date_to_str.format(mydate2);
+	END ;
+%]

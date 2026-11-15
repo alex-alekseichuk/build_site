@@ -1,0 +1,71 @@
+<script type="text/javascript" src="/js/expandable.js"></script>
+<script>
+$(document).ready(function() {
+	var uncheckAll = $('#uncheck-all-link');
+	var toggleUncheckAll = function(obj) {
+		if ((obj && $(obj).is(':checked')) || $('input[name="related_product"]:checked').length)
+			uncheckAll.removeClass('hidden');
+		else
+			uncheckAll.addClass('hidden');
+	}
+
+
+	$('.check-link').click(function() {
+		var cbs = $('#related-products input[type=checkbox]');
+		if ($(this).attr('id') == 'uncheck-all-link')
+			cbs.removeAttr('checked');
+		else
+			cbs.attr('checked', 'checked');
+		toggleUncheckAll();
+		return false;
+	});
+
+	$('input[name="related_product"]').bind('change', function() { toggleUncheckAll(this); });
+	toggleUncheckAll();
+		
+	$('#related-products-form').submit(function() {
+		return $('input[name="related_product"]:checked').length > 0;
+	});
+});
+</script>
+<style>
+	#uncheck-all-link {margin-right:2em;}
+	#related-products-form p {margin:0.5em 0 1em 0;}
+</style>
+
+<a name="related"></a>
+<div id="related-products-div" class="expandable">
+	<h2 class="more"><label>Accesories / Related Products</label></h2>
+
+<div class="content">
+[% IF related_products_package.size() %]
+
+<form name="related_products" id="related-products-form" method="post" action="/product/add_related_products?id=[% c.req.param('id') %]">
+<p>
+	<!-- <a href="#" class="check-link" id="check-all-link">Check All</a> / --> <a class="check-link hidden" id="uncheck-all-link" href="#">Uncheck All</a>
+	<span id="add-related-products-wrapper"><input name="add_related_products" type="submit" value="Add to [% c.req.param("ajax") ? "the" : "Current" %] Package" /></span>
+</p>
+
+<ul id="related-products">
+[% FOREACH section = related_products_package -%]
+	<li>
+		[% section.title ? section.title : 'Unknown' %]
+        [%- IF section.document && section.document.title -%]
+    		[% PROCESS "inc/full_document_link.tt" document=section.document %]
+        [%- END -%]
+		<ul>
+		[% FOREACH r_product = section.products -%]
+			<li>
+				<input type="checkbox" name="related_product" id="related_product[% r_product.product_related_id %]" value="[%- r_product.product_related_id -%]" [% rp = c.session.related_products.${c.req.param('id')} %][% IF rp && rp.grep(r_product.product_related_id).size() %]checked="checked"[% END %]/> <label for="related_product[% r_product.product_related_id %]">[%- r_product.name -%]</label>
+			</li>
+		[% END %]
+		</ul>
+	</li>
+[% END %]
+</ul>
+</form>
+[% END %]
+
+</div>
+
+</div>

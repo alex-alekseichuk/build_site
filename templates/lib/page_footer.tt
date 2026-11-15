@@ -1,0 +1,8 @@
+    <div class="l-footer">
+            <div class="copy">Copyright 2000&#150;2010 BuildSite, LLC. All rights reserved.</div>
+            <div class="nav">
+                <a href="#">Data Format</a> |
+                <a href="http://buildsite.com/info/legal/terms.html" target="_blank">Terms of Use</a> |
+                <a href="http://buildsite.com/info/legal/privacy.html" target="_blank">Privacy Policy</a>
+            </div>
+    </div><!--footer-->

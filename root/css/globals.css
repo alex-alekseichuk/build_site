@@ -1,0 +1,758 @@
+
+/*
+
+BuildSite Global classes&styles
+
+SUP & SUB
+Links
+Headers
+Controls
+Canyon
+HR
+
+*/
+
+/* SUP & SUB
+----------------------------- */
+SUP, SUB {
+    vertical-align:middle;
+    position:relative;
+    font-size:.75em;
+    }
+SUP {
+    bottom:0.5em;
+    }
+SUB {
+    top:0.5em;
+    }
+
+/* Links
+----------------------------- */
+A {
+    color:#1184af;
+    text-decoration:underline;
+    }
+A:hover {
+
+    }
+.l-body A:hover,
+.ui-dialog A:hover {
+	color:#f8931d;
+}
+
+A.document,
+A.fileitem,
+A.file,
+A.product {
+    text-decoration: none;
+}
+
+A.product { font-weight: bold; }
+
+A.document IMG,
+A.fileitem IMG {
+    padding-right: 4px;
+    vertical-align: baseline;
+}
+
+
+
+/* Controls
+----------------------------- */
+label.chk,
+INPUT.chk,
+INPUT.radio {
+    vertical-align:middle;
+    }
+
+
+/* Action buttons 
+----------------------------- */
+#action-bar {
+    text-align:center;
+    margin:1em 0;
+}
+#action-bar input {
+    margin-right:10px;
+}
+
+/* Help icons
+----------------------------- */
+#action-bar input.hashelp {
+    margin-right:0px;
+}
+
+A.help {
+    vertical-align:middle;
+    text-decoration:none;
+    margin-left:4px;
+    padding-top:4px;
+}
+
+#action-bar A.help {
+    margin-right:10px;
+}
+
+.input-row A.help IMG {
+    margin-top:2px;
+}
+
+
+/* Canyon
+-------------------------------------- */
+.canyon {
+    overflow:hidden;
+    }
+    .canyon-section {
+        float:left;
+        }
+    .canyon-side {
+        float:right;
+        }
+
+/* HR
+-------------------------------------- */
+DIV.hr HR {
+    display:none;
+}
+DIV.hr {
+    font-size:0;
+    border-top:1px solid #ccc;
+    padding:0 0 1em;
+}
+DIV.hr.space {
+    border:none;
+    }
+
+
+/* Icons
+----------------------------- */
+IMG.ico {
+    vertical-align:-3px;
+    }
+
+/* Headers
+----------------------------- */
+H2.center {
+    text-align: center;
+    margin-bottom:1.5em;
+}
+
+H2.found-items {
+    font-size:1.3em;
+}
+
+H2.has-switcher {
+	float:left; 
+	margin-left:-250px;
+	width:100%;
+}
+
+* HTML H2.has-switcher {
+	display:inline;
+}
+
+#manufacturers-switcher {
+	float:left;
+	width:250px;
+	position:relative;
+	z-index:999;
+}
+
+
+/* Tables
+-------------------------------------- */
+TABLE.basic {
+    width:100%;
+    }
+    TABLE.basic TD {
+        padding:5px 5px 4px 5px;
+        }
+    TABLE.basic TH {
+        background:#ccc;
+        color:#333;
+        font-weight:bold;
+		padding:3px 5px 4px 5px;
+        }
+    TABLE.basic TD {
+        border-bottom:1px solid #ccc;
+        }
+    TABLE.basic TD.no-border {
+        border-bottom:none;
+        }
+    TABLE.basic .col-pkg-chk {
+        width:2em;
+        }
+    TABLE.basic .col-ico {
+        width:16px;
+        }
+    TABLE.basic TR.unseen {
+        font-weight:bold;
+        }
+    TABLE.basic TR.after-adv TD {
+        border-top:2px solid #ccc;
+        }
+    TABLE.basic TR.adv {
+        background:#FAFBD2;
+        }
+        TABLE.basic .adv .adv-txt {
+            display:none;
+            background-color:#028DD2;
+            color:white !important;
+            padding:10px;
+            position:absolute;
+            z-index:100;
+            margin:1.5em 0 0 30px;
+            font-size:.92em;
+            left:15px;
+            }
+            TABLE.basic .adv:hover .adv-txt,
+            TABLE.t-adv TR.hover .adv-txt {
+                display:block;
+                }
+            TABLE.basic .adv .adv-txt UL {
+                padding:0;
+                margin-bottom:0;
+                }
+TABLE.basic A {
+	text-decoration: none;
+}
+
+TABLE.vert {
+    width:auto;
+    }
+    TABLE.vert TH {
+        background:transparent;
+        color:#333;
+        font-weight:bold;
+        text-align:right;
+        width:5%;
+        white-space:nowrap;
+        vertical-align:top;
+        }
+    TABLE.vert TD {
+        border-bottom:none 0;
+        }
+
+TABLE.vert-td {
+    width:auto;
+    }
+    TABLE.vert-td TH {
+        width:5%;
+        }
+    TABLE.vert-td TD {
+        vertical-align:top;
+        }
+
+
+TABLE.rich {
+    font-size:.92em;
+    border-bottom:1px solid #ccc;
+    }
+    TABLE.rich TH {
+        font-weight:normal;
+        padding:3px 3px;
+        }
+    TABLE.rich TD {
+        border:none;
+        padding:3px 3px;
+        }
+    TABLE.rich TD INPUT.text {
+        xxx-border:1px solid #ccc;
+        width:99%;
+        color:#333;
+        }
+    TABLE.rich TD INPUT:focus{
+        xxx-border:1px solid #f7c121; 
+        }
+    TABLE.rich A {
+        text-decoration:none;
+        }
+
+    TABLE.rich .sel-act {
+        visibility:hidden;
+        }
+    TABLE.rich .sel .sel-act {
+        visibility:visible;
+        }
+    TABLE.rich .sel TD {
+        background-color:#e5e5e5;;
+        }
+
+TABLE.t-basic,
+.t-basic TABLE {
+    width:100%;
+    }
+    .t-basic TH,
+    .t-basic TD {
+        padding:3px 5px;
+        }
+    .t-basic TH {
+        background:#ccc;
+        color:#333;
+        }
+    .t-basic TD {
+        border-bottom:1px solid #ccc;
+        }
+    .t-basic .col-pkg-chk {
+        width:2em;
+        }
+
+TABLE.t-vert,
+.t-vert TABLE {
+    width:auto;
+    }
+    .t-vert TH {
+        background:transparent;
+        color:#333;
+        font-weight:bold;
+        text-align:right;
+        width:5%;
+        white-space:nowrap;
+        vertical-align:top;
+        }
+    .t-vert TD {
+        border-bottom:none 0;
+        }
+
+.t-settings TD TEXTAREA {
+    width:400px;
+    height:8em;
+    }
+
+p.notice { background: #FEF5CA; padding: 1ex 2ex; font-weight: bold; }
+
+
+/* More space on manufacturer list */
+
+#manufacturers-list TD {
+    padding:7px 5px 8px 5px;
+}
+
+
+/* Suggestions
+---------------------------------*/
+.sugg {
+    position:absolute;
+    background:#f4f4f4;
+    border:2px solid #5b89ab;
+    padding:1px;
+    z-index:5;
+    zoom:1;
+    }
+    .sugg-wide {
+        width:96%;
+        margin:0 0 0 2%;
+        position:relative;
+        }
+    .sugg TABLE {
+        width:100%;
+        }
+    .sugg THEAD{
+        border:2px solid #d8ebf1;
+        border-bottom:2px solid #f4f4f4;
+        }
+    .sugg TBODY {
+        border:2px solid #f4f4f4;
+        }
+    .sugg TH {
+        background:#d8ebf1;
+        font-weight:bold;
+        color:#ababab;
+        padding:3px 5px;
+        }
+    .sugg TD {
+        vertical-align:top;
+        padding:3px 5px;
+        font-size:.92em;
+        border-top:1px solid #cbcbcc;
+        border-bottom:1px solid #cbcbcc;
+        color:#444;
+        }
+    .sugg TBODY TR {
+        cursor:pointer;
+        }
+    .sugg TBODY TR:hover TD,
+    .sugg TBODY TR.hover TD {
+        background:#f7c121;
+        border-top:1px solid #f7c121;
+        border-bottom:1px solid #f7c121;
+        }
+
+/* Markers
+---------------------------------*/
+SPAN.g-marker {
+    border:1px solid #ddd;
+    padding:1px 5px;
+}
+
+/* PRE
+---------------------------------*/
+PRE.read-only {
+    margin:10px;
+    white-space:normal;
+    width:70%;
+    padding:10px;
+    border:1px solid #ddd;
+}
+
+.ie-only {display:none;}
+#category-product-list .adv, #category-manufacturer-list .adv {font-weight: bold}
+
+.suppress td A {color:#ff0000;}
+.afterqa TD {
+    background:yellow;
+}
+.afterqa .has-afterqa-docs {
+    font-size:0.8em;
+    color:red;
+    padding-left:10px;
+}
+
+.b-mess-body {font-family:monospace; font-size:1.2em;}
+
+.hidden {display:none;}
+
+.expandable .content,
+.expanded .expandable .content {
+    display:none;
+}
+
+.expanded .content,
+.expanded .expanded .content {
+    display:block;
+}
+
+.expandable {margin:1em 0;}
+li.expandable {margin:3px 0 0;}
+
+.expandable .more LABEL {
+    background:url(/images/icons/plus.gif) no-repeat 0px 0px;
+    padding-left:18px;
+	padding-bottom:2px;
+    cursor:pointer;
+	display:block;
+}
+.expandable h2.more  {
+    background-color:#ccc;
+	padding:1px 0;
+}
+.expandable h2.more LABEL {
+    background-position:4px 2px;
+    padding:2px 0px 3px 24px;
+}
+
+.expanded .more LABEL {
+	background-image:url(/images/icons/minus.gif);
+}
+
+.sp-secondary DIV.content {
+	margin-top:2px;
+}
+
+.sp-secondary .content UL,
+.sp-secondary .content P {
+	margin-left:0;
+	padding-left:0;
+}
+
+.sp-secondary .more {
+    list-style:none;
+}
+
+.sp-secondary .more LABEL {
+    background:url(/images/icons/plus-small.png) no-repeat 0px 2px !important;
+}
+
+.sp-secondary .expanded LABEL  {
+    background:url(/images/icons/minus-small.png) no-repeat 0px 2px !important;
+}
+
+p.hide {
+    display:none;
+}
+
+.sp-secondary H3 {
+    color: #999;
+    margin:0;
+	margin-bottom:6px;
+	font-size:1em;
+}
+
+.sp-secondary li.content {
+    list-style:disc;
+}
+
+.expandable SPAN.checkbox-wrapper {
+	clear:both;
+	float:right;
+	padding-right:15px;
+}
+
+input.wide {width:400px;}
+
+
+/* drag and drop container */
+.dad_filedoc_container {
+    border: 1px solid #666; 
+    padding: 4px; 
+    background:#FFF;
+    white-space: nowrap;
+}
+
+/* fb_label is a td class, that is used by FormBuilder */
+
+.fb_label {
+  padding-right: 6px;
+}
+
+.b-company .relative-links p {
+    margin-bottom:0.5em;
+}
+
+
+/* List icons */ 
+.i-products {
+    background:url(/images/icons/products.gif) no-repeat 0 0;
+}
+
+.i-categories {
+    background:url(/images/icons/categories.gif) no-repeat 0 0;
+}
+
+.i-manufacturers {
+    background:url(/images/icons/manufacturer.gif) no-repeat 0 0;
+}
+.adv .i-manufacturers {
+    background:url(/images/icons/manufacturer-adv.gif) no-repeat 0 0;
+}
+
+.i-products, 
+.i-categories,
+.i-manufacturers {
+    padding-left:20px;
+    padding-top:0.2em;
+    padding-bottom:0.2em;
+}
+
+.relative-links P A {
+	background-position:100% 0%;
+	padding-left:0;
+	padding-right:20px;
+	color:#000;
+	font-weight:bold;
+}
+
+.relative-links P A:hover {
+	border-bottom-color:#f8931d;
+}
+
+.relative-links P {
+	clear:left;
+}
+
+a.icon {
+    display:block;
+    width:16px;
+    height:16px; 
+    padding:0px;
+    margin-right:5px;
+    float:left;
+}
+
+table.basic th.icon {
+    padding-left:25px;
+}
+
+.file-details {
+    margin-bottom:2em;
+    padding:10px; 
+}
+
+.file-details DIV.input-row {
+    overflow:hidden;
+    zoom:1;
+}
+
+.file-details LABEL {
+    float:left;
+    margin-right:10px;
+    text-align:right;
+    width:120px;
+}
+
+.file-details LABEL.req {
+    font-weight:bold;
+}
+
+.file-details .input-row DIV {
+    float:left;
+    width: 200px;
+    padding-bottom:2px;
+}
+
+.file-details .input-row DIV.file {
+    padding:0px;
+}
+
+.file-details DIV.submit {
+    float:none;
+    padding-top:0.5em;
+    padding-left:130px;
+}
+
+.file-details .text INPUT,
+.file-details .select SELECT,
+.file-details .textarea TEXTAREA {
+    width:97%;
+}
+
+
+#package-details #file-details {
+    margin-bottom:5px;
+}
+
+#file-stats {
+    margin-left:10px;
+}
+
+#file-stats TH {
+   width:120px;
+   padding-right:10px;
+   text-align:right;
+}
+
+#tooltip {
+    position: absolute;
+    z-index: 3000;
+    overflow:hidden;
+    zoom:1;
+}
+
+.tooltip-content {
+    padding: 15px 15px 15px 30px;
+    opacity: 0.85;
+    width:250px;
+    background:#5c5c5c;
+}
+
+/*#tooltip*/
+div.tooltip-top-right {
+   margin-top:5px;
+   padding-top:13px;
+   background:url(/images/misc/tooltip-top-bg.gif) no-repeat 85% 0%;
+}
+
+
+/*#tooltip*/
+div.tooltip-left {
+   background:url(/images/misc/tooltip-left-bg.gif) no-repeat 0% 35%;
+   padding-left:13px;
+}
+
+
+#tooltip h3, #tooltip div, .tooltip-content .body { 
+    margin: 0; 
+    text-align:left; 
+    font:normal 12px Arial, serif;
+    color:#fff;
+}
+
+
+#output_area {
+    border: none;
+}
+.output_area {
+    border: none;
+}
+
+button.disabled {
+    background-color: #b39333 !important;
+    border-color: #cd8f2d !important;
+    color: #ccc !important;
+}
+
+#copymove_message {
+    margin-top: 10px;
+}
+
+SPAN.green-product-count {
+    color: green;
+}
+
+.center {text-align:center;}
+.center .icon {float:none; margin:0 auto;}
+
+td.ico_file {
+    background-image: url(/images/icons/file.gif);
+    background-repeat: no-repeat;
+    background-position: 5px 4px;
+}
+
+/* Advanced search */
+.b-advsearch TABLE {
+	width:100%;
+	table-layout:fixed;
+	}
+.b-advsearch TD {
+	height:30px;
+	vertical-align:middle;
+	}
+
+	.b-advsearch .submit {
+		font-size:.82em;
+		}
+
+.green-data TD {
+	height:30px;
+	vertical-align:middle;
+	}
+
+h2.adv-search, legend {font-weight:bold; color:#1184AF;}
+fieldset {border:1px solid #ccc; padding: 1ex 2ex;}
+.no_formaldehyde { width:137px; }
+
+/*
+* jQuery UI CSS Framework
+* Copyright (c) 2009 AUTHORS.txt (http://jqueryui.com/about)
+* Dual licensed under the MIT (MIT-LICENSE.txt) and GPL (GPL-LICENSE.txt) licenses.
+*/
+
+/* Layout helpers
+----------------------------------*/
+.ui-helper-hidden { display: none; }
+.ui-helper-hidden-accessible { position: absolute; left: -99999999px; }
+.ui-helper-reset { margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none; }
+.ui-helper-clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.ui-helper-clearfix { display: inline-block; }
+/* required comment for clearfix to work in Opera \*/
+* html .ui-helper-clearfix { height:1%; }
+.ui-helper-clearfix { display:block; }
+/* end clearfix */
+.ui-helper-zfix { width: 100%; height: 100%; top: 0; left: 0; position: absolute; opacity: 0; filter:Alpha(Opacity=0); }
+
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-disabled { cursor: default !important; }
+
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+.ui-widget-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+.dots { background: transparent url(/images/misc/bg_dots.gif) repeat-x scroll left bottom; width: 100%; margin-top: 10px }
+.top10 { margin-top: 10px }
+.grey { color:#CCCCCC }
+.adv-buttons {margin-bottom:2em}
+.adv-buttons .reset { width:6em; font-size:0.82em; padding:0 0.25em; cursor:pointer; background:#AAA; border:2px solid #999; color:#fff; }
+.adv-buttons .search { width:6em; font-size:0.82em; padding:0 0.25em; cursor:pointer; background:#F7C121; border:2px solid #F7A623; color:#fff; }

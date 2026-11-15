@@ -1,0 +1,50 @@
+name: edit_user
+method: post
+fields:
+	login_id:
+		label: Login Name
+		type: text
+		size: 40
+		required: 1
+		validate: /^[a-z0-9_]+$/
+		jsmessage: - Login Name field requires lowercase_underscore formatting.
+	given_name:
+		label: First Name
+		type:  text
+		size:  40
+		required: 1
+	family_name:
+		label: Last Name
+		type:  text
+		size:  40
+		required: 1
+	email_address:
+		label: Email Address
+		type:  text
+		size:  40
+		required: 1
+	password:
+		label: Password
+		type:  password
+		size:  40
+		required: 0
+	confirm_password:
+		label: Confirm Password
+		type:  password
+		size:  40
+		required: 0
+	primary_location:
+		label: Location
+		type:  select
+		required: 1
+	user_role:
+		label: User Role
+		type:  select
+		options: Normal, Admin
+		required: 1
+	block_access:
+		label: User Status
+		type:  select
+		options: Active, Blocked
+		required: 1
+submit: Save

@@ -1,0 +1,29 @@
+
+<div class="input-row">
+	[% SWITCH type %]
+	[% CASE "submit" %]
+	[% CASE; %]
+		<label [% IF params.required %] class="req"[% END %] for="inp_[% name %]">[% label %]:</label>
+	[% END %]
+
+	<div class="[% type %]">
+	[% SWITCH type %]
+	[%	CASE "select" %]
+		<select id="inp_[% name %]" name="[% name %]">
+		[% FOREACH opt = params.options %]
+			<option value="[% opt.key %]"[% IF opt.key == val %] selected="selected"[% END %]>[% opt.value %]</option>
+		[% END %]
+		</select>
+
+	[% CASE "submit" %]
+		<input type="submit" value="[% value | html %]" />
+
+	[%	CASE "file" %]
+		<input type="file" id="inp_[% name %]" name="[% name %]" value="[% value | html %]" />
+
+	[%	CASE %]
+			<input type="text" id="inp_[% name %]" name="[% name %]" value="[% value | html %]" />
+	[% END %]
+	</div>
+	[% after_input IF after_input %]
+</div>

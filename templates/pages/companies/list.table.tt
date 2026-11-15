@@ -1,0 +1,53 @@
+<h2 class="[% "has-switcher " IF has_switcher %]found-items center">[% list.size %] Manufacturer[% IF list.size != 1 %]s[% END %] Found</h2>
+
+[% IF has_switcher %]
+</div><!-- switcher-caption-wrapper -->
+<script type="text/javascript">$(function() {
+	var captionOffset = $('.has-switcher').css('margin-left');
+
+	var alignCaption = function() {
+		var needAlign = $('#switcher-caption-wrapper').width() < 700;
+		$('.has-switcher').css('margin-left', needAlign ? '0px' : captionOffset);
+	}
+
+	$(window).resize(alignCaption);
+	alignCaption();
+})</script>
+[% END %]
+
+[% fixed_layout = list.size > 50 ? 1 : 0 %]
+<table class="basic tablesorter[% " fixed-layout" IF fixed_layout %]" id="manufacturers-list">
+[% IF fixed_layout %]
+	<col width="30%" /><col width="50%" /><col width="10%" /><col width="10%" />
+[% END %]
+    <thead>
+      <tr>
+        <th class="icon">Manufacturer</th>
+        <th>Full Company Name</th>
+        <th class="center">Categories</th>
+        <th class="center">Products</th>
+      </tr>
+    </thead>
+    <tbody>
+    [% is_prev_adv = 0 %]
+    [%- FOREACH row = list;
+        NEXT IF (! row.public_visible || row.suppress_reason_code != '') && ! c.user.is_bs_admin;
+        classes = [];
+        IF row.companyresource_active;
+            classes.push('adv');
+            is_prev_adv = 1;
+        ELSE;
+            classes.push('after-adv') IF is_prev_adv;
+            is_prev_adv = 0;
+        END;
+        show_icons  = row.get_column('hasproducts');
+    -%]
+          <tr[% ' class="' _ classes.join(' ') _ '"' IF classes.size %]>
+            <td><a class="i-manufacturers" href="[% url('/companies/view', id = row.id) %]">[% row.name %]</a></td>
+            <td>[% row.legal_name %]</td>
+            <td class="center">[% IF show_icons %]<a class="icon i-categories" href="[% url('/categories/list', manufacturer = row.id) %]">[% END %]</a></td>
+            <td class="center">[% IF show_icons %]<a class="icon i-products" href="[% url('/product/list', manufacturer = row.id) %]"></a>[% END %]</td>
+          </tr>
+    [%- END -%]
+    </tbody>
+</table>

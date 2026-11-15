@@ -1,0 +1,293 @@
+/* table of contents editing */
+
+table#toc {
+    width: 100%;
+}
+
+table#toc th {
+	background: #d5d5d5;
+}
+
+table#toc, table#toc td {
+    padding: 4px;
+    vertical-align: top;
+}
+
+
+#toc tr.sel td {
+    xxxpadding: 1px;
+}
+
+
+ul.context-menu {
+    /*margin:-1px 0 0 19px;*/
+    display:none;
+    position:absolute;
+    z-index:9;
+    border:2px solid #5a8bae;
+    background:#f3f3f3;
+
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+ul.context-menu LI {
+    background:none;
+    border-bottom:1px solid #d5d5d5;
+    white-space:nowrap;
+}
+ul.context-menu A
+{
+    background:none;
+    padding:0;
+    text-decoration:none;
+    display:block;
+    padding:2px 5px;
+}
+ul.context-menu A:hover
+{
+    color:#c60;
+}
+
+
+/* drag screw column */
+#toc td.screw, #toc td.screw_ro {
+    /*background-image: url(/images/bt/screw.gif);*/
+    background-repeat: no-repeat;
+    background-position: 2px 8px;
+    width: 17px;
+    xxx-line-height: 3;
+    padding: 0;
+    height: 2.6em;
+
+}
+#toc td.screw {
+    cursor: move;
+}
+#toc td.screw_img {
+    background-image: url(/images/bt/screw.gif);
+}
+#toc td.ajax {
+    background-image: url(/css/images/spinner.gif);
+}
+td.dragHandle
+{
+}
+.dragTocRow td
+{
+    background-color: #CCC;
+}
+
+
+/* row menu */
+td.screw_menu UL
+{
+    margin:7px 0px 0 14px;
+    display:none;
+    position:absolute;
+    z-index:9;
+    border:2px solid #5a8bae;
+    background:#f3f3f3;
+    padding:0;
+
+    list-style:none;
+}
+td.screw_menu UL LI
+{
+    background:none;
+    padding:0;
+    border-bottom:1px solid #d5d5d5;
+    white-space:nowrap;
+}
+td.screw_menu UL LI A
+{
+    background:none;
+    padding:0;
+    text-decoration:none;
+    display:block;
+    padding:2px 5px;
+}
+td.screw_menu UL LI A:hover
+{
+    color:#c60;
+}
+
+
+
+
+/* toc items */
+#toc td.c_items {
+
+}
+
+ul.toc_items 
+{
+    margin:0;
+    padding:0;
+/*    padding-left: 2px;
+    margin-left: 4px;
+    float:left;*/
+}
+li.toc_item
+{
+    list-style:none;
+    margin:0;
+    padding:0;
+/*    margin-bottom:1px;
+    padding: 3px 16px 0px 3px;*/
+    text-align: justify;
+}
+
+table.toc_item, table.toc_item td, table.toc_item tr
+{
+    padding: 0;
+    margin: 0;
+}
+table.toc_item
+{
+    width:100%;
+}
+
+/* item icon */
+img.toc_item_menu, img.toc_item_menu_ro
+{
+    width: 14px;
+    height: 16px;
+    /*margin-right:6px;*/
+    vertical-align:middle;
+    margin:0;
+    padding:0;
+}
+img.toc_item_menu
+{
+    cursor: move;
+}
+
+.toc_item_drop
+{
+    background-color: #eee;
+}
+
+/* TODO: check if we need it any more */
+a.delete_item {
+ font-size:11px;
+ font-weight:bold;
+ /*line-height:0.5;*/
+ margin:0;
+ padding: 0 3px;
+ text-decoration:none;
+ font-family: inherit;
+ font-size-adjust:none;
+ font-style:normal;
+ font-variant:small-caps;
+ color: red;
+}
+
+a.deleteitem {
+	padding: 0 3px;
+	color:red;
+}
+
+a.deleteitem:hover {
+	background: #eee;
+}
+
+
+.sugg .ac_over {
+	background:#f7c121;
+	border-top:1px solid #f7c121;
+	border-bottom:1px solid #f7c121;
+	}
+
+#product-details-dialog .section {
+    position:relative;
+	overflow:auto;
+	width:600px;
+	height:495px;
+	overflow-x:hidden;
+	overflow-y:scroll;
+}
+#product-details-dialog .section div {
+	padding-right: 15px;
+}
+	
+#product-details-dialog H1 {
+    font-size:1.2em;
+    font-weight:bold;
+    margin-bottom:1em;
+}
+
+#product-details-dialog H2 {
+    font-size:1em;
+    font-weight:bold;
+}
+
+
+#product-details-dialog.ui-dialog-content {
+	background-color:#fff !important;
+	}
+
+#product-details-dialog TD.ajax .groupChk, 
+#product-details-dialog SPAN.ajax .groupChk {
+	visibility:hidden;
+	}
+#product-details-dialog TD.ajax {
+	background:url(/css/images/spinner.gif) no-repeat 7px 5px;
+	}
+	
+#product-details-dialog SPAN.ajax	{
+	background:url(/css/images/spinner.gif) no-repeat 2px 0px;
+}
+
+.ajax
+{
+    background:url(/css/images/spinner.gif);
+    /*background-position: right top;*/
+    background-repeat: no-repeat;
+    position: relative;
+    background-position: right;
+}
+.ajax input.groupChk {
+    display: none;
+}
+
+.ajax2
+{
+    background:url(/css/images/spinner.gif) no-repeat left top;
+}
+div#toc_add
+{
+    padding-left:20px;
+}
+
+
+TR.view INPUT {
+	display:none;
+}
+TR.edit SPAN, TR.edit A.data {
+	display:none;
+}
+TR.edit INPUT {
+	width:99%;
+	color:#333;
+}
+
+TABLE#toc .c_notes {
+	min-width:100px;
+}
+
+#add-related-products-wrapper {width: 120px; }
+.ajax #add-related-products-wrapper input {visibility:hidden;}
+.ajax #add-related-products-wrapper {background: url(/css/images/spinner.gif) no-repeat 50% 50%;}
+#related-products-form.ajax {background-image:none;}
+
+.t-prod-details .green-data th {vertical-align: top; }
+.t-prod-details .green-data td {padding-top:0px;}
+#product-details-dialog-wrapper table.t-prod-details {float:left; width: 48%; margin:3px 5px 0px 1px;}
+#product-details-dialog-wrapper { overflow:hidden; zoom:1; margin-bottom:1em; }
+#product-details-dialog-wrapper .t-prod-details .t-prod-details {width:100%; border:none;}
+
+.notice-wait {
+	background:url(images/spinner.gif) no-repeat 0 0;
+	padding-left:24px;
+}

@@ -1,0 +1,2 @@
+[%- PROCESS error.tt error IF error.status -%]
+[% content %]

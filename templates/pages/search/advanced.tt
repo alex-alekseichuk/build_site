@@ -1,0 +1,154 @@
+[%-
+	USE url;
+	page_title = 'Advanced Search';
+
+	# crumb_url = url("/search/advanced", where = FormBuilder.param('where'));
+	crumb_title = "Advanced Search";
+	crumb_url = "/search/advanced";
+	crumb(crumb_title, crumb_url, c.req.param('submit') ? 1 : 0);
+
+	caption = crumb_title;
+-%]
+
+<p align="right"><a href="/search">Go Back to Basic Search</a></p>
+<form id="advanced_search" action="/search/advanced#results" method="post">
+<p>Enter search criteria into the fields bellow. All fields are optional, and matches will appear only if all specified criteria create a match. Also note that range criteria are inclusive.</p>
+<fieldset>
+<img width="105" height="12" src="/images/misc/subhead_limit_results.gif" alt="Limit Resuts"/>
+<div class="b-advsearch">
+    <table>
+    <tbody>
+    <tr>
+        <td width="40%">
+            Product Name:
+        </td>
+        <td width="60%">
+        <input type="text" name="product_name" value="[% c.req.params.product_name.replace('"', '&quot;') %]" />
+        </td>
+    </tr>
+    <tr>
+        <td width="40%">
+            ASTM:
+        </td>
+        <td width="60%">
+        <input type="text" name="astm" value="[% c.req.params.astm.replace('"', '&quot;') %]" />
+        </td>
+    </tr>
+    <tr>
+        <td width="40%">
+            Manufacturer:
+        </td>
+        <td width="60%">
+        <input type="text" name="manufacturer" value="[% c.req.params.manufacturer.replace('"', '&quot;') %]" />
+        </td>
+    </tr>
+    <tr>
+        <td width="40%">
+            Product Category:
+        </td>
+        <td width="60%">
+        <input type="text" name="category" value="[% c.req.params.category.replace('"', '&quot;') %]" />
+        </td>
+    </tr>
+    </tbody>
+    </table>
+</div>
+</fieldset>
+<br/>
+<fieldset>
+<img width="105" height="12" src="/images/misc/subhead_greendata.gif" alt="Green Data"/>
+
+	<div class="green-data dots">
+		<table width="100%" border="0">
+		<tbody>
+		<tr>
+			<td width="30%"><label>SRI (1-20)</label>[% INCLUDE "help.tt" hint="Solar Reflectance Index (SRI) is a measure of a material&apos;s ability to reflect solar heat, as shown by a small rise in temperature. SRI is calculated according to ASTM E 1980-01, using the material&apos;s solar reflectance and thermal emittance values. Generally the number falls between 0 and 100, but some materials exhibit an SRI of less than 0 or greater than 100." %]</td>
+			<td width="10%" align="right" class="grey">Greater than</td>
+			<td width="60%"><input type="text" class="attval attval-float" name="att-sri-min" value="[% c.req.param('att-sri-min').replace('"', '&quot;') %]"/></td>
+		</tr>
+		</tbody>
+		</table>
+		
+	</div>
+
+	<div class="green-data dots">
+		<table width="100%" border="0">
+		<tbody>
+		<tr>
+			<td width="30%"><label>Gallons per Flush (gpf)</label>[% INCLUDE "help.tt" hint="LEED requires water fixture efficiency in buildings. The fixtures and fittings requiring documentation of gallons per flush (gpf) include water closets, urinals, and lavatory faucets. Showers, kitchen sink faucets and pre-rinse spray valves are documented by gallons per minute (gpm)." %]</td>
+			<td width="10%" align="right" class="grey">Less than</td>
+			<td width="60%"><input type="text" class="attval attval-float" name="att-flow_gpf-max" value="[% c.req.param('att-flow_gpf-max').replace('"', '&quot;') %]"/></td>
+		</tr>
+		<tr>
+			<td width="30%"><label>Gallons per Minute (gpm)</label>[% INCLUDE "help.tt" hint="LEED requires water fixture efficiency in buildings. The fixtures and fittings requiring documentation of gallons per flush (gpf) include water closets, urinals, and lavatory faucets. Showers, kitchen sink faucets and pre-rinse spray valves are documented by gallons per minute (gpm)." %]</td>
+			<td width="10%" align="right" class="grey">Less than</td>
+			<td width="60%"><input type="text" class="attval attval-float" name="att-flow_gpm-max" value="[% c.req.param('att-flow_gpm-max').replace('"', '&quot;') %]"/></td>
+		</tr>
+		</tbody>
+		</table>
+	</div>
+
+	<div class="green-data dots">
+		<table width="100%" border="0">
+		<tbody>
+		<tr>
+			<td width="30%"><label>Pre-Consumer Recycled Content (%)</label>[% INCLUDE "help.tt" hint="Post-consumer content comes from products that have been consumed by household, commercial, industrial, or institutional end-users. The material can no longer be used for its intended purpose, but it is diverted from the waste stream and recycled (or &quot;downcycled&quot;) into a new product." %]</td>
+			<td width="10%" align="right" class="grey">Greater than</td>
+			<td width="60%"><input type="text" class="attval attval-percent" name="att-pre_consumer-min" value="[% c.req.param('att-pre_consumer-min').replace('"', '&quot;') %]"/></td>
+		</tr>
+		<tr>
+			<td width="30%"><label>Post-Consumer Recycled Content (%)</label>[% INCLUDE "help.tt" hint="Pre-consumer content (also known as post-industrial content) is waste generated by a manufacturing process that cannot be reused in that same process. It is diverted from the waste stream and recycled into a new product. Harvest/Manufacture Location LEED encourages the use of products that have been extracted, harvested, or recovered as well as manufactured, within 500 miles of a construction project." %]</td>
+			<td width="10%" align="right" class="grey">Greater than</td>
+			<td width="60%"><input type="text" class="attval attval-percent" name="att-post_consumer-min" value="[% c.req.param('att-post_consumer-min').replace('"', '&quot;') %]"/></td>
+		</tr>
+		</tbody>
+		</table>
+	</div>
+
+	<div class="green-data dots">
+		<table width="100%" border="0">
+		<tbody>
+		<tr>
+			<td width="30%"><label>Material Harvested</label></td>
+			<td width="10%" align="right" class="grey">Zip Code</td>
+			<td width="60%"><input type="text" class="attval attval-city" name="att-harvest_loc-city" value="[% c.req.param('att-harvest_loc-city').replace('"', '&quot;') %]"/></td>
+		</tr>
+		<tr>
+			<td width="30%"><label>Material Manufactured</label></td>
+			<td width="10%" align="right" class="grey">Zip Code</td>
+			<td width="60%"><input type="text" class="attval attval-city" name="att-manuf_loc-city" value="[% c.req.param('att-manuf_loc-city').replace('"', '&quot;') %]"/></td>
+		</tr>
+		</tbody>
+		</table>
+	</div>
+
+	<div class="green-data top10">
+		<table width="100%" border="0">
+		<tbody>
+		<tr>
+			<td width="30%"><label>VOC (g/L)</label>[% INCLUDE "help.tt" hint="Volatile organic compounds (VOC) are a major source of indoor air contaminants. LEED recognizes several third-party regulations for VOCs, including South Caoast Air Quality Management District (SCAQMD) and Green Seal." %]</td>
+			<td width="10%" align="right" class="grey">Less than</td>
+			<td width="60%"><input type="text" class="attval attval-float" name="att-voc_content-max" value="[% c.req.param('att-voc_content-max').replace('"', '&quot;') %]"/></td>
+		</tr>
+		<tr>
+			<td width="30%"><label>No Added Urea-Formaldehyde</label>[% INCLUDE "help.tt" hint="Composite wood and agrifiber products used inside of the weatherproofing system, including any laminating adhesives in assemblies, cannot contain any added urea-formaldehyde resins under LEED. The purpose is to reduce indoor air contaminants" %]</td>
+			<td width="10%" align="right" class="grey"></td>
+			<td width="60%"><select name="att-no_formaldehyde-truefalse" class="no_formaldehyde" ><option value=""[% IF c.req.param('att-no_formaldehyde-truefalse') == '' %] selected="selected"[% END %]>(don't care)</option>
+			<option value="true"[% IF c.req.param('att-no_formaldehyde-truefalse') == 'true' %] selected="selected"[% END %]>true</option>
+			<option value="false"[% IF c.req.param('att-no_formaldehyde-truefalse') == 'false' %] selected="selected"[% END %]>false</option></select></td>
+		</tr>
+		</tbody>
+		</table>
+	</div>
+</fieldset>
+<br />
+
+<div class="adv-buttons">
+	<input type="reset" alt="Reset" name="reset" class="reset" value="RESET" />&nbsp;
+	<input class="search" type="submit" name="submit" value="SEARCH" /></div>
+</form>
+
+[% IF c.req.param('submit') %]
+<a name="results"></a>
+[%- PROCESS 'product/list.tt' list = list.all advanced = 1 astm = c.req.param('astm') ? 1 : 0 -%]
+[% END%]

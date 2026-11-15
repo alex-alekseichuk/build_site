@@ -1,0 +1,31 @@
+[%-
+	USE url;
+	page_title = 'LEED Credit Browse';
+	caption = 'Browse by LEED Credit';
+	caption_class = 'green';
+	crumb(page_title);
+-%] 
+
+
+<table class="basic vert-td" id="credits-list">
+<thead>
+  <col width="20%" />
+  <col width="80%" />
+  <tr>
+    <th>Area</th>
+    <th>Credit</th>
+  </tr>
+</thead>
+<tbody>
+[% FOREACH area = areas.all %]
+    [% rs = area.leed_credits.max + 1 %]
+    <tr>
+        <td[% ' rowspan="' _ rs _ '"' IF rs > 1 %]>[% area.leed_area_title %]</td>
+        [% FOREACH credit = area.leed_credits %]
+            [% "<tr>" UNLESS loop.first %]
+            [% IF credit.has_products %]<td><a href="/leed-credits/view?leed_credit_id=[% credit.leed_credit_id %]">[% credit.leed_section_name %]: [% credit.leed_title %]</a></td>[% END %]
+            </tr>
+        [% END %]
+[% END %]
+</tbody>
+</table>

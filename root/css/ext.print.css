@@ -1,0 +1,55 @@
+body {
+    font:.75em/1.4 Arial,sans-serif;
+}
+
+.l-header, #header, .l-footer .nav {
+    display:none;
+}
+
+h1 {
+    font-size:1.3em;
+}
+
+a {
+    color:#000;
+    text-decoration:none;
+    letter-spacing:100%;
+}
+
+a img {
+    border:none;
+}
+
+.meta {
+    margin-bottom:2em;
+}
+
+th, td {
+    text-align:left;
+    vertical-align:top;
+    padding:5px;
+}
+
+.t-data {
+    border-collapse: collapse;
+}
+
+.t-data th, .t-data td {
+    border-bottom:1px solid #777;
+}
+
+.t-data td td {
+    border-bottom:none;
+}
+
+.t-data th {
+    border-bottom-width:2px;
+}
+
+#footer {
+    margin-top:5em;
+}
+
+.ico {
+    margin-right:5px;
+}

@@ -1,0 +1,21 @@
+[%-
+	USE autoformat(case => 'title');
+
+    person_title = autoformat( item ? item.given_name _ ' ' _ item.family_name : 'New' ) | trim;
+    page_title = 'Edit person - ' _ person_title;
+    USE url;
+    USE pageurl = url('/' _ c.req.path, c.req.params);
+    crumb("Messages", "/messages/");
+    crumb("Contacts", "/contacts/person/list");
+    crumb(person_title);
+    
+    caption = "Addressbook Contact Details";
+    caption_class = "contact";
+-%]
+[% IF item.private_person_id %]
+<p><a title="If this contact is a Duplicate, you can merge it with another contact." 
+href="/contacts/person/merge?person_id=[% item.private_person_id %][% IF c.req.param('company') %]&company=[% c.req.param('company') %][% END %]"
+>Merge Contact</a></p>
+[% END %]
+[% IF c.req.param('action') %]<p class="notice">[% IF c.req.param('action') == 'update'%]Contact successfully updated.[% ELSIF c.req.param('action') == 'new' %]Contact successfully added.[% END %]</p>[% END %]
+<div class="t-basic t-vert">[%- FormBuilder.render -%]</div>

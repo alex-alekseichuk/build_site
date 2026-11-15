@@ -1,0 +1,57 @@
+[% IF product;
+	USE url;
+	page_title = 'Find a local distributor for '_ product.product_name;
+
+	PROCESS "inc/manufacturer_crumb.tt" manufacturer=product.manufacturer_id IF product.manufacturer_id;
+	crumb('Product Listing', url('/product/list', manufacturer = product.manufacturer_id) );
+	crumb(product.product_name, url('/product/view', id = product.product_id) );
+
+	crumb('Distributor List');
+%]
+
+[% UNLESS error.status %]
+<div style="padding:5px 0;">
+	Found <b>[% found %]</b> distributors[% IF zip %] within [% max_distance %] miles of <b>[% zip %]</b>[% END %].
+</div>
+
+
+[%- IF found -%]
+<table class="basic">
+<tr>
+  <th>Company</th>
+  <th>Branch Address</th>
+  <th>Contact</th>
+</tr>
+[% FOREACH cmp = companies -%]
+<tr>
+<td>
+[% IF cmp.branch %]
+   [% SET parent = cmp.branch %]
+[% ELSIF cmp.division %]
+   [% SET parent = cmp.division %]
+[% ELSE %]
+   [% SET parent = cmp %]
+[% END %]
+    [% parent.name %]<br />
+    <a href="[% parent.company_url %]">[% parent.company_url %]</a>
+    [% IF zip %]<br />[% cmp.miles %] miles[% END %]
+</td>
+<td>
+    [% cmp.name %]<br />
+    [% cmp.addr_street %]<br />
+    [% cmp.addr_city %], [% cmp.addr_region %] [% cmp.addr_postal_code %]
+</td>
+<td>
+    [% cmp.public_contact_name %]<br />
+    [% cmp.public_contact_phone %]
+</td>
+</tr>
+[% END %]
+</table>
+[%- END -%]
+[%- END -%]
+[% ELSE %]
+<style type="text/css">
+	.breadcrumbs {display:none}
+</style>
+[% END %]

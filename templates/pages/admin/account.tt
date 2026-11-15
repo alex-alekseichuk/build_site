@@ -1,0 +1,16 @@
+[%-
+	page_title = 'Account Administrator'
+-%]
+[% PROCESS 'admin/crumbs.tt' accounts = 1 %]
+[% crumb("New account") UNLESS obj %]
+
+[% link_postfix = obj ? '?account_id=' _ obj.account_id : '' %]
+
+[% IF obj %]
+<ul>
+<li><a href="/admin/list/users[% link_postfix %]">Users</a> - Add, change or delete Users for your BuildSite account</li>
+<li><a href="[% IF obj %]/settings/list/?scope=[% SCOPE_ACCOUNT %]&scope_value=[% obj.account_id %][% ELSE %]/settings/list[% END %]">Account settings</a> - Use this function to administer settings that apply only at the Account level, or to specify defaults that will be used if there are no Location or User values for a particular setting.</li>
+<li><a href="/admin/list/locations[% link_postfix %]">Locations</a> - To administer Location level settings, use this function to navigate to the Location of interest.</li>
+</ul>
+[% END %]
+[% PROCESS 'admin/edit_account.tt' %]

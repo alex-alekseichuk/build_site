@@ -1,0 +1,24 @@
+<script type="text/javascript">
+    var item = [% file_json %];
+    $(function(){
+        $.bs.can_write_file( [% item.can_write( c.user ) %] );
+    });
+    var msg = "[% msg %]";
+</script>
+<script src="/js/folders.details.js" type="text/javascript"></script>
+[% 
+	USE url;
+
+	IF item;
+		saved = item.scope != SCOPE_HIDDEN;
+		SWITCH item.file_class;
+		CASE "archive";		
+			PROCESS "folders/details/package.tt" item = item;
+		CASE "file";
+			PROCESS "folders/details/file.tt";
+		CASE "folder";
+			PROCESS "folders/details/folder.tt";
+		END;
+
+	END;
+%]

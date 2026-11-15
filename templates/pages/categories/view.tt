@@ -1,0 +1,14 @@
+[%-
+	USE url;
+	page_title = 'View Category ' _ obj.id.chunk(5).join('.') _ ' ' _ (obj.category_full_title || obj.full_title);
+
+	PROCESS 'inc/category_crumb.tt' category = obj;
+	caption = "Category details";
+	caption_class = "category";
+-%]
+
+[% USE cache = BSACache(c.bst_config('html_cache')) %]
+[% cache.inc(
+  template => "categories/view.cache.tt",
+  key      => c.cache_key
+) %]

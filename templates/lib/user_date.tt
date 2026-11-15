@@ -1,0 +1,27 @@
+[%-
+    MACRO user_date(datetime, pattern, time_zone) BLOCK;
+        IF !pattern;
+            pattern = '%Y-%m-%d %H:%M:%S';
+        END;
+
+        IF !time_zone;
+        time_zone = c.user.settings.list.time_zone;
+        END;
+
+        USE f = DateTime::Format('DateTime::Format::Strptime', { pattern => pattern });
+
+        date_string = datetime.date ? datetime.date _ ' ' _ datetime.time : datetime;
+
+        IF date_string != 'now';
+            USE date = DateTime(from_string => date_string, time_zone => 'local');
+        ELSE;
+            USE date = DateTime(now = 1, time_zone => 'local');
+        END;
+
+        IF time_zone; 
+            CALL date.set_time_zone(time_zone); 
+        END;
+
+        f.format(date);
+    END;
+-%]

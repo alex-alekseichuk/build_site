@@ -1,0 +1,1 @@
+ALTER TABLE "category_counts" ADD PRIMARY KEY (category_id);

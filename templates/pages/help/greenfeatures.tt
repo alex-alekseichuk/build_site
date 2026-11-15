@@ -1,0 +1,41 @@
+[%- PROCESS "help/header.tt" caption = 'BuildSite Green Data' -%]
+
+<div id="help-contents">
+<h2>Welcome to BuildSite Green Data!<br/>
+Find Product-Specific LEED<sup>®</sup> and Environmental Data<br/>
+With Our Enhanced Database</h2>
+
+
+<p>Green Data is BuildSite's next-generation database of environmental and LEED<sup>®</sup> information. Enhancing our industry-leading technical database of 20,000 products, BuildSite Green Data extracts product-specific LEED attributes such as VOC content, recycled material content and manufacturing location. We have entered these values into our searchable, sortable technical database, helping our customers achieve LEED submittal requirements. We provide the data, and users determine what's green.</p>
+
+<h2>BuildSite Green Data Gives You:</h2>
+<ul>
+	<li><q>One-stop shopping</q> for green and gerneral performance data</li>
+	<li>Access to all your LEED data in a searchable, sortable, and extractable database</li>
+	<li>Online submittal templates tied to the requirements of LEED</li>
+</ul>
+
+<h2>We Are About Green Data.</h2>
+<p>BuildSite is first and foremost a materials database. Our software enables consumers to access product data for hundreds of manufacturers, plus reference standards and technical information in a searchable database.</p>
+
+<p>BuildSite Green Data will not screen products to determine what is <q>green.</q> Instead, we rely on the data our manufacturers provide to help you make educated decisions about what products will meet your project goals. Not all products in BuildSite Green Data are green.</p>
+
+<p>Third-party certifications also provide assurances. Our third-party certifiers include:</p>
+<p align="center"><img alt="green icons; you decide what is green" src="/images/misc/help/green_icons_tagline_577.gif"/></p>
+
+<h2>How do I find Green Data?</h2>
+
+<p>There are several ways to find Green Data. Manufacturers who participate in BuildSite Green Data will be identified with the word "Green" beneath their product icon. Click on the product icon to see a list of products with Green Data available. Product and category searches will also indicate when Green Data is available.</p>
+<p>If there is a manufacturer you would like to see in Green Data, let us know. We'll tell our manufacturers that they are being requested by name!</p>
+
+<p>All basic search results will display green data, as long as it has been provided by a manufacturer. Once your search has been narrowed down, <i>specific</i> Green Data will display. For instance, if you are looking at adhesives, VOC content will be displayed. Or if you are looking at roofing membranes, SRI values will be displayed.</p>
+
+<p>To search for <b>only</b> those products with green data available, use our Advanced Search option.</p>
+<p align="center"><a href="/search/advanced"><img alt="Advanced Search" src="/images/misc/help/hd_advanced_search.gif"/></a></p>
+
+<p>Every product detail page provides a complete list of LEED attribute values, as provided by the manufacturer. Go to the product detail page to find harvest and manufacture locations, LEED credits applicable to the product, and much more.</p>
+
+<p>If you would like to browse our products by LEED credit, click on the box below.</p>
+<p align="center"><a href="/leed-credits/list"><img alt="browse leed" src="/images/misc/help/browse_leed_button.gif" width="142" height="20" /></a></p>
+
+</div>

@@ -1,0 +1,45 @@
+[%-
+	USE url;
+	page_title = 'Manufacturers';
+
+	PROCESS 'inc/category_crumb.tt' IF category;
+	crumb('Manufacturer List');
+
+	caption = "Browse Manufacturers";
+	caption_class = "manufacturer";
+	has_switcher = 0;
+-%]
+
+[%- 
+	IF !c.request.param('q') && (c.user.is_bs_admin || c.user.settings.list.default_allow_publishers);
+		USE tab_url = url('/companies/list');
+		has_switcher = 1;
+%]
+
+[% IF has_switcher %]<div id="switcher-caption-wrapper" style="overflow:hidden; zoom: 1">[% END %]
+<div id="manufacturers-switcher">
+	[%- IF c.request.param('mfg_my_all') == 'all' -%]
+		<a href="[% tab_url(mfg_my_all = 'my') %]">My Manufacturers</a> &nbsp;|&nbsp;All Manufacturers
+	[%- ELSE -%]
+		My Manufacturers &nbsp;|&nbsp;<a href="[% tab_url(mfg_my_all = 'all') %]">All Manufacturers</a>
+	[%- END -%]
+</div>
+[%- END -%]
+
+
+[%- IF show_keywords -%]
+    <p>Searched Manufacturers for: [%- show_keywords -%]</p>
+[%- END -%]
+
+[%- IF has_and_search -%]
+    <p><a href="#" onclick="$.bs.search_term('and')">[% has_and_search %] [% has_or_search == 1 ? "Manufacturer" : "Manufacturers" %] matching ALL search terms</a></p>
+[%- END -%]
+[%- IF has_or_search -%]
+    <p><a href="#" onclick="$.bs.search_term('or')">[% has_or_search %] [% has_or_search == 1 ? "Manufacturer" : "Manufacturers" %] matching at least one search term</a></p>
+[%- END -%]
+
+[% USE cache = BSACache(c.bst_config('html_cache')) %]
+[% cache.inc(
+	template => "companies/list.table.tt",
+	key      => c.cache_key
+) %]

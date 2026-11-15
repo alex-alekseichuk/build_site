@@ -1,0 +1,63 @@
+[% IF path.crumbs || action;
+    path.scope_href =  "/folders/list/?scope=" _ path.scope;
+ELSE;
+    path.scope_href = 0;
+END;
+
+
+SWITCH path.scope;
+    CASE SCOPE_ACCOUNT;
+        cr_title = "Company Files";
+    CASE SCOPE_LOCATION;
+        cr_title = "Location Files";
+    CASE SCOPE_USER;
+        cr_title = "Personal Files";
+    CASE DEFAULT;
+        cr_title = "All Files";
+        IF path.length;
+            path.scope_href = "/folders/list/?scope=" _ SCOPE_ALL;
+        END;
+END;
+
+crumb(cr_title, path.scope_href);
+page_title = "Packages & Files &ndash; " _ cr_title;
+
+
+IF path.crumbs;
+    FOREACH cr = path.crumbs;
+        IF !action && loop.last;
+            cr.url = '';
+            IF istoc || isprint;
+                cr.url = '/folders/edit?file_id=' _ cr.id;
+            END;
+        ELSE;
+            IF cr.type == 'archive';
+                cr.url = '/folders/edit?file_id=' _ cr.id;
+            ELSE;
+                cr.url = '/folders/list/?id=' _ cr.id;
+            END;
+        END;
+        crumb(cr.title ? cr.title : 'New Package', cr.url);
+        SWITCH (cr.type);
+            CASE "archive";
+                page_title = page_title _ " &ndash; Package Details";
+            CASE "file";
+                page_title = page_title _ " &ndash; File Details";
+        END;
+        page_title = page_title _ " &ndash; " _ cr.title;
+    END;
+
+    IF istoc;
+        crumb('Table of Contents');
+    END;
+    IF isprint;
+        crumb('Print');
+    END;
+END;
+
+IF action;
+    crumb(action);
+    page_title = page_title _ " &ndash; " _ action;
+END;
+
+%]

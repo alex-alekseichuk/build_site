@@ -1,0 +1,26 @@
+[%-
+	PROCESS 'inc/unix_time2.tt';
+
+	page_title = "Dbsync Reports";
+
+	crumb("Admin", "/admin");
+%]
+
+<table class="basic tablesorter" id="locations-list">
+<thead>
+<tr>
+	<th class="sorter">Name</th>
+	<th>Size, Kb</th>
+	<th>Date</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH row = list -%]
+<tr>
+    <td><a href="/admin/dbsyncreports/view?file=[% row.name %]">[% row.name %]</a></td>
+    <td>[% row.size %]</td>
+    <td>[% unix_time2(time = row.mtime) %]</td>
+</tr>
+[%- END -%]
+</tbody>
+</table>

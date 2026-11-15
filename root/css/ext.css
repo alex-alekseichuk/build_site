@@ -1,0 +1,162 @@
+table {
+    border-collapse:separate;
+    }
+
+th, h1, h2, h3, h4, h5, h6 {
+    font-weight:bold;
+    }
+
+/* Links
+----------------------------------------------- */
+a img {
+    border-width:0;
+    padding-right: 4px;
+    }
+
+p {
+    margin:0 0 .6em 0;
+    }
+blockquote{
+    font-style:italic;
+    }
+h3+blockquote, h2+blockquote, p+ul, h2+ul, h3+ul{
+    margin-top:.2em;
+    }
+
+
+/* Blocks
+----------------------------------------------- */
+
+.b-block { padding: 2em 4em; }
+
+.b-customer-header {
+    padding:10px 16px;
+    /*border:1px solid #666;*/
+    margin-bottom:20px;
+    }
+
+#customer-logo {
+    text-align: center;
+    }
+
+.l-header2 {
+    margin:30px 30px 30px 30px;
+    }
+
+.l-header2 h1 {
+    text-align: center;
+    font-size:1.3em;
+    margin:1em 0 2em;
+    font-weight:bold;
+    }
+
+.l-header2 th,
+.l-header2 td {
+    vertical-align:top;
+    }
+
+.l-header2 th {
+    text-align:left;
+    padding:0 15px 0 0;
+    height:1.5em;
+    }
+
+.l-footer {
+    position:inherit;
+    }
+
+.l-footer-wrapper {
+	position:static;
+}
+
+
+table.t-data {
+    width:100%;
+    margin:0 0 20px;
+    }
+
+.t-data tr,
+.t-data th,
+.t-data td {
+    padding:.5em 1em;
+    text-align:left;
+    vertical-align:top;
+    border-bottom:.1pt solid #666;
+    }
+
+.t-data td {
+    font-size:85%;
+    }
+.t-data tr td {
+	line-height:18px;
+	}
+
+
+.meta .col2 {
+	padding-left:15px;
+}
+
+
+@media screen {
+    #header {
+        display: none;
+    }
+
+    #footer {
+        display: none;
+    }
+}
+
+@media print {
+
+    #header {
+        display: block;
+        position: running(header);
+    }
+    #footer {
+        display: block;
+        position: running(footer);
+    }
+
+    #pagenumber:before {
+        content: counter(page);
+    }
+
+    #pagecount:before {
+        content: counter(pages);
+    }
+
+}
+
+
+@page {
+    size: A4;
+    margin: .8in .2in .8in .2in;
+
+    @top-left {
+        content: element(header);
+    }
+
+    @bottom-left {
+        content: element(footer);
+    }
+    @bottom-right {
+		font-size: 10pt;
+        content: "Page " counter(page) " of " counter(pages);
+    }
+}
+
+
+@page :first {
+    margin-top: .3in;
+    @top-left {
+        content : "";
+    }
+    @bottom-left {
+        content: element(footer);
+    }
+    @bottom-right {
+		font-size: 10pt;
+        content: "Page " counter(page) " of " counter(pages);
+    }
+}

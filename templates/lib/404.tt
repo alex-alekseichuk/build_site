@@ -1,0 +1,7 @@
+[%
+     page_title = 'Page or Object Not Found';
+%]
+
+<h1>Page or Object Not Found</h1>
+
+<p>The link you followed is incorrect. Please visit our <a href="/">Home Page</a> or <a href="/help">contact support</a> if you have any questions.</p>

@@ -1,0 +1,32 @@
+name: files_edit
+javascript: 0
+method: post
+fields:
+  file_id:
+    type: hidden
+    required: 1
+  name:
+    label: Name
+    type:  text
+    size:  40
+    required: 1
+  description:
+    label: Description
+    type:  text
+    size:  40
+    required: 0
+  scope:
+    type: hidden
+    required: 1
+  action:
+  	label: Action
+    type: select
+    required: 1
+    selectname: 0
+    options: move, copy
+  update:
+  	type: submit
+  	value: Update
+  delete:
+  	type: submit
+  	value: Delete

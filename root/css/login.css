@@ -1,0 +1,30 @@
+/*
+
+BuildSite Login page style
+
+*/
+
+.h-section {margin-right:0px; }
+.b-block {padding:2em 30%;}
+.l-header {height:0px;}
+
+
+* html #fixed-block {
+    position: absolute;
+    bottom: 0;
+}
+
+label {cursor:pointer; }
+form {margin-bottom:2em; }
+
+.row { zoom:1; overflow: hidden; height:1%; margin-bottom:2px;}
+.row label, .row input {float:left;}
+.row label {width:8em;}
+.row input {width:150px;}
+
+.btn {margin-left:8em; margin-top:1em;}
+
+hr {display:none;}
+
+.l-footer-wrapper {position:absolute; bottom:0; width:100%; left:0; margin:0;}
+.l-footer {position:relative; }

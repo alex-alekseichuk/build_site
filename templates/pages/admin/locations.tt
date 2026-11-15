@@ -1,0 +1,27 @@
+[%-
+   page_title = 'Locations';
+-%]
+
+[% PROCESS 'admin/crumbs.tt'
+	locations = 1
+%]
+<p><a href="/admin/edit/location[% IF c.user.is_bs_admin %]?account_id=[% obj.account_id %][% END %]">Add new location</a></p>
+
+<table class="basic tablesorter" id="locations-list">
+<thead>
+<tr>
+	<th class="sorter">Location</th>
+	<th class="sorter">Address</th>
+	<th>Settings</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH row = items.all -%]
+<tr>
+    <td><a href="/admin/edit/location?location_id=[% row.account_location_id %]">[% row.location_fullname %]</td>
+    <td>[% row.addr_street %]<br />[% row.addr_city %][% IF row.addr_region || row.addr_postal_code %], [% END %][% row.addr_region %] [% row.addr_postal_code %]</td>
+    <td><a href="/settings/list?scope=[% SCOPE_LOCATION %]&scope_value=[% row.account_location_id %]">Settings</td>
+</tr>
+[%- END -%]
+</tbody>
+</table>

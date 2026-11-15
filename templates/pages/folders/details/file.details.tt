@@ -1,0 +1,27 @@
+<div id="file-details">
+[% 
+		IF !name_label;
+			name_label = "Package Name";
+		END;
+
+		ai = "";
+		IF item.is_package;
+			ai= INCLUDE "help.tt" hint="Add a name and optional description to save your package for future use.";
+		END;
+
+		INCLUDE "input.tt" 
+			type = "text" 
+			name="file_title" 
+			label=name_label 
+			value=item.file_title 
+			after_input = ai
+		;
+
+		INCLUDE "input.tt" 
+			type = "text" 
+			name="file_comment" 
+			label="Description" 
+			value=item.file_comment
+		;
+%]
+</div>
